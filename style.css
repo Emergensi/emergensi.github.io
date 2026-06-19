@@ -1683,3 +1683,51 @@ body[data-clean-detail="true"] main .section:last-child {
   order: 2;
   flex: 0 0 auto;
 }
+
+
+/* Final navbar and Link IGD refinement */
+.priority-section .section-head p {
+  display: none;
+}
+
+.topbar .top-actions {
+  gap: 8px;
+}
+
+.topbar .top-actions .home-first,
+.topbar .nav-chip {
+  min-height: 34px;
+  padding: 9px 13px;
+  font-size: .80rem;
+  font-weight: 850;
+  line-height: 1;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.topbar .top-actions .home-first {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid var(--line);
+}
+
+.topbar .top-actions .home-first:hover,
+.topbar .nav-chip:hover,
+.topbar .nav-chip.active {
+  transform: translateY(-1px);
+}
+
+.topbar .top-actions .danger {
+  min-height: 34px;
+  padding: 9px 13px;
+  font-size: .80rem;
+  line-height: 1;
+}
+
+@media (max-width: 980px) {
+  .topbar .top-actions .home-first,
+  .topbar .nav-chip,
+  .topbar .top-actions .danger {
+    min-height: 36px;
+  }
+}
