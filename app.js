@@ -63,7 +63,7 @@
     const name = item.personName || item.title || item.name || '';
     if (!item.photo) return '';
     const src = isExternal(item.photo) ? item.photo : internalUrl(item.photo);
-    return `<div class="${className}"><img src="${safeAttr(src)}" alt="Foto ${safeAttr(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.${className}').classList.add('photo-failed'); this.remove();"><span>${initials(name)}</span></div>`;
+    return `<div class="${className}"><img src="${safeAttr(src)}" alt="Foto ${safeAttr(name)}" loading="lazy" onerror="this.closest('.${className}').classList.add('photo-failed'); this.remove();"><span>${initials(name)}</span></div>`;
   }
 
   function linkCard(item) {
