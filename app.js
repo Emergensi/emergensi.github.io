@@ -18,7 +18,7 @@
 
   function itemMatches(item, query) {
     if (!query) return true;
-    const haystack = normalize([item.title, item.desc, item.type, item.groupTitle, item.url].join(' '));
+    const haystack = normalize([item.title, item.desc, item.type, item.groupTitle, item.url, item.externalUrl].join(' '));
     return haystack.includes(normalize(query));
   }
 
@@ -30,20 +30,35 @@
     return internalUrl(group.id + '/');
   }
 
+  function isExternal(url) {
+    return /^(https?:|mailto:|tel:)/i.test(String(url || ''));
+  }
+
+  function itemHref(item) {
+    if (item.localPath) return internalUrl(item.localPath);
+    if (!item.url) return '#';
+    return isExternal(item.url) ? item.url : internalUrl(item.url);
+  }
+
   function tagHtml(item) {
     const sensitiveTag = item.sensitive ? '<span class="tag sensitive">Sensitif</span>' : '';
     return `<div class="tags"><span class="tag ${item.tag || ''}">${item.type}</span>${sensitiveTag}</div>`;
   }
 
   function linkCard(item) {
+    const href = itemHref(item);
+    const external = isExternal(href);
+    const target = external ? ' target="_blank" rel="noopener"' : '';
+    const actionText = external ? 'Buka URL' : 'Buka halaman';
+    const arrow = external ? '↗' : '→';
     return `
-      <a class="link-card" href="${item.url}" target="_blank" rel="noopener" data-title="${item.title}">
+      <a class="link-card" href="${href}"${target} data-title="${item.title}">
         <div class="card-top">
           ${tagHtml(item)}
           <h4>${item.title}</h4>
           <p>${item.desc}</p>
         </div>
-        <span class="card-action">Buka link <span>↗</span></span>
+        <span class="card-action">${actionText} <span>${arrow}</span></span>
       </a>`;
   }
 
@@ -110,7 +125,7 @@
       const matches = allItems().filter((item) => itemMatches(item, query));
       searchRoot.classList.remove('is-empty');
       searchRoot.innerHTML = matches.length
-        ? `<div class="result-head"><strong>${matches.length} hasil</strong><span>Klik kartu untuk membuka URL.</span></div><div class="card-grid">${matches.map(linkCard).join('')}</div>`
+        ? `<div class="result-head"><strong>${matches.length} hasil</strong><span>Klik kartu untuk membuka halaman GitHub.</span></div><div class="card-grid">${matches.map(linkCard).join('')}</div>`
         : '<div class="empty-state">Tidak ada link yang cocok dengan pencarian.</div>';
     }
     if (searchInput) searchInput.addEventListener('input', renderSearch);
