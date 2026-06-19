@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#b91c1c" />
+  <title>Login — Emergency Unit SGH</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="auth.js"></script>
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-card" aria-label="Login Emergency Unit SGH">
+      <div class="login-brand">
+        <span class="brand-mark">✚</span>
+        <div>
+          <h1>Emergency Unit</h1>
+          <p>Sedayu General Hospital</p>
+        </div>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" placeholder="Masukkan username" autocomplete="username" autofocus required />
+
+        <label for="password">Password</label>
+        <div class="password-row">
+          <input id="password" name="password" type="password" placeholder="Masukkan password" autocomplete="current-password" required />
+          <button type="button" id="togglePassword">Tampilkan</button>
+        </div>
+
+        <button class="primary-btn full" type="submit">Masuk</button>
+        <p class="login-error" id="loginError" role="alert" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const form = document.getElementById('loginForm');
+      const username = document.getElementById('username');
+      const password = document.getElementById('password');
+      const error = document.getElementById('loginError');
+      const toggle = document.getElementById('togglePassword');
+
+      if (window.IGDAuth.isAuthenticated()) {
+        window.IGDAuth.goNext();
+      }
+
+      toggle.addEventListener('click', function () {
+        const hidden = password.type === 'password';
+        password.type = hidden ? 'text' : 'password';
+        toggle.textContent = hidden ? 'Sembunyikan' : 'Tampilkan';
+      });
+
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        error.textContent = '';
+        const ok = await window.IGDAuth.login(username.value, password.value);
+        if (ok) {
+          window.IGDAuth.goNext();
+        } else {
+          error.textContent = 'Username atau password salah.';
+          password.value = '';
+          password.focus();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
