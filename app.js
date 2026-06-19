@@ -45,21 +45,83 @@
     return `<div class="tags"><span class="tag ${item.tag || ''}">${item.type}</span>${sensitiveTag}</div>`;
   }
 
+  function safeAttr(value) {
+    return String(value || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function initials(name) {
+    return String(name || '?')
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase();
+  }
+
+  function photoBlock(item, className = 'card-photo') {
+    const name = item.personName || item.title || item.name || '';
+    if (!item.photo) return '';
+    const src = isExternal(item.photo) ? item.photo : internalUrl(item.photo);
+    return `<div class="${className}"><img src="${safeAttr(src)}" alt="Foto ${safeAttr(name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('.${className}').classList.add('photo-failed'); this.remove();"><span>${initials(name)}</span></div>`;
+  }
+
   function linkCard(item) {
     const href = itemHref(item);
     const external = isExternal(href);
     const target = external ? ' target="_blank" rel="noopener"' : '';
     const actionText = external ? 'Buka URL' : 'Buka halaman';
     const arrow = external ? '↗' : '→';
+    const personLine = item.personName ? `<p class="person-line">${item.personName}</p>` : '';
     return `
-      <a class="link-card" href="${href}"${target} data-title="${item.title}">
+      <a class="link-card ${item.photo ? 'has-photo' : ''}" href="${href}"${target} data-title="${safeAttr(item.title)}">
         <div class="card-top">
+          ${photoBlock(item)}
           ${tagHtml(item)}
           <h4>${item.title}</h4>
+          ${personLine}
           <p>${item.desc}</p>
         </div>
         <span class="card-action">${actionText} <span>${arrow}</span></span>
       </a>`;
+  }
+
+  function staffCard(person) {
+    const item = { ...person, title: person.name, personName: person.name, photo: person.photo };
+    return `<article class="staff-card">
+      ${photoBlock(item, 'staff-photo')}
+      <div class="staff-text">
+        <span>${person.team}</span>
+        <h4>${person.name}</h4>
+        <p>${person.role || 'Tim IGD'}</p>
+      </div>
+    </article>`;
+  }
+
+  function staffGallery(filterTeam) {
+    const staff = window.IGD_STAFF_PHOTOS || [];
+    const people = filterTeam ? staff.filter((p) => p.team === filterTeam) : staff;
+    const grouped = people.reduce((acc, person) => {
+      const key = person.team || 'Tim IGD';
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(person);
+      return acc;
+    }, {});
+    return `<div class="staff-gallery-wrap">
+      <div class="section-head compact">
+        <div>
+          <span class="eyebrow"><span></span> FOTO TIM</span>
+          <h2>Foto Tim IGD</h2>
+          <p>Daftar foto lengkap dari halaman struktur organisasi lama.</p>
+        </div>
+      </div>
+      ${Object.entries(grouped).map(([team, list]) => `
+        <div class="team-section">
+          <h3>${team}</h3>
+          <div class="staff-grid">${list.map(staffCard).join('')}</div>
+        </div>
+      `).join('')}
+    </div>`;
   }
 
   function categoryCard(group) {
@@ -150,12 +212,42 @@
       if (!root) return;
       const query = input ? input.value.trim() : '';
       const items = group.items.map((item) => ({ ...item, groupTitle: group.title, groupId: group.id })).filter((item) => itemMatches(item, query));
+      const gallery = (groupId === 'struktur' && !query) ? staffGallery() : '';
       root.innerHTML = items.length
-        ? `<div class="card-grid">${items.map(linkCard).join('')}</div>`
+        ? `<div class="card-grid">${items.map(linkCard).join('')}</div>${gallery}`
         : '<div class="empty-state">Tidak ada link yang cocok dengan pencarian.</div>';
     }
     if (input) input.addEventListener('input', render);
     render();
+  }
+
+  function currentSlug() {
+    const parts = window.location.pathname.split('/').filter(Boolean);
+    const last = parts[parts.length - 1] || '';
+    if (last === 'index.html') return parts[parts.length - 2] || '';
+    return last;
+  }
+
+  function renderDetailPhotos() {
+    if (page !== 'detail') return;
+    const panel = document.querySelector('.detail-panel');
+    if (!panel) return;
+    const slug = currentSlug();
+    const staff = window.IGD_STAFF_BY_SLUG || {};
+    const person = staff[slug];
+    const gallerySlugs = ['struktur-organizational-structure'];
+    if (person) {
+      const profile = document.createElement('div');
+      profile.className = 'profile-detail';
+      profile.innerHTML = `${photoBlock({ ...person, title: person.name, personName: person.name }, 'profile-photo')}
+        <div><span class="eyebrow"><span></span> PROFIL</span><h3>${person.name}</h3><p>${person.role || ''}</p></div>`;
+      const afterTags = panel.querySelector('.tags');
+      if (afterTags) afterTags.insertAdjacentElement('afterend', profile);
+      return;
+    }
+    if (gallerySlugs.includes(slug)) {
+      panel.insertAdjacentHTML('beforeend', staffGallery());
+    }
   }
 
   function init() {
@@ -163,6 +255,7 @@
     navLinks();
     if (page === 'home') renderHome();
     if (page === 'group') renderGroupPage();
+    renderDetailPhotos();
   }
 
   document.addEventListener('DOMContentLoaded', init);
