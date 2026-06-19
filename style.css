@@ -1668,3 +1668,18 @@ body[data-clean-detail="true"] main .section:last-child {
     font-size: .80rem;
   }
 }
+
+/* Navbar order refinement: Beranda appears before Operasional */
+.top-actions .home-first {
+  order: 0;
+  flex: 0 0 auto;
+}
+.top-actions .nav-links {
+  order: 1;
+  flex: 0 1 auto;
+  justify-content: flex-start;
+}
+.top-actions #logoutBtn {
+  order: 2;
+  flex: 0 0 auto;
+}

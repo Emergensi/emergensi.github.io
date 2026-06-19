@@ -9,7 +9,7 @@
   }
 
   function allItems() {
-    return GROUPS.flatMap((group) => group.items.map((item) => ({ ...item, groupTitle: group.title, groupId: group.id })));
+    return sortByTitle(GROUPS.flatMap((group) => group.items.map((item) => ({ ...item, groupTitle: group.title, groupId: group.id }))));
   }
 
   function normalize(value) {
@@ -20,6 +20,18 @@
     if (!query) return true;
     const haystack = normalize([item.title, item.desc, item.type, item.groupTitle, item.url, item.externalUrl].join(' '));
     return haystack.includes(normalize(query));
+  }
+
+  function sortKey(value) {
+    return normalize(value).replace(/^(the|a|an)\s+/, '').trim();
+  }
+
+  function sortByTitle(items) {
+    return [...items].sort((a, b) => sortKey(a.title || a.name).localeCompare(sortKey(b.title || b.name), 'id', { sensitivity: 'base', numeric: true }));
+  }
+
+  function sortStaff(items) {
+    return [...items].sort((a, b) => sortKey(a.name).localeCompare(sortKey(b.name), 'id', { sensitivity: 'base', numeric: true }));
   }
 
   function internalUrl(path) {
@@ -102,7 +114,7 @@
 
   function staffGallery(filterTeam) {
     const staff = window.IGD_STAFF_PHOTOS || [];
-    const people = filterTeam ? staff.filter((p) => p.team === filterTeam) : staff;
+    const people = sortStaff(filterTeam ? staff.filter((p) => p.team === filterTeam) : staff);
     const grouped = people.reduce((acc, person) => {
       const key = person.team || 'Tim IGD';
       if (!acc[key]) acc[key] = [];
@@ -120,7 +132,7 @@
       ${Object.entries(grouped).map(([team, list]) => `
         <div class="team-section">
           <h3>${team}</h3>
-          <div class="staff-grid">${list.map(staffCard).join('')}</div>
+          <div class="staff-grid">${sortStaff(list).map(staffCard).join('')}</div>
         </div>
       `).join('')}
     </div>`;
@@ -180,9 +192,9 @@
       'Jadwal Perawat', 'AVIAT Out Hospital', 'Room Temperature Monitoring Form', 'Morning Report',
       'Akreditasi'
     ];
-    const priority = priorityTitles
+    const priority = sortByTitle(priorityTitles
       .map((title) => allItems().find((item) => item.title === title))
-      .filter(Boolean);
+      .filter(Boolean));
     const priorityRoot = $('priorityRoot');
     if (priorityRoot) priorityRoot.innerHTML = priority.map(linkCard).join('');
 
@@ -196,7 +208,7 @@
         searchRoot.classList.add('is-empty');
         return;
       }
-      const matches = allItems().filter((item) => itemMatches(item, query));
+      const matches = sortByTitle(allItems().filter((item) => itemMatches(item, query)));
       searchRoot.classList.remove('is-empty');
       searchRoot.innerHTML = matches.length
         ? `<div class="result-head"><strong>${matches.length} hasil</strong><span>Klik kartu untuk membuka file, sistem, atau halaman.</span></div><div class="card-grid">${matches.map(linkCard).join('')}</div>`
@@ -223,7 +235,7 @@
     function render() {
       if (!root) return;
       const query = input ? input.value.trim() : '';
-      const items = group.items.map((item) => ({ ...item, groupTitle: group.title, groupId: group.id })).filter((item) => itemMatches(item, query));
+      const items = sortByTitle(group.items.map((item) => ({ ...item, groupTitle: group.title, groupId: group.id })).filter((item) => itemMatches(item, query)));
       const gallery = (groupId === 'struktur' && !query) ? staffGallery() : '';
       root.innerHTML = items.length
         ? `<div class="card-grid">${items.map(linkCard).join('')}</div>${gallery}`
