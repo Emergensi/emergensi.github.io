@@ -1239,3 +1239,373 @@ button, input {
   .staff-grid { grid-template-columns: 1fr; }
   .staff-card { align-items: flex-start; }
 }
+
+
+/* =========================================================
+   Refinement v2 — layout dirapikan untuk GitHub Pages IGD
+   ========================================================= */
+:root {
+  --red-700: #b91c1c;
+  --red-900: #7f1d1d;
+  --container: 1160px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.page-shell {
+  width: min(var(--container), calc(100% - 48px));
+}
+
+.hero {
+  min-height: auto;
+  padding: 18px 0 54px;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0 10px;
+}
+
+.brand {
+  min-width: 0;
+}
+
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+  flex: 0 0 auto;
+}
+
+.brand strong {
+  font-size: 1rem;
+  line-height: 1.08;
+}
+
+.brand small {
+  font-size: .78rem;
+  line-height: 1.28;
+}
+
+.top-actions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nav-links {
+  flex: 1 1 650px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nav-chip,
+.ghost-btn,
+.secondary-btn,
+.primary-btn {
+  line-height: 1;
+}
+
+.nav-chip {
+  padding: 9px 13px;
+  font-size: .80rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.ghost-btn {
+  padding: 10px 15px;
+  font-size: .86rem;
+  white-space: nowrap;
+}
+
+.hero-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(340px, .72fr);
+  gap: 36px;
+  align-items: center;
+  padding-top: 48px;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 5.8vw, 5.15rem);
+  line-height: 1.02;
+  max-width: 720px;
+  letter-spacing: -0.06em;
+  margin: 14px 0 16px;
+}
+
+.hero-copy p {
+  max-width: 620px;
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+.hero-buttons {
+  margin-top: 24px;
+}
+
+.hero-card {
+  min-height: 350px;
+  padding: 28px;
+  border-radius: 28px;
+}
+
+.hero-card::after {
+  font-size: 6.2rem;
+  right: -10px;
+  bottom: -14px;
+}
+
+.pulse-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  font-size: 2rem;
+}
+
+.hero-card h2 {
+  margin-top: 20px;
+  font-size: 1.75rem;
+}
+
+.address {
+  margin-top: 18px;
+  font-size: .95rem;
+}
+
+.hero-metrics {
+  margin-top: 24px;
+}
+
+.section {
+  margin: 44px 0;
+}
+
+.section-head {
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 390px);
+  align-items: end;
+}
+
+.section h2 {
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+}
+
+.search-wrap {
+  width: min(390px, 100%);
+  height: 54px;
+}
+
+.category-grid,
+.card-grid {
+  gap: 18px;
+}
+
+.category-card {
+  min-height: 220px;
+  padding: 24px;
+  border-radius: 26px;
+}
+
+.category-icon {
+  width: 54px;
+  height: 54px;
+  margin-bottom: 18px;
+}
+
+.category-card h3 {
+  font-size: 1.25rem;
+}
+
+.category-card p {
+  font-size: .95rem;
+}
+
+.link-card {
+  border-radius: 24px;
+  min-height: 160px;
+}
+
+.link-card.has-photo {
+  min-height: 240px;
+}
+
+.page-hero {
+  padding: 18px 0 40px;
+}
+
+.page-hero-card {
+  margin-top: 28px;
+  padding: 30px;
+  border-radius: 28px;
+}
+
+.page-hero-card h1 {
+  font-size: clamp(2.4rem, 4.8vw, 4.5rem);
+  line-height: 1.02;
+}
+
+.page-big-icon {
+  width: 62px;
+  height: 62px;
+  border-radius: 20px;
+  font-size: 1.9rem;
+}
+
+.staff-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.staff-card {
+  border-radius: 24px;
+  min-height: 118px;
+}
+
+.staff-photo {
+  width: 74px;
+  height: 88px;
+  border-radius: 20px;
+}
+
+.detail-panel {
+  border-radius: 28px;
+}
+
+@media (max-width: 1180px) {
+  .topbar {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .top-actions,
+  .nav-links {
+    justify-content: flex-start;
+  }
+
+  .nav-links {
+    flex: 1 1 100%;
+  }
+
+  .hero-grid {
+    padding-top: 36px;
+  }
+}
+
+@media (max-width: 920px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 10vw, 4.7rem);
+  }
+
+  .hero-card {
+    min-height: auto;
+  }
+
+  .section-head {
+    grid-template-columns: 1fr;
+  }
+
+  .search-wrap {
+    width: 100%;
+  }
+
+  .staff-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    width: min(100% - 24px, var(--container));
+  }
+
+  .hero {
+    padding-bottom: 36px;
+  }
+
+  .topbar {
+    gap: 14px;
+  }
+
+  .top-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .nav-links {
+    grid-column: 1 / -1;
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+
+  .top-actions .ghost-btn {
+    flex: none;
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .nav-chip {
+    flex: 0 0 auto;
+  }
+
+  .hero-grid {
+    padding-top: 26px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 15vw, 3.6rem);
+    letter-spacing: -0.055em;
+  }
+
+  .hero-copy p {
+    font-size: .96rem;
+  }
+
+  .hero-card,
+  .page-hero-card,
+  .detail-panel {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .hero-metrics,
+  .category-grid,
+  .card-grid,
+  .staff-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section h2 {
+    font-size: 2.1rem;
+  }
+
+  .page-title-row {
+    gap: 14px;
+  }
+
+  .page-hero-card h1 {
+    font-size: 2.5rem;
+  }
+}

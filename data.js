@@ -1,5 +1,5 @@
-// Data tautan IGD. Semua kartu utama diarahkan ke halaman GitHub lokal.
-// URL Google Drive/Sheets/sistem eksternal disimpan sebagai externalUrl di halaman detail.
+// Data tautan IGD. Kartu dengan Drive/Sheets/sistem eksternal dibuka langsung satu klik.
+// Halaman tanpa externalUrl tetap memakai halaman GitHub lokal.
 window.IGD_LINK_GROUPS = [
   {
     "id": "operasional",

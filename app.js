@@ -35,6 +35,8 @@
   }
 
   function itemHref(item) {
+    // Satu klik: bila ada URL Drive/Sheets/sistem, kartu langsung membuka URL tersebut.
+    if (item.externalUrl) return item.externalUrl;
     if (item.localPath) return internalUrl(item.localPath);
     if (!item.url) return '#';
     return isExternal(item.url) ? item.url : internalUrl(item.url);
@@ -70,7 +72,7 @@
     const href = itemHref(item);
     const external = isExternal(href);
     const target = external ? ' target="_blank" rel="noopener"' : '';
-    const actionText = external ? 'Buka URL' : 'Buka halaman';
+    const actionText = external ? 'Buka langsung' : 'Buka halaman';
     const arrow = external ? '↗' : '→';
     const personLine = item.personName ? `<p class="person-line">${item.personName}</p>` : '';
     return `
@@ -142,9 +144,19 @@
   function navLinks() {
     const nav = $('navLinks');
     if (!nav) return;
+    const labels = {
+      operasional: 'Operasional',
+      jadwal: 'Jadwal',
+      struktur: 'Struktur',
+      manajemen: 'Manajemen',
+      kebijakan: 'Regulasi',
+      pedoman: 'SPO & Form',
+      akreditasi: 'Akreditasi'
+    };
     nav.innerHTML = GROUPS.map((group) => {
       const active = group.id === groupId ? 'active' : '';
-      return `<a class="nav-chip ${active}" href="${groupUrl(group)}">${group.title}</a>`;
+      const label = labels[group.id] || group.title;
+      return `<a class="nav-chip ${active}" href="${groupUrl(group)}">${label}</a>`;
     }).join('');
   }
 
@@ -187,7 +199,7 @@
       const matches = allItems().filter((item) => itemMatches(item, query));
       searchRoot.classList.remove('is-empty');
       searchRoot.innerHTML = matches.length
-        ? `<div class="result-head"><strong>${matches.length} hasil</strong><span>Klik kartu untuk membuka halaman GitHub.</span></div><div class="card-grid">${matches.map(linkCard).join('')}</div>`
+        ? `<div class="result-head"><strong>${matches.length} hasil</strong><span>Klik kartu untuk membuka file, sistem, atau halaman.</span></div><div class="card-grid">${matches.map(linkCard).join('')}</div>`
         : '<div class="empty-state">Tidak ada link yang cocok dengan pencarian.</div>';
     }
     if (searchInput) searchInput.addEventListener('input', renderSearch);
@@ -228,6 +240,26 @@
     return last;
   }
 
+
+  function itemBySlug(slug) {
+    return allItems().find((item) => item.slug === slug);
+  }
+
+  function setupOneClickLinks() {
+    // Mengalihkan semua tautan /link/<slug>/ yang punya externalUrl agar langsung membuka Drive/Sheets/sistem.
+    document.addEventListener('click', function (event) {
+      const anchor = event.target.closest ? event.target.closest('a[href]') : null;
+      if (!anchor) return;
+      const href = anchor.getAttribute('href') || '';
+      const match = href.match(/(?:^|\/)link\/([^/?#]+)\/?(?:index\.html)?(?:[?#].*)?$/);
+      if (!match) return;
+      const item = itemBySlug(match[1]);
+      if (!item || !item.externalUrl) return;
+      event.preventDefault();
+      window.open(item.externalUrl, '_blank', 'noopener');
+    });
+  }
+
   function renderDetailPhotos() {
     if (page !== 'detail') return;
     const panel = document.querySelector('.detail-panel');
@@ -252,6 +284,7 @@
 
   function init() {
     setupLogout();
+    setupOneClickLinks();
     navLinks();
     if (page === 'home') renderHome();
     if (page === 'group') renderGroupPage();
