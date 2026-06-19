@@ -189,7 +189,7 @@
 
     const priorityTitles = [
       'Patient Registration', 'Billing Pasien', 'Medical Duty Schedule', 'Jadwal Dokter Umum',
-      'Jadwal Perawat', 'AVIAT Out Hospital', 'Room Temperature Monitoring Form', 'Morning Report',
+      'Jadwal Perawat', 'AVIAT In Hospital', 'Room Temperature Monitoring Form', 'Morning Report',
       'Akreditasi'
     ];
     const priority = sortByTitle(priorityTitles
