@@ -9,9 +9,10 @@
   <script src="auth.js"></script>
   <script>window.IGDAuth.requireAuth();</script>
 </head>
-<body>
+<body data-page="home" data-root="">
   <div class="page-shell">
     <header class="hero">
+      
       <nav class="topbar" aria-label="Navigasi utama">
         <a class="brand" href="index.html" aria-label="Emergency Unit SGH">
           <span class="brand-mark">✚</span>
@@ -21,22 +22,21 @@
           </span>
         </a>
         <div class="top-actions">
+          <div class="nav-links" id="navLinks" aria-label="Menu kategori"></div>
           <a class="ghost-btn" href="https://sites.google.com/view/emergencyunit/homepage" target="_blank" rel="noopener">GSite Asli</a>
           <button class="ghost-btn danger" type="button" id="logoutBtn">Keluar</button>
         </div>
       </nav>
-
       <section class="hero-grid">
         <div class="hero-copy">
           <span class="eyebrow"><span></span> INTERNAL DASHBOARD IGD</span>
           <h1>Layanan Internal Unit Emergensi RS SGH</h1>
           <p>
-            Akses terpadu untuk dokter, perawat, bidan, dan tim operasional IGD:
-            jadwal, formulir, register pasien, laporan, regulasi, SOP, inventaris, dan akreditasi.
+            Akses terpadu untuk dokter, perawat, bidan, dan tim operasional IGD. Setiap kategori dibuat menjadi halaman terpisah agar lebih rapi dan mudah dibuka.
           </p>
           <div class="hero-buttons">
-            <a class="primary-btn" href="#akses">Buka Dashboard</a>
-            <a class="secondary-btn" href="#akreditasi">Akreditasi</a>
+            <a class="primary-btn" href="operasional/">Buka Operasional</a>
+            <a class="secondary-btn" href="akreditasi/">Akreditasi</a>
           </div>
         </div>
         <aside class="hero-card" aria-label="Informasi rumah sakit">
@@ -48,7 +48,7 @@
           </div>
           <div class="hero-metrics">
             <div><strong id="totalLinks">0</strong><span>URL</span></div>
-            <div><strong>8</strong><span>Kategori</span></div>
+            <div><strong id="totalCategories">0</strong><span>Halaman</span></div>
             <div><strong>IGD</strong><span>Akses</span></div>
           </div>
         </aside>
@@ -56,29 +56,49 @@
     </header>
 
     <main>
-      <section class="section" id="akses">
+      <section class="section" id="menu">
         <div class="section-head">
           <div>
             <span class="eyebrow"><span></span> MENU UTAMA</span>
-            <h2>Dashboard Link IGD</h2>
-            <p>Pilih kategori atau ketik kata kunci untuk menemukan tautan dengan cepat.</p>
+            <h2>Pilih halaman dashboard</h2>
+            <p>Klik kartu kategori untuk masuk ke halaman khusus masing-masing bagian.</p>
+          </div>
+        </div>
+        <div class="category-grid" id="categoryRoot"></div>
+      </section>
+
+      <section class="section priority-section">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow"><span></span> AKSES PRIORITAS</span>
+            <h2>Link harian IGD</h2>
+            <p>Tautan yang paling sering dibuka untuk kegiatan operasional harian.</p>
+          </div>
+        </div>
+        <div class="card-grid" id="priorityRoot"></div>
+      </section>
+
+      <section class="section search-section">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow"><span></span> PENCARIAN</span>
+            <h2>Cari semua URL</h2>
+            <p>Ketik kata kunci seperti register, jadwal, SPO, regulasi, inventaris, atau akreditasi.</p>
           </div>
           <div class="search-wrap">
             <span>⌕</span>
-            <input id="searchInput" type="search" placeholder="Cari link: register, jadwal, SPO, akreditasi..." autocomplete="off" />
+            <input id="globalSearchInput" type="search" placeholder="Cari seluruh link IGD..." autocomplete="off" />
           </div>
         </div>
-        <div class="filter-row" id="filterRow" aria-label="Filter kategori"></div>
+        <div class="global-search-root is-empty" id="globalSearchRoot"></div>
       </section>
-
-      <div id="contentRoot" class="content-root"></div>
 
       <section class="section source-section">
         <div class="source-card">
           <div>
-            <span class="eyebrow"><span></span> REFERENSI SUMBER</span>
+            <span class="eyebrow"><span></span> SUMBER</span>
             <h2>Emergency Unit Sedayu General Hospital</h2>
-            <p>Halaman ini dibuat sebagai versi GitHub Pages dari landing page Google Sites IGD yang sudah ada.</p>
+            <p>Versi GitHub Pages dari landing page internal IGD.</p>
           </div>
           <a class="primary-btn" href="https://sites.google.com/view/emergencyunit/homepage" target="_blank" rel="noopener">Buka Google Sites</a>
         </div>
@@ -86,6 +106,7 @@
     </main>
   </div>
 
+  <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

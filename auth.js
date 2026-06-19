@@ -1,8 +1,15 @@
 (function () {
-  const SESSION_KEY = 'igd_sgh_session_v1';
+  const SESSION_KEY = 'igd_sgh_session_v2';
   const USERNAME = 'IGD';
   const PASSWORD_SHA256 = '8d23cf6c86e834a7aa6eded54c26ce2bb2e74903538c61bdd5d2197997ab2f72';
   const MAX_AGE_MS = 12 * 60 * 60 * 1000;
+
+  const scriptUrl = new URL(document.currentScript ? document.currentScript.src : 'auth.js', window.location.href);
+  const rootUrl = new URL('./', scriptUrl);
+
+  function appUrl(path) {
+    return new URL(path || '', rootUrl).toString();
+  }
 
   async function sha256(message) {
     const data = new TextEncoder().encode(message);
@@ -44,7 +51,7 @@
   }
 
   function getLoginUrl() {
-    const target = new URL('login.html', window.location.href);
+    const target = new URL(appUrl('login.html'));
     target.searchParams.set('next', window.location.href);
     return target.toString();
   }
@@ -57,18 +64,25 @@
 
   function logout() {
     localStorage.removeItem(SESSION_KEY);
-    window.location.href = new URL('login.html', window.location.href).toString();
+    window.location.href = appUrl('login.html');
+  }
+
+  function safeNextUrl(next) {
+    try {
+      const url = new URL(next, window.location.href);
+      const rootPath = new URL(rootUrl).pathname;
+      if (url.origin === window.location.origin && url.pathname.startsWith(rootPath)) {
+        return url.toString();
+      }
+    } catch (error) {}
+    return appUrl('index.html');
   }
 
   function goNext() {
     const params = new URLSearchParams(window.location.search);
     const next = params.get('next');
-    if (next) {
-      window.location.replace(next);
-      return;
-    }
-    window.location.replace(new URL('index.html', window.location.href).toString());
+    window.location.replace(next ? safeNextUrl(next) : appUrl('index.html'));
   }
 
-  window.IGDAuth = { isAuthenticated, login, requireAuth, logout, goNext };
+  window.IGDAuth = { isAuthenticated, login, requireAuth, logout, goNext, appUrl };
 })();
