@@ -4,19 +4,9 @@ window.IGD_LINK_GROUPS = [
   {
     "id": "operasional",
     "title": "Beranda Operasional",
-    "subtitle": "Tautan harian IGD untuk register, laporan, dan formulir kerja harian.",
+    "subtitle": "Tautan kerja harian setiap shift: register, formulir, AVIAT, logbook, dan pemantauan ruangan.",
     "icon": "⚡",
     "items": [
-      {
-        "title": "Jadwal Jaga Medis",
-        "desc": "Halaman jadwal tugas medis IGD.",
-        "url": "link/operasional-medical-duty-schedule/",
-        "type": "Halaman",
-        "tag": "page",
-        "slug": "operasional-medical-duty-schedule",
-        "localPath": "link/operasional-medical-duty-schedule/",
-        "externalUrl": ""
-      },
       {
         "title": "Formulir IGD",
         "desc": "Folder Google Drive formulir UGD/IGD.",
@@ -37,18 +27,6 @@ window.IGD_LINK_GROUPS = [
         "slug": "operasional-patient-registration",
         "localPath": "link/operasional-patient-registration/",
         "externalUrl": "https://docs.google.com/spreadsheets/d/1nGQOl939xO-qo5IoXhhFSsfARX0m3d2e4A61on2F4d4/edit?gid=0"
-      },
-      {
-        "title": "Billing Pasien",
-        "desc": "Nota tindakan/manual pasien IGD.",
-        "url": "link/operasional-billing-pasien/",
-        "type": "Sheets",
-        "tag": "sheet",
-        "sensitive": true,
-        "slug": "operasional-billing-pasien",
-        "localPath": "link/operasional-billing-pasien/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1-XNkQFoD4jiRzKBqbok7cCmAp2fXvedEDBBXa4y3ivY/edit?usp=drivesdk",
-        "akses": "pimpinan"
       },
       {
         "title": "AVIAT (Jaringan RS)",
@@ -83,67 +61,6 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/1ZsYjDGx_zfm6hKRXqO7IiR7qO1vcbfWp-2cwR0QeGOY/edit?gid=2055685808"
       },
       {
-        "title": "Rapat",
-        "desc": "Folder notulen dan dokumen meeting IGD.",
-        "url": "link/operasional-meeting/",
-        "type": "Drive",
-        "tag": "drive",
-        "slug": "operasional-meeting",
-        "localPath": "link/operasional-meeting/",
-        "externalUrl": "https://drive.google.com/drive/u/0/folders/1JFvOm19Rct65OqY9J9FG-bggsaHM2GYT"
-      },
-      {
-        "title": "Pelatihan Internal (IHT)",
-        "desc": "Pengajuan dan monitoring pelatihan IHT per unit.",
-        "url": "link/operasional-in-house-training/",
-        "type": "Sheets",
-        "tag": "sheet",
-        "slug": "operasional-in-house-training",
-        "localPath": "link/operasional-in-house-training/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1w6doKENmyzpjmF3WvqpFIOqqPKZKPBKn66OwHFiqG2s/edit?gid=1681802920"
-      },
-      {
-        "title": "Inventaris IGD",
-        "desc": "Daftar inventaris dan alat medis IGD.",
-        "url": "link/operasional-inventaris-igd/",
-        "type": "Sheets",
-        "tag": "sheet",
-        "slug": "operasional-inventaris-igd",
-        "localPath": "link/operasional-inventaris-igd/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1W5rmQ6pNs6GGLbU-kqOLeCXxm8tiUI8l3tgD1MIA5tw/edit?usp=sharing"
-      },
-      {
-        "title": "Laporan Resmi",
-        "desc": "Halaman berita acara dan laporan resmi.",
-        "url": "link/operasional-official-report/",
-        "type": "Halaman",
-        "tag": "page",
-        "slug": "operasional-official-report",
-        "localPath": "link/operasional-official-report/",
-        "externalUrl": ""
-      },
-      {
-        "title": "Laporan Pagi (Morning Report)",
-        "desc": "Halaman morning report IGD.",
-        "url": "link/operasional-morning-report/",
-        "type": "Halaman",
-        "tag": "page",
-        "slug": "operasional-morning-report",
-        "localPath": "link/operasional-morning-report/",
-        "externalUrl": ""
-      },
-      {
-        "title": "Laporan Bulanan Pelayanan",
-        "desc": "Spreadsheet laporan kunjungan/pelayanan IGD.",
-        "url": "link/operasional-laporan-bulanan-pelayanan/",
-        "type": "Sheets",
-        "tag": "sheet",
-        "sensitive": true,
-        "slug": "operasional-laporan-bulanan-pelayanan",
-        "localPath": "link/operasional-laporan-bulanan-pelayanan/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1Lzsf7r-Qgu0dQQ_QMq8tNiCASQX3-ocilMLSvErOP80/edit?gid=0&hl=id"
-      },
-      {
         "title": "Logbook Harian Perawat",
         "desc": "Log book kerja perawat RS Sedayu General Hospital.",
         "url": "link/operasional-nurse-daily-logbook/",
@@ -152,16 +69,6 @@ window.IGD_LINK_GROUPS = [
         "slug": "operasional-nurse-daily-logbook",
         "localPath": "link/operasional-nurse-daily-logbook/",
         "externalUrl": "https://docs.google.com/spreadsheets/d/1Cwn8mRk92_I0IaQO1TpvqVAAwViry9Bc/edit?gid=537945572&pli=1"
-      },
-      {
-        "title": "Akreditasi",
-        "desc": "Halaman pusat dokumen akreditasi.",
-        "url": "link/operasional-akreditasi/",
-        "type": "Halaman",
-        "tag": "page",
-        "slug": "operasional-akreditasi",
-        "localPath": "link/operasional-akreditasi/",
-        "externalUrl": ""
       },
       {
         "title": "Registrasi Pasien Home Care",
@@ -173,17 +80,6 @@ window.IGD_LINK_GROUPS = [
         "slug": "operasional-patient-registration-homecare",
         "localPath": "link/operasional-patient-registration-homecare/",
         "externalUrl": "https://docs.google.com/spreadsheets/d/1dLFISy0AZ46HDScCAzUaQ54g9ifNcXn7UUvbtchnPBk/edit?gid=0"
-      },
-      {
-        "title": "Klaim BPJS Ketenagakerjaan",
-        "desc": "Folder foto kondisi pasien BPJS Ketenagakerjaan.",
-        "url": "link/operasional-claim-bpjs-tk/",
-        "type": "Drive",
-        "tag": "drive",
-        "sensitive": true,
-        "slug": "operasional-claim-bpjs-tk",
-        "localPath": "link/operasional-claim-bpjs-tk/",
-        "externalUrl": "https://drive.google.com/drive/folders/1BqG8d_EixAMk_5tH0gDiHn-OYOxDaAkr?usp=drive_link"
       },
       {
         "title": "Folder Drive IGD",
@@ -229,6 +125,16 @@ window.IGD_LINK_GROUPS = [
     "subtitle": "Jadwal dokter, perawat, dan on-call DPJP IGD.",
     "icon": "📅",
     "items": [
+      {
+        "title": "Jadwal Jaga Medis",
+        "desc": "Halaman jadwal tugas medis IGD.",
+        "url": "link/operasional-medical-duty-schedule/",
+        "type": "Halaman",
+        "tag": "page",
+        "slug": "operasional-medical-duty-schedule",
+        "localPath": "link/operasional-medical-duty-schedule/",
+        "externalUrl": ""
+      },
       {
         "title": "Jadwal On Call DPJP IGD",
         "desc": "File jadwal on-call DPJP IGD.",
@@ -387,7 +293,7 @@ window.IGD_LINK_GROUPS = [
   {
     "id": "manajemen",
     "title": "Manajemen Unit",
-    "subtitle": "Dokumen pendukung manajemen, SDM, meeting, inventaris, dan maintenance.",
+    "subtitle": "Laporan, rapat dan notulen, SDM dan pelatihan, inventaris dan stok, serta administrasi keuangan.",
     "icon": "🧭",
     "items": [
       {
@@ -505,6 +411,90 @@ window.IGD_LINK_GROUPS = [
         "slug": "manajemen-stok-obat",
         "localPath": "link/manajemen-stok-obat/",
         "externalUrl": "https://docs.google.com/spreadsheets/d/1wjbyoVb2a19boCgN4BTqGNI_xfvWa9ZNj3Y5cSbRkF0/edit?usp=drivesdk"
+      },
+      {
+        "title": "Billing Pasien",
+        "desc": "Nota tindakan/manual pasien IGD.",
+        "url": "link/operasional-billing-pasien/",
+        "type": "Sheets",
+        "tag": "sheet",
+        "sensitive": true,
+        "slug": "operasional-billing-pasien",
+        "localPath": "link/operasional-billing-pasien/",
+        "externalUrl": "https://docs.google.com/spreadsheets/d/1-XNkQFoD4jiRzKBqbok7cCmAp2fXvedEDBBXa4y3ivY/edit?usp=drivesdk",
+        "akses": "pimpinan"
+      },
+      {
+        "title": "Rapat",
+        "desc": "Folder notulen dan dokumen meeting IGD.",
+        "url": "link/operasional-meeting/",
+        "type": "Drive",
+        "tag": "drive",
+        "slug": "operasional-meeting",
+        "localPath": "link/operasional-meeting/",
+        "externalUrl": "https://drive.google.com/drive/u/0/folders/1JFvOm19Rct65OqY9J9FG-bggsaHM2GYT"
+      },
+      {
+        "title": "Pelatihan Internal (IHT)",
+        "desc": "Pengajuan dan monitoring pelatihan IHT per unit.",
+        "url": "link/operasional-in-house-training/",
+        "type": "Sheets",
+        "tag": "sheet",
+        "slug": "operasional-in-house-training",
+        "localPath": "link/operasional-in-house-training/",
+        "externalUrl": "https://docs.google.com/spreadsheets/d/1w6doKENmyzpjmF3WvqpFIOqqPKZKPBKn66OwHFiqG2s/edit?gid=1681802920"
+      },
+      {
+        "title": "Inventaris IGD",
+        "desc": "Daftar inventaris dan alat medis IGD.",
+        "url": "link/operasional-inventaris-igd/",
+        "type": "Sheets",
+        "tag": "sheet",
+        "slug": "operasional-inventaris-igd",
+        "localPath": "link/operasional-inventaris-igd/",
+        "externalUrl": "https://docs.google.com/spreadsheets/d/1W5rmQ6pNs6GGLbU-kqOLeCXxm8tiUI8l3tgD1MIA5tw/edit?usp=sharing"
+      },
+      {
+        "title": "Laporan Resmi",
+        "desc": "Halaman berita acara dan laporan resmi.",
+        "url": "link/operasional-official-report/",
+        "type": "Halaman",
+        "tag": "page",
+        "slug": "operasional-official-report",
+        "localPath": "link/operasional-official-report/",
+        "externalUrl": ""
+      },
+      {
+        "title": "Laporan Pagi (Morning Report)",
+        "desc": "Halaman morning report IGD.",
+        "url": "link/operasional-morning-report/",
+        "type": "Halaman",
+        "tag": "page",
+        "slug": "operasional-morning-report",
+        "localPath": "link/operasional-morning-report/",
+        "externalUrl": ""
+      },
+      {
+        "title": "Laporan Bulanan Pelayanan",
+        "desc": "Spreadsheet laporan kunjungan/pelayanan IGD.",
+        "url": "link/operasional-laporan-bulanan-pelayanan/",
+        "type": "Sheets",
+        "tag": "sheet",
+        "sensitive": true,
+        "slug": "operasional-laporan-bulanan-pelayanan",
+        "localPath": "link/operasional-laporan-bulanan-pelayanan/",
+        "externalUrl": "https://docs.google.com/spreadsheets/d/1Lzsf7r-Qgu0dQQ_QMq8tNiCASQX3-ocilMLSvErOP80/edit?gid=0&hl=id"
+      },
+      {
+        "title": "Klaim BPJS Ketenagakerjaan",
+        "desc": "Folder foto kondisi pasien BPJS Ketenagakerjaan.",
+        "url": "link/operasional-claim-bpjs-tk/",
+        "type": "Drive",
+        "tag": "drive",
+        "sensitive": true,
+        "slug": "operasional-claim-bpjs-tk",
+        "localPath": "link/operasional-claim-bpjs-tk/",
+        "externalUrl": "https://drive.google.com/drive/folders/1BqG8d_EixAMk_5tH0gDiHn-OYOxDaAkr?usp=drive_link"
       }
     ]
   },
