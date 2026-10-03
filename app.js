@@ -175,18 +175,23 @@
       const label = labels[group.id] || group.title;
       return `<a class="nav-chip ${active}" href="${groupUrl(group)}">${label}</a>`;
     }).join('');
+    // Di HP, geser menu supaya kategori yang sedang dibuka terlihat.
+    const current = nav.querySelector('.nav-chip.active');
+    if (current) nav.scrollLeft = current.offsetLeft - nav.offsetLeft - 12;
   }
 
   function setupLogout() {
     const logout = $('logoutBtn');
     if (!logout) return;
     logout.addEventListener('click', window.IGDAuth.logout);
-    logout.textContent = 'Ganti akses';
-    if (ROLE) {
-      const badge = document.createElement('span');
+    logout.textContent = 'Keluar';
+    // Label jalur akses ditampilkan di bawah nama rumah sakit.
+    const brandText = document.querySelector('.topbar .brand > span:last-child');
+    if (ROLE && brandText) {
+      const badge = document.createElement('em');
       badge.className = 'role-badge' + (ROLE === 'pimpinan' ? ' pimpinan' : '');
       badge.textContent = ROLE === 'pimpinan' ? 'Akses Pimpinan' : 'Akses Staf IGD';
-      logout.insertAdjacentElement('beforebegin', badge);
+      brandText.appendChild(badge);
     }
   }
 
