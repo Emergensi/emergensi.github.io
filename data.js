@@ -8,7 +8,7 @@ window.IGD_LINK_GROUPS = [
     "icon": "⚡",
     "items": [
       {
-        "title": "Medical Duty Schedule",
+        "title": "Jadwal Jaga Medis",
         "desc": "Halaman jadwal tugas medis IGD.",
         "url": "link/operasional-medical-duty-schedule/",
         "type": "Halaman",
@@ -28,7 +28,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/u/1/folders/1gDY3QqhHOh5GT_JRnwYLC69R5sRR11wZ"
       },
       {
-        "title": "Patient Registration",
+        "title": "Registrasi Pasien",
         "desc": "REGISTER PASIEN IGD RS SGH.",
         "url": "link/operasional-patient-registration/",
         "type": "Sheets",
@@ -50,7 +50,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/1-XNkQFoD4jiRzKBqbok7cCmAp2fXvedEDBBXa4y3ivY/edit?usp=drivesdk"
       },
       {
-        "title": "AVIAT In Hospital",
+        "title": "AVIAT (Jaringan RS)",
         "desc": "Akses sistem AVIAT dari jaringan internal rumah sakit.",
         "url": "link/operasional-aviat-in-hospital/",
         "type": "Sistem",
@@ -61,7 +61,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "http://192.168.30.1/LIVE"
       },
       {
-        "title": "AVIAT Out Hospital",
+        "title": "AVIAT (Luar Jaringan RS)",
         "desc": "Akses sistem AVIAT dari luar jaringan rumah sakit.",
         "url": "link/operasional-aviat-out-hospital/",
         "type": "Sistem",
@@ -72,7 +72,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "http://103.105.252.26:8090/LIVE4/Login/Login.aspx"
       },
       {
-        "title": "Room Temperature Monitoring Form",
+        "title": "Form Pemantauan Suhu Ruangan",
         "desc": "Form monitoring suhu ruangan IGD.",
         "url": "link/operasional-room-temperature-monitoring-form/",
         "type": "Sheets",
@@ -82,7 +82,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/1ZsYjDGx_zfm6hKRXqO7IiR7qO1vcbfWp-2cwR0QeGOY/edit?gid=2055685808"
       },
       {
-        "title": "Meeting",
+        "title": "Rapat",
         "desc": "Folder notulen dan dokumen meeting IGD.",
         "url": "link/operasional-meeting/",
         "type": "Drive",
@@ -92,7 +92,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/u/0/folders/1JFvOm19Rct65OqY9J9FG-bggsaHM2GYT"
       },
       {
-        "title": "In House Training",
+        "title": "Pelatihan Internal (IHT)",
         "desc": "Pengajuan dan monitoring pelatihan IHT per unit.",
         "url": "link/operasional-in-house-training/",
         "type": "Sheets",
@@ -112,7 +112,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/1W5rmQ6pNs6GGLbU-kqOLeCXxm8tiUI8l3tgD1MIA5tw/edit?usp=sharing"
       },
       {
-        "title": "Official Report",
+        "title": "Laporan Resmi",
         "desc": "Halaman berita acara dan laporan resmi.",
         "url": "link/operasional-official-report/",
         "type": "Halaman",
@@ -122,7 +122,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": ""
       },
       {
-        "title": "Morning Report",
+        "title": "Laporan Pagi (Morning Report)",
         "desc": "Halaman morning report IGD.",
         "url": "link/operasional-morning-report/",
         "type": "Halaman",
@@ -143,7 +143,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/1Lzsf7r-Qgu0dQQ_QMq8tNiCASQX3-ocilMLSvErOP80/edit?gid=0&hl=id"
       },
       {
-        "title": "Nurse Daily Logbook",
+        "title": "Logbook Harian Perawat",
         "desc": "Log book kerja perawat RS Sedayu General Hospital.",
         "url": "link/operasional-nurse-daily-logbook/",
         "type": "Sheets",
@@ -163,7 +163,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": ""
       },
       {
-        "title": "Patient Registration HomeCare",
+        "title": "Registrasi Pasien Home Care",
         "desc": "Register pasien HomeCare.",
         "url": "link/operasional-patient-registration-homecare/",
         "type": "Sheets",
@@ -174,7 +174,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/1dLFISy0AZ46HDScCAzUaQ54g9ifNcXn7UUvbtchnPBk/edit?gid=0"
       },
       {
-        "title": "Claim BPJS TK",
+        "title": "Klaim BPJS Ketenagakerjaan",
         "desc": "Folder foto kondisi pasien BPJS Ketenagakerjaan.",
         "url": "link/operasional-claim-bpjs-tk/",
         "type": "Drive",
@@ -185,7 +185,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/folders/1BqG8d_EixAMk_5tH0gDiHn-OYOxDaAkr?usp=drive_link"
       },
       {
-        "title": "GDrive UGD File",
+        "title": "Folder Drive IGD",
         "desc": "Folder utama file UGD.",
         "url": "link/operasional-gdrive-ugd-file/",
         "type": "Drive",
@@ -241,7 +241,7 @@ window.IGD_LINK_GROUPS = [
     "icon": "👥",
     "items": [
       {
-        "title": "Organizational Structure",
+        "title": "Bagan Struktur Organisasi",
         "desc": "Struktur organisasi dan daftar tim IGD.",
         "url": "link/struktur-organizational-structure/",
         "type": "Halaman",
@@ -252,7 +252,7 @@ window.IGD_LINK_GROUPS = [
         "photo": "assets/emergency-logo.png"
       },
       {
-        "title": "Head of Emergency Department",
+        "title": "Kepala Instalasi IGD",
         "desc": "Kepala Instalasi/Unit Emergensi.",
         "url": "link/struktur-head-of-emergency-department/",
         "type": "Halaman",
@@ -265,7 +265,7 @@ window.IGD_LINK_GROUPS = [
         "personRole": "Head of Emergency Department"
       },
       {
-        "title": "Emergency Room Manager",
+        "title": "Kepala Ruang IGD",
         "desc": "Manajer ruang IGD dan link manajemen.",
         "url": "link/struktur-emergency-room-manager/",
         "type": "Halaman",
@@ -278,7 +278,7 @@ window.IGD_LINK_GROUPS = [
         "personRole": "Emergency Room Manager"
       },
       {
-        "title": "Secretary",
+        "title": "Sekretaris",
         "desc": "Sekretaris IGD dan dokumen meeting.",
         "url": "link/struktur-secretary/",
         "type": "Halaman",
@@ -291,7 +291,7 @@ window.IGD_LINK_GROUPS = [
         "personRole": "Emergency Department Secretary"
       },
       {
-        "title": "Finance Manager",
+        "title": "Penanggung Jawab Keuangan",
         "desc": "Manajer keuangan unit IGD.",
         "url": "link/struktur-finance-manager/",
         "type": "Halaman",
@@ -304,7 +304,7 @@ window.IGD_LINK_GROUPS = [
         "personRole": "Finance Manager"
       },
       {
-        "title": "EMR Division",
+        "title": "Divisi Rekam Medis Elektronik",
         "desc": "Divisi EMR IGD.",
         "url": "link/struktur-emr-division/",
         "type": "Halaman",
@@ -317,7 +317,7 @@ window.IGD_LINK_GROUPS = [
         "personRole": "EMR Division"
       },
       {
-        "title": "Training and Development Division",
+        "title": "Divisi Pendidikan dan Pelatihan",
         "desc": "Divisi pelatihan dan pengembangan.",
         "url": "link/struktur-training-and-development-division/",
         "type": "Halaman",
@@ -330,7 +330,7 @@ window.IGD_LINK_GROUPS = [
         "personRole": "Training and Development Division"
       },
       {
-        "title": "Inventory Division",
+        "title": "Divisi Inventaris",
         "desc": "Divisi inventaris unit IGD.",
         "url": "link/struktur-inventory-division/",
         "type": "Halaman",
@@ -343,7 +343,7 @@ window.IGD_LINK_GROUPS = [
         "personRole": "Inventory Division"
       },
       {
-        "title": "Equipment Maintenance Division",
+        "title": "Divisi Pemeliharaan Alat",
         "desc": "Divisi pemeliharaan alat.",
         "url": "link/struktur-equipment-maintenance-division/",
         "type": "Halaman",
@@ -385,7 +385,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/folders/1JAnpqMQb9Nag5YhhiKlBk8h1RhP2515j"
       },
       {
-        "title": "Data Ambulance",
+        "title": "Data Ambulans",
         "desc": "Folder data ambulans.",
         "url": "link/manajemen-data-ambulance/",
         "type": "Drive",
@@ -395,7 +395,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/u/1/folders/18x-MZ-tksmhZd2FN7kjeUianIdFb4UfD"
       },
       {
-        "title": "Notulen Meeting",
+        "title": "Notulen Rapat",
         "desc": "Folder meeting IGD.",
         "url": "link/manajemen-notulen-meeting/",
         "type": "Drive",
@@ -415,7 +415,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/1mILZ0LbHp8Fa7KmOy3KHCSGQznwJk4JZz2hgh_9Q7fw/edit?usp=drive_link"
       },
       {
-        "title": "IHT",
+        "title": "Rekap Pelatihan Internal (IHT)",
         "desc": "Rencana dan bukti pelaksanaan pelatihan IHT.",
         "url": "link/manajemen-iht/",
         "type": "Sheets",
@@ -425,7 +425,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/1w6doKENmyzpjmF3WvqpFIOqqPKZKPBKn66OwHFiqG2s/edit?gid=1681802920"
       },
       {
-        "title": "Maintenance Schedule",
+        "title": "Jadwal Pemeliharaan Alat",
         "desc": "Jadwal pemeliharaan peralatan IGD.",
         "url": "link/manajemen-maintenance-schedule/",
         "type": "Sheets",
@@ -455,7 +455,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/folders/1YjwgSk9B-Y7XXslVKqcdxasmhBD2o9Lr?usp=drive_link"
       },
       {
-        "title": "Notulensi Morning Report",
+        "title": "Notulen Laporan Pagi",
         "desc": "Spreadsheet notulen morning report.",
         "url": "link/manajemen-notulensi-morning-report/",
         "type": "Sheets",
@@ -478,12 +478,12 @@ window.IGD_LINK_GROUPS = [
   },
   {
     "id": "kebijakan",
-    "title": "Policies & Regulasi",
+    "title": "Kebijakan & Regulasi",
     "subtitle": "Kumpulan regulasi nasional dan kebijakan terkait pelayanan kegawatdaruratan.",
     "icon": "📚",
     "items": [
       {
-        "title": "Emergency Department Policies",
+        "title": "Kebijakan Pelayanan IGD",
         "desc": "Halaman induk kebijakan IGD.",
         "url": "link/kebijakan-emergency-department-policies/",
         "type": "Halaman",
@@ -493,7 +493,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": ""
       },
       {
-        "title": "PMK No 129 Tahun 2008",
+        "title": "Kepmenkes No. 129 Tahun 2008",
         "desc": "Regulasi standar pelayanan minimal rumah sakit.",
         "url": "link/kebijakan-pmk-no-129-tahun-2008/",
         "type": "Regulasi",
@@ -513,7 +513,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1txjX6x39CFFeyCQbZdU8_ZkPGWKpQMOl/view?usp=drive_link"
       },
       {
-        "title": "PMK No. 308 Tahun 2017",
+        "title": "Permenkes No. 308 Tahun 2017",
         "desc": "Keselamatan pasien.",
         "url": "link/kebijakan-pmk-no-308-tahun-2017/",
         "type": "Regulasi",
@@ -523,7 +523,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1VY0gkoCWP84uEdyJ7fVYJDHISVcHZHoe/view?usp=drive_link"
       },
       {
-        "title": "PMK 47 Tahun 2018",
+        "title": "Permenkes No. 47 Tahun 2018",
         "desc": "Pelayanan kegawatdaruratan.",
         "url": "link/kebijakan-pmk-47-tahun-2018/",
         "type": "Regulasi",
@@ -533,7 +533,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1H1OVIauld4Cxq96rbRL7uNKByMkM6OPG/view?usp=drive_link"
       },
       {
-        "title": "Permenkes Nomor 4 Tahun 2018",
+        "title": "Permenkes No. 4 Tahun 2018",
         "desc": "Regulasi rumah sakit.",
         "url": "link/kebijakan-permenkes-nomor-4-tahun-2018/",
         "type": "Regulasi",
@@ -543,7 +543,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1I9A2ezg7rbf1Hc6_2yP5jBjOwuoz7Oh_/view?usp=drive_link"
       },
       {
-        "title": "Permenkes Nomor 4 Tahun 2019",
+        "title": "Permenkes No. 4 Tahun 2019",
         "desc": "Regulasi standar teknis mutu pelayanan dasar.",
         "url": "link/kebijakan-permenkes-nomor-4-tahun-2019/",
         "type": "Regulasi",
@@ -553,7 +553,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1dVFGsyqIvcCgVz1BeSUKGhs7EeS7XFbL/view?usp=drive_link"
       },
       {
-        "title": "Permenkes Nomor 24 Tahun 2022",
+        "title": "Permenkes No. 24 Tahun 2022",
         "desc": "Rekam medis.",
         "url": "link/kebijakan-permenkes-nomor-24-tahun-2022/",
         "type": "Regulasi",
@@ -563,7 +563,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1t69qkdgGLoTfBJwy40PapwEqVi0ZN72s/view?usp=drive_link"
       },
       {
-        "title": "Undang-Undang Nomor 17 Tahun 2023",
+        "title": "UU No. 17 Tahun 2023",
         "desc": "Undang-undang kesehatan.",
         "url": "link/kebijakan-undang-undang-nomor-17-tahun-2023/",
         "type": "Regulasi",
@@ -573,7 +573,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1ggIxaWKHAyX-NBnpVwcvrUAIHofau69S/view?usp=drive_link"
       },
       {
-        "title": "KMK No.HK.01.07/MENKES/1596/2024",
+        "title": "Kepmenkes No. HK.01.07/MENKES/1596/2024",
         "desc": "Keputusan Menteri Kesehatan.",
         "url": "link/kebijakan-kmk-no-hk-01-07-menkes-1596-2024/",
         "type": "Regulasi",
@@ -583,7 +583,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1x6ZFWX79aCrqzPlGtjk_rmuRD3f10-v0/view?usp=drive_link"
       },
       {
-        "title": "PP Nomor 28 Tahun 2024",
+        "title": "PP No. 28 Tahun 2024",
         "desc": "Peraturan Pemerintah bidang kesehatan.",
         "url": "link/kebijakan-pp-nomor-28-tahun-2024/",
         "type": "Regulasi",
@@ -601,7 +601,7 @@ window.IGD_LINK_GROUPS = [
     "icon": "📝",
     "items": [
       {
-        "title": "Emergency Department Guidelines",
+        "title": "Panduan Pelayanan Gawat Darurat",
         "desc": "Halaman pedoman IGD.",
         "url": "link/pedoman-emergency-department-guidelines/",
         "type": "Halaman",
@@ -631,7 +631,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1OEYocDn5a27mGt9Ryjx4CN_g5-yJpbHg/view?usp=drive_link"
       },
       {
-        "title": "Panduan Triage",
+        "title": "Panduan Triase",
         "desc": "Panduan triase IGD.",
         "url": "link/pedoman-panduan-triage/",
         "type": "Drive",
@@ -641,7 +641,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1yho-rIrcwMwaU2Aq1AuXr9SXiTlgFDBz/view?usp=drive_link"
       },
       {
-        "title": "Emergency Department SOP",
+        "title": "Kumpulan SPO Gawat Darurat",
         "desc": "Halaman SPO IGD.",
         "url": "link/pedoman-emergency-department-sop/",
         "type": "Halaman",
@@ -681,7 +681,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/u/1/folders/1cz6eqcV9RZgz4KNj95Q0ve4jY0UGmfSR"
       },
       {
-        "title": "Assessment Form",
+        "title": "Formulir Asesmen",
         "desc": "Halaman assessment form.",
         "url": "link/pedoman-assessment-form/",
         "type": "Halaman",
@@ -691,7 +691,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": ""
       },
       {
-        "title": "Form IGD",
+        "title": "Form IGD (Pedoman)",
         "desc": "Folder formulir IGD/UGD.",
         "url": "link/pedoman-form-igd/",
         "type": "Drive",
@@ -701,7 +701,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/u/1/folders/1gDY3QqhHOh5GT_JRnwYLC69R5sRR11wZ"
       },
       {
-        "title": "Employee File",
+        "title": "Berkas Kepegawaian",
         "desc": "Halaman employee file.",
         "url": "link/pedoman-employee-file/",
         "type": "Halaman",
@@ -711,7 +711,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": ""
       },
       {
-        "title": "Dokter",
+        "title": "Pedoman Dokter",
         "desc": "Folder employee file dokter.",
         "url": "link/pedoman-dokter/",
         "type": "Drive",
@@ -721,7 +721,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/u/1/folders/1r2hr3g-1NP6f00YG6yDrPLn4aSkOoqiM"
       },
       {
-        "title": "Perawat",
+        "title": "Pedoman Perawat",
         "desc": "Folder employee file perawat.",
         "url": "link/pedoman-perawat/",
         "type": "Drive",
@@ -731,7 +731,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/u/1/folders/16-mNpfXIiMrkP6yLGj4Pg5lfHxntRRAC"
       },
       {
-        "title": "Bidan",
+        "title": "Pedoman Bidan",
         "desc": "Folder employee file bidan.",
         "url": "link/pedoman-bidan/",
         "type": "Drive",
@@ -741,7 +741,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/drive/u/1/folders/1VktmNNEwgDjZX-sMwCCMLVU5C5zQk4YJ"
       },
       {
-        "title": "Driver",
+        "title": "Pedoman Pengemudi Ambulans",
         "desc": "Folder employee file driver.",
         "url": "link/pedoman-driver/",
         "type": "Drive",
@@ -769,7 +769,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/17Ua28p-JfhNmndYfURVg_UlpFJowVOHjS4g_tsItV8M/edit?usp=sharing"
       },
       {
-        "title": "Web Akreditasi",
+        "title": "Situs Akreditasi",
         "desc": "Website akreditasi.",
         "url": "link/akreditasi-web-akreditasi/",
         "type": "Website",
@@ -799,7 +799,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/1d8GBfogitrZat-FSbKrkufnIpCrsEE3syNK0NH-TCsY/edit?usp=sharing"
       },
       {
-        "title": "Time Line & Tim Akreditasi",
+        "title": "Linimasa & Tim Akreditasi",
         "desc": "Timeline dan tim persiapan akreditasi.",
         "url": "link/akreditasi-time-line-and-tim-akreditasi/",
         "type": "Sheets",
@@ -809,7 +809,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/1lqYTxiTeDTukonoyZTdAyl5j9jeq3kKEZ9-Jb1RWjHw/edit?gid=1857104022"
       },
       {
-        "title": "GDrive Akreditasi",
+        "title": "Folder Drive Akreditasi",
         "desc": "Folder akreditasi RS SGH 2025.",
         "url": "link/akreditasi-gdrive-akreditasi/",
         "type": "Drive",
@@ -859,7 +859,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://drive.google.com/file/d/1wyC5KLYoZna1U3BmMA_Sp_IwM3JjLg_o/view?usp=drive_link"
       },
       {
-        "title": "Form RM",
+        "title": "Formulir Rekam Medis",
         "desc": "Daftar formulir rekam medis SGH.",
         "url": "link/akreditasi-form-rm/",
         "type": "Sheets",

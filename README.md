@@ -1,58 +1,31 @@
-# Emergency Unit SGH — GitHub Pages
+# Emergency Unit SGH — Dashboard Internal IGD
 
-Website statis landing page IGD/UGD dengan halaman login ringan berbasis JavaScript.
+Website statis (GitHub Pages) berisi tautan kerja IGD Sedayu General Hospital: operasional, jadwal, struktur organisasi, kebijakan dan regulasi, pedoman/SPO/form, serta akreditasi.
 
-## Login
-
-- Username: `IGD`
-- Password: `321`
+Alamat: https://emergensi.github.io/
 
 ## Struktur file
 
 ```text
-index.html
-login.html
-auth.js
-app.js
-style.css
-.nojekyll
-README_DEPLOY.md
+index.html          Beranda
+login.html          Halaman login
+auth.js             Pemeriksaan login (sisi browser)
+data.js             Daftar seluruh tautan per kategori
+app.js              Penampil kartu, pencarian, dan navigasi
+style.css           Tampilan
+<kategori>/         Halaman per kategori (operasional, jadwal, dst.)
+link/<slug>/        Halaman detail per tautan
+assets/             Logo, ikon, dan manifest aplikasi
 ```
 
-## Cara upload ke GitHub Pages
+## Menambah atau mengubah tautan
 
-### Opsi A — Repository baru khusus IGD
+Edit `data.js`. Setiap tautan memiliki `title`, `desc`, `type`, `tag`, dan `externalUrl` (alamat Drive/Sheets/sistem). Simpan, lalu situs akan ter-update otomatis beberapa menit setelah commit.
 
-1. Buat repository baru, misalnya `IGD` atau `emergency-unit`.
-2. Upload semua file dari folder ini ke root repository.
-3. Masuk ke **Settings → Pages**.
-4. Pilih **Deploy from a branch**.
-5. Pilih branch `main` dan folder `/root`.
-6. Simpan.
-7. URL biasanya menjadi:
+## Catatan keamanan
 
-```text
-https://nkhafidz.github.io/IGD/
-```
+Repository ini publik. Login di situs ini hanya membatasi tampilan dan **bukan** pengaman data, karena seluruh isi repository (termasuk `data.js`) dapat dibaca siapa saja.
 
-### Opsi B — Di dalam repository `nkhafidz.github.io`
-
-1. Buat folder baru, misalnya `igd`.
-2. Upload semua file ke dalam folder `igd`.
-3. URL menjadi:
-
-```text
-https://nkhafidz.github.io/igd/
-```
-
-### Opsi C — Mengganti halaman utama akun
-
-Upload semua file ke root repository `nkhafidz.github.io`. Ini akan mengganti website utama di:
-
-```text
-https://nkhafidz.github.io/
-```
-
-## Catatan teknis
-
-GitHub Pages adalah hosting statis untuk HTML, CSS, dan JavaScript. Login di file ini adalah login ringan berbasis JavaScript, cocok untuk membatasi tampilan umum, tetapi bukan pengganti autentikasi server-side/VPN untuk data klinis atau link sensitif.
+- Jangan menulis username, password, atau token di file mana pun di repository ini.
+- Perlindungan sebenarnya ada pada pengaturan berbagi tiap file Google Drive: batasi ke akun tertentu, bukan "siapa saja yang memiliki link".
+- Jangan mencantumkan data pasien, alamat server internal, atau dokumen kepegawaian yang bersifat rahasia.
