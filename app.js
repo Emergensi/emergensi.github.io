@@ -177,7 +177,9 @@
       pedoman: 'SPO & Form',
       akreditasi: 'Akreditasi'
     };
-    nav.innerHTML = GROUPS.map((group) => {
+    const pantauChip = ROLE === 'pimpinan'
+      ? `<a class="nav-chip nav-pantau ${groupId === 'pantau' ? 'active' : ''}" href="${internalUrl('pantau/')}">Pantau IGD</a>` : '';
+    nav.innerHTML = pantauChip + GROUPS.map((group) => {
       const active = group.id === groupId ? 'active' : '';
       const label = labels[group.id] || group.title;
       return `<a class="nav-chip ${active}" href="${groupUrl(group)}">${label}</a>`;
