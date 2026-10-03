@@ -1932,3 +1932,24 @@ body[data-clean-detail="true"] main .section:last-child {
     white-space: nowrap;
   }
 }
+
+/* Tombol Tampilkan password: kecil, di dalam kolom password */
+.login-form .password-row {
+  position: relative;
+  display: block !important;
+}
+.login-form .password-row input {
+  padding-right: 120px;
+}
+.login-form .password-row button {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: auto !important;
+  min-height: 0 !important;
+  height: 40px;
+  padding: 0 14px !important;
+  font-size: .85rem;
+  border-radius: 14px;
+}
