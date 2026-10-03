@@ -1920,7 +1920,7 @@ body[data-clean-detail="true"] main .section:last-child {
   }
   .hero-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 10px;
   }
   .hero-buttons a {
