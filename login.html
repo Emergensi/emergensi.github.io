@@ -4,19 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#b91c1c" />
-  
   <link rel="icon" href="assets/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="manifest" href="assets/site.webmanifest" />
-<title>Login — Emergency Unit SGH</title>
+  <title>Pilih Akses — Emergency Unit SGH</title>
   <link rel="stylesheet" href="style.css" />
   <script src="auth.js"></script>
 </head>
 <body class="login-page">
   <main class="login-shell">
-    <section class="login-card" aria-label="Login Emergency Unit SGH">
+    <section class="login-card" aria-label="Pilih akses Emergency Unit SGH">
       <div class="login-brand">
         <span class="brand-mark logo-mark"><img src="assets/emergency-logo.png" alt="Logo Emergency Unit"></span>
         <div>
@@ -25,9 +24,22 @@
         </div>
       </div>
 
-      <form id="loginForm" class="login-form">
+      <p class="access-intro" id="accessIntro">Pilih jalur akses Anda.</p>
+
+      <div class="access-choices" id="accessChoices">
+        <button type="button" class="access-choice" id="chooseStaf">
+          <strong>Akses Staf IGD</strong>
+          <span>Jadwal, SPO dan formulir, regulasi, laporan harian, stok obat, dan akreditasi. Tanpa password.</span>
+        </button>
+        <button type="button" class="access-choice" id="choosePimpinan" aria-expanded="false" aria-controls="loginForm">
+          <strong>Akses Pimpinan</strong>
+          <span>Seluruh menu staf ditambah manajemen unit, kepegawaian, dan billing. Memerlukan username dan password.</span>
+        </button>
+      </div>
+
+      <form id="loginForm" class="login-form" hidden>
         <label for="username">Username</label>
-        <input id="username" name="username" type="text" placeholder="Masukkan username" autocomplete="username" autofocus required />
+        <input id="username" name="username" type="text" placeholder="Masukkan username" autocomplete="username" required />
 
         <label for="password">Password</label>
         <div class="password-row">
@@ -35,7 +47,8 @@
           <button type="button" id="togglePassword">Tampilkan</button>
         </div>
 
-        <button class="primary-btn full" type="submit">Masuk</button>
+        <button class="primary-btn full" type="submit">Masuk sebagai Pimpinan</button>
+        <button class="access-back" type="button" id="backBtn">Kembali ke pilihan akses</button>
         <p class="login-error" id="loginError" role="alert" aria-live="polite"></p>
       </form>
     </section>
@@ -43,34 +56,69 @@
 
   <script>
     (function () {
+      const auth = window.IGDAuth;
+      const params = new URLSearchParams(window.location.search);
+      const needPimpinan = params.get('akses') === 'pimpinan';
+
+      if (needPimpinan ? auth.isPimpinan() : auth.isAuthenticated()) {
+        auth.goNext();
+        return;
+      }
+
+      const choices = document.getElementById('accessChoices');
       const form = document.getElementById('loginForm');
+      const intro = document.getElementById('accessIntro');
       const username = document.getElementById('username');
       const password = document.getElementById('password');
       const error = document.getElementById('loginError');
-      const toggle = document.getElementById('togglePassword');
+      const pimBtn = document.getElementById('choosePimpinan');
 
-      if (window.IGDAuth.isAuthenticated()) {
-        window.IGDAuth.goNext();
+      function showForm() {
+        choices.hidden = true;
+        form.hidden = false;
+        pimBtn.setAttribute('aria-expanded', 'true');
+        intro.textContent = needPimpinan
+          ? 'Halaman yang Anda buka khusus pimpinan. Masuk dengan akun pimpinan.'
+          : 'Masuk dengan akun pimpinan.';
+        username.focus();
       }
 
-      toggle.addEventListener('click', function () {
+      function showChoices() {
+        form.hidden = true;
+        choices.hidden = false;
+        pimBtn.setAttribute('aria-expanded', 'false');
+        intro.textContent = 'Pilih jalur akses Anda.';
+        error.textContent = '';
+      }
+
+      document.getElementById('chooseStaf').addEventListener('click', function () {
+        auth.enterStaf();
+        // Staf yang tadinya membuka halaman pimpinan diarahkan ke beranda.
+        if (needPimpinan) window.location.replace(auth.appUrl('index.html'));
+        else auth.goNext();
+      });
+      pimBtn.addEventListener('click', showForm);
+      document.getElementById('backBtn').addEventListener('click', showChoices);
+
+      document.getElementById('togglePassword').addEventListener('click', function () {
         const hidden = password.type === 'password';
         password.type = hidden ? 'text' : 'password';
-        toggle.textContent = hidden ? 'Sembunyikan' : 'Tampilkan';
+        this.textContent = hidden ? 'Sembunyikan' : 'Tampilkan';
       });
 
       form.addEventListener('submit', async function (event) {
         event.preventDefault();
         error.textContent = '';
-        const ok = await window.IGDAuth.login(username.value, password.value);
-        if (ok) {
-          window.IGDAuth.goNext();
+        if (await auth.login(username.value, password.value)) {
+          auth.goNext();
         } else {
           error.textContent = 'Username atau password salah.';
           password.value = '';
           password.focus();
         }
       });
+
+      if (needPimpinan) showForm();
     })();
   </script>
 </body>

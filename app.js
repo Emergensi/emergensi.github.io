@@ -1,5 +1,9 @@
 (function () {
-  const GROUPS = window.IGD_LINK_GROUPS || [];
+  const ROLE = window.IGDAuth ? window.IGDAuth.getRole() : null;
+  // Tautan bertanda akses "pimpinan" hanya ditampilkan untuk Akses Pimpinan.
+  const GROUPS = (window.IGD_LINK_GROUPS || [])
+    .map((group) => ({ ...group, items: group.items.filter((item) => item.akses !== 'pimpinan' || ROLE === 'pimpinan') }))
+    .filter((group) => group.items.length);
   const ROOT = document.body ? (document.body.dataset.root || '') : '';
   const page = document.body ? document.body.dataset.page : '';
   const groupId = document.body ? document.body.dataset.group : '';
@@ -56,7 +60,8 @@
 
   function tagHtml(item) {
     const sensitiveTag = item.sensitive ? '<span class="tag sensitive">Sensitif</span>' : '';
-    return `<div class="tags"><span class="tag ${item.tag || ''}">${item.type}</span>${sensitiveTag}</div>`;
+    const pimpinanTag = item.akses === 'pimpinan' ? '<span class="tag sensitive">Pimpinan</span>' : '';
+    return `<div class="tags"><span class="tag ${item.tag || ''}">${item.type}</span>${sensitiveTag}${pimpinanTag}</div>`;
   }
 
   function safeAttr(value) {
@@ -174,7 +179,15 @@
 
   function setupLogout() {
     const logout = $('logoutBtn');
-    if (logout) logout.addEventListener('click', window.IGDAuth.logout);
+    if (!logout) return;
+    logout.addEventListener('click', window.IGDAuth.logout);
+    logout.textContent = 'Ganti akses';
+    if (ROLE) {
+      const badge = document.createElement('span');
+      badge.className = 'role-badge' + (ROLE === 'pimpinan' ? ' pimpinan' : '');
+      badge.textContent = ROLE === 'pimpinan' ? 'Akses Pimpinan' : 'Akses Staf IGD';
+      logout.insertAdjacentElement('beforebegin', badge);
+    }
   }
 
   function renderHome() {
@@ -188,8 +201,8 @@
     if (categoryRoot) categoryRoot.innerHTML = GROUPS.map(categoryCard).join('');
 
     const priorityTitles = [
-      'Patient Registration', 'Billing Pasien', 'Medical Duty Schedule', 'Jadwal Dokter Umum',
-      'Jadwal Perawat', 'AVIAT In Hospital', 'Room Temperature Monitoring Form', 'Morning Report',
+      'Registrasi Pasien', 'Billing Pasien', 'Jadwal Jaga Medis', 'Jadwal Dokter Umum',
+      'Jadwal Perawat', 'Stok Obat', 'Form Pemantauan Suhu Ruangan', 'Laporan Pagi (Morning Report)',
       'Akreditasi'
     ];
     const priority = sortByTitle(priorityTitles

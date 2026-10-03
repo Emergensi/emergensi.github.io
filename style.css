@@ -1731,3 +1731,89 @@ body[data-clean-detail="true"] main .section:last-child {
     min-height: 36px;
   }
 }
+
+/* Pilihan jalur akses */
+.access-intro {
+  margin: 0 0 16px !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-weight: 700;
+}
+
+.access-choices {
+  display: grid;
+  gap: 12px;
+}
+
+.access-choice {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+  width: 100%;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  padding: 18px 20px;
+  cursor: pointer;
+  font: inherit;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.access-choice strong {
+  font-size: 1.15rem;
+}
+
+.access-choice span {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.45;
+  font-size: 0.95rem;
+}
+
+.access-choice:hover,
+.access-choice:focus-visible {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+#choosePimpinan {
+  border-color: rgba(248, 113, 113, 0.55);
+}
+
+.access-choice:focus-visible,
+.access-back:focus-visible {
+  outline: 3px solid #fca5a5;
+  outline-offset: 2px;
+}
+
+.access-back {
+  background: none;
+  border: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px;
+  text-decoration: underline;
+}
+
+.login-form[hidden],
+.access-choices[hidden] {
+  display: none;
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  background: var(--blue-soft);
+  color: var(--blue);
+  white-space: nowrap;
+}
+
+.role-badge.pimpinan {
+  background: var(--red-soft);
+  color: var(--red-dark);
+}

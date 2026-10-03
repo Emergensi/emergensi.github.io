@@ -4,7 +4,7 @@ window.IGD_LINK_GROUPS = [
   {
     "id": "operasional",
     "title": "Beranda Operasional",
-    "subtitle": "Tautan harian IGD untuk register, billing, laporan, dan sistem kerja.",
+    "subtitle": "Tautan harian IGD untuk register, laporan, dan formulir kerja harian.",
     "icon": "⚡",
     "items": [
       {
@@ -47,29 +47,8 @@ window.IGD_LINK_GROUPS = [
         "sensitive": true,
         "slug": "operasional-billing-pasien",
         "localPath": "link/operasional-billing-pasien/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1-XNkQFoD4jiRzKBqbok7cCmAp2fXvedEDBBXa4y3ivY/edit?usp=drivesdk"
-      },
-      {
-        "title": "AVIAT (Jaringan RS)",
-        "desc": "Akses sistem AVIAT dari jaringan internal rumah sakit.",
-        "url": "link/operasional-aviat-in-hospital/",
-        "type": "Sistem",
-        "tag": "system",
-        "sensitive": true,
-        "slug": "operasional-aviat-in-hospital",
-        "localPath": "link/operasional-aviat-in-hospital/",
-        "externalUrl": "http://192.168.30.1/LIVE"
-      },
-      {
-        "title": "AVIAT (Luar Jaringan RS)",
-        "desc": "Akses sistem AVIAT dari luar jaringan rumah sakit.",
-        "url": "link/operasional-aviat-out-hospital/",
-        "type": "Sistem",
-        "tag": "system",
-        "sensitive": true,
-        "slug": "operasional-aviat-out-hospital",
-        "localPath": "link/operasional-aviat-out-hospital/",
-        "externalUrl": "http://103.105.252.26:8090/LIVE4/Login/Login.aspx"
+        "externalUrl": "https://docs.google.com/spreadsheets/d/1-XNkQFoD4jiRzKBqbok7cCmAp2fXvedEDBBXa4y3ivY/edit?usp=drivesdk",
+        "akses": "pimpinan"
       },
       {
         "title": "Form Pemantauan Suhu Ruangan",
@@ -372,7 +351,8 @@ window.IGD_LINK_GROUPS = [
         "sensitive": true,
         "slug": "manajemen-laporan-kunjungan-igd",
         "localPath": "link/manajemen-laporan-kunjungan-igd/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1Lzsf7r-Qgu0dQQ_QMq8tNiCASQX3-ocilMLSvErOP80/edit?gid=0&hl=id"
+        "externalUrl": "https://docs.google.com/spreadsheets/d/1Lzsf7r-Qgu0dQQ_QMq8tNiCASQX3-ocilMLSvErOP80/edit?gid=0&hl=id",
+        "akses": "pimpinan"
       },
       {
         "title": "SPK RKK",
@@ -382,7 +362,8 @@ window.IGD_LINK_GROUPS = [
         "tag": "drive",
         "slug": "manajemen-spk-rkk",
         "localPath": "link/manajemen-spk-rkk/",
-        "externalUrl": "https://drive.google.com/drive/folders/1JAnpqMQb9Nag5YhhiKlBk8h1RhP2515j"
+        "externalUrl": "https://drive.google.com/drive/folders/1JAnpqMQb9Nag5YhhiKlBk8h1RhP2515j",
+        "akses": "pimpinan"
       },
       {
         "title": "Data Ambulans",
@@ -412,7 +393,8 @@ window.IGD_LINK_GROUPS = [
         "tag": "sheet",
         "slug": "manajemen-sip-perawat-and-bidan",
         "localPath": "link/manajemen-sip-perawat-and-bidan/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1mILZ0LbHp8Fa7KmOy3KHCSGQznwJk4JZz2hgh_9Q7fw/edit?usp=drive_link"
+        "externalUrl": "https://docs.google.com/spreadsheets/d/1mILZ0LbHp8Fa7KmOy3KHCSGQznwJk4JZz2hgh_9Q7fw/edit?usp=drive_link",
+        "akses": "pimpinan"
       },
       {
         "title": "Rekap Pelatihan Internal (IHT)",
@@ -442,7 +424,8 @@ window.IGD_LINK_GROUPS = [
         "tag": "drive",
         "slug": "manajemen-berita-acara-serah-terima-barang",
         "localPath": "link/manajemen-berita-acara-serah-terima-barang/",
-        "externalUrl": "https://drive.google.com/drive/folders/1naefLJjpFaEwlOZcfWsew8l6YZ6pvVBJ?usp=drive_link"
+        "externalUrl": "https://drive.google.com/drive/folders/1naefLJjpFaEwlOZcfWsew8l6YZ6pvVBJ?usp=drive_link",
+        "akses": "pimpinan"
       },
       {
         "title": "Berita Acara Perbaikan & Permintaan",
@@ -452,7 +435,8 @@ window.IGD_LINK_GROUPS = [
         "tag": "drive",
         "slug": "manajemen-berita-acara-perbaikan-and-permintaan",
         "localPath": "link/manajemen-berita-acara-perbaikan-and-permintaan/",
-        "externalUrl": "https://drive.google.com/drive/folders/1YjwgSk9B-Y7XXslVKqcdxasmhBD2o9Lr?usp=drive_link"
+        "externalUrl": "https://drive.google.com/drive/folders/1YjwgSk9B-Y7XXslVKqcdxasmhBD2o9Lr?usp=drive_link",
+        "akses": "pimpinan"
       },
       {
         "title": "Notulen Laporan Pagi",
@@ -708,7 +692,8 @@ window.IGD_LINK_GROUPS = [
         "tag": "page",
         "slug": "pedoman-employee-file",
         "localPath": "link/pedoman-employee-file/",
-        "externalUrl": ""
+        "externalUrl": "",
+        "akses": "pimpinan"
       },
       {
         "title": "Pedoman Dokter",
