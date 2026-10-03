@@ -1,8 +1,14 @@
 (function () {
   const ROLE = window.IGDAuth ? window.IGDAuth.getRole() : null;
   // Tautan bertanda akses "pimpinan" hanya ditampilkan untuk Akses Pimpinan.
-  const GROUPS = (window.IGD_LINK_GROUPS || [])
-    .map((group) => ({ ...group, items: group.items.filter((item) => item.akses !== 'pimpinan' || ROLE === 'pimpinan') }))
+  // Grup dengan "refs" (misalnya Laporan) menampilkan ulang tautan dari grup lain berdasarkan slug.
+  const RAW_GROUPS = window.IGD_LINK_GROUPS || [];
+  const BY_SLUG = {};
+  RAW_GROUPS.forEach((group) => group.items.forEach((item) => { BY_SLUG[item.slug] = item; }));
+  const GROUPS = RAW_GROUPS
+    .filter((group) => group.akses !== 'pimpinan' || ROLE === 'pimpinan')
+    .map((group) => ({ ...group, items: (group.refs ? group.refs.map((slug) => BY_SLUG[slug]).filter(Boolean) : group.items)
+      .filter((item) => item.akses !== 'pimpinan' || ROLE === 'pimpinan') }))
     .filter((group) => group.items.length);
   const ROOT = document.body ? (document.body.dataset.root || '') : '';
   const page = document.body ? document.body.dataset.page : '';
@@ -13,7 +19,7 @@
   }
 
   function allItems() {
-    return sortByTitle(GROUPS.flatMap((group) => group.items.map((item) => ({ ...item, groupTitle: group.title, groupId: group.id }))));
+    return sortByTitle(GROUPS.filter((group) => !group.refs).flatMap((group) => group.items.map((item) => ({ ...item, groupTitle: group.title, groupId: group.id }))));
   }
 
   function normalize(value) {
@@ -163,6 +169,7 @@
     if (!nav) return;
     const labels = {
       operasional: 'Operasional',
+      laporan: 'Laporan',
       jadwal: 'Jadwal',
       struktur: 'Struktur',
       manajemen: 'Manajemen',
@@ -177,7 +184,10 @@
     }).join('');
     // Di HP, geser menu supaya kategori yang sedang dibuka terlihat.
     const current = nav.querySelector('.nav-chip.active');
-    if (current) nav.scrollLeft = current.offsetLeft - nav.offsetLeft - 12;
+    if (current) {
+      const right = current.offsetLeft - nav.offsetLeft + current.offsetWidth;
+      if (right > nav.clientWidth) nav.scrollLeft = right - nav.clientWidth + 40;
+    }
   }
 
   function setupLogout() {

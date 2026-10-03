@@ -198,6 +198,32 @@ window.IGD_LINK_GROUPS = [
     ]
   },
   {
+    "id": "laporan",
+    "title": "Laporan",
+    "subtitle": "Kumpulan laporan, rekap, notulen, dan berita acara IGD dalam satu halaman.",
+    "icon": "📊",
+    "akses": "pimpinan",
+    "refs": [
+      "manajemen-laporan-kunjungan-igd",
+      "operasional-laporan-bulanan-pelayanan",
+      "operasional-morning-report",
+      "manajemen-notulensi-morning-report",
+      "operasional-official-report",
+      "operasional-nurse-daily-logbook",
+      "manajemen-notulen-meeting",
+      "manajemen-data-ambulance",
+      "manajemen-stok-obat",
+      "operasional-inventaris-igd",
+      "operasional-room-temperature-monitoring-form",
+      "manajemen-iht",
+      "manajemen-berita-acara-serah-terima-barang",
+      "manajemen-berita-acara-perbaikan-and-permintaan",
+      "operasional-billing-pasien",
+      "operasional-claim-bpjs-tk"
+    ],
+    "items": []
+  },
+  {
     "id": "jadwal",
     "title": "Jadwal Medis",
     "subtitle": "Jadwal dokter, perawat, dan on-call DPJP IGD.",
