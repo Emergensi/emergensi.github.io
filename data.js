@@ -51,6 +51,28 @@ window.IGD_LINK_GROUPS = [
         "akses": "pimpinan"
       },
       {
+        "title": "AVIAT (Jaringan RS)",
+        "desc": "Akses sistem AVIAT dari jaringan internal rumah sakit.",
+        "url": "link/operasional-aviat-in-hospital/",
+        "type": "Sistem",
+        "tag": "system",
+        "sensitive": true,
+        "slug": "operasional-aviat-in-hospital",
+        "localPath": "link/operasional-aviat-in-hospital/",
+        "externalUrl": "http://192.168.30.1/LIVE"
+      },
+      {
+        "title": "AVIAT (Luar Jaringan RS)",
+        "desc": "Akses sistem AVIAT dari luar jaringan rumah sakit.",
+        "url": "link/operasional-aviat-out-hospital/",
+        "type": "Sistem",
+        "tag": "system",
+        "sensitive": true,
+        "slug": "operasional-aviat-out-hospital",
+        "localPath": "link/operasional-aviat-out-hospital/",
+        "externalUrl": "http://103.105.252.26:8090/LIVE4/Login/Login.aspx"
+      },
+      {
         "title": "Form Pemantauan Suhu Ruangan",
         "desc": "Form monitoring suhu ruangan IGD.",
         "url": "link/operasional-room-temperature-monitoring-form/",
