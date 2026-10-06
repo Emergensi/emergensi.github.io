@@ -274,13 +274,16 @@
           if (m < 1260) return [t, 2, 'Shift siang', '14.00–21.00'];
           return [t, 3, 'Shift malam', '21.00–07.00'];
         };
+        const jamSekarang = (() => { const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date()); return p; })();
+        const kunciSekarang = (() => { const k = kunci({ jamDatang: jamSekarang, tanggal: hariIniStr }); return k[0] + '#' + k[1]; })();
         const peta = {};
         daftar.forEach((p) => { const k = kunci(p); const id = k[0] + '#' + k[1]; (peta[id] = peta[id] || { k, list: [] }).list.push(p); });
         const grup = Object.values(peta).sort((a, b) => (b.k[0] + b.k[1]).localeCompare(a.k[0] + a.k[1]))
-          .map(({ k, list }) => [k[2] + ' · ' + (k[1] === 3 ? tglPendek(k[0]) + '–' + tglPendek(geser(k[0], 1)) : tglPendek(k[0])), k[3], list]);
+          .map(({ k, list }) => [k[2] + ' · ' + (k[1] === 3 ? tglPendek(k[0]) + '–' + tglPendek(geser(k[0], 1)) : tglPendek(k[0])) +
+            (k[0] + '#' + k[1] === kunciSekarang ? ' (berjalan)' : ''), k[3], list]);
         return `<section class="pt-card">
-        <h2>${d.pasien24 ? 'Pasien 24 jam terakhir' : 'Pasien hari ini'}</h2>
-        <p class="pt-sub">${daftar.length} pasien, dikelompokkan per shift, terbaru di atas.</p>
+        <h2>${d.pasien24 ? 'Pasien per shift' : 'Pasien hari ini'}</h2>
+        <p class="pt-sub">${d.pasien24 ? 'Shift yang sedang berjalan dan 3 shift sebelumnya' : 'Hari ini'}: ${daftar.length} pasien, terbaru di atas.</p>
         ${chip(daftar)}
         ${grup.map(([nama, jam, list]) => `
           <h3 class="pt-shift">${nama} <span>${list.length} pasien${jam ? ' · ' + jam : ''}</span></h3>
