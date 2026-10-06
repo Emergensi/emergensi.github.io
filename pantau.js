@@ -3,7 +3,7 @@
 // Setelah Apps Script register IGD di-deploy, isi API_URL dengan link Web App-nya.
 (function () {
   const CONFIG = {
-    API_URL: '',            // contoh: 'https://script.google.com/macros/s/XXXX/exec'
+    API_URL: 'https://script.google.com/macros/s/AKfycbzdXDcOLMnBj5kuhINSpVRKpQ1RWwdOhXuPfEOxd11b7s9yRWVjU3f8T744OyaQgxtJUw/exec',
     REFRESH_MS: 5 * 60 * 1000,
     LOS_BATAS_MENIT: 360,   // 6 jam
     RT_TARGET_MENIT: 5
