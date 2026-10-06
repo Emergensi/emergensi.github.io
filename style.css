@@ -2050,3 +2050,12 @@ body.has-pantau .hero-copy { display: none; }
 .pt-dx { display: block; font-style: normal; color: var(--text); font-weight: 600; }
 .pt-row strong.pt-rtl { font-size: .85rem; text-align: right; white-space: normal; max-width: 110px; }
 .pt-row strong.pt-rtl small { display: block; color: var(--muted); font-weight: 600; }
+.pt-audit-line { display: block; margin-top: 12px; padding: 10px 12px; border-radius: 12px; background: #f0fdf4; color: var(--tri-hijau); font-size: .88rem; text-decoration: none; }
+.pt-audit-line.warn { background: #fffbeb; color: #92400e; }
+.pt-pola { margin: 12px 0 0; padding: 10px 12px; border-radius: 12px; background: #fef2f2; color: var(--tri-merah); font-size: .85rem; }
+.pt-audit { margin-top: 14px; }
+.pt-audit .pt-row { grid-template-columns: 6px 1fr; }
+.pt-audit .pt-row strong { display: none; }
+.pt-bars div { grid-template-columns: minmax(96px, 45%) 1fr 32px; }
+.pt-now b.pt-badtext { color: var(--tri-merah); }
+.pt-now b.pt-ok { color: var(--tri-hijau); }

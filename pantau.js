@@ -176,6 +176,7 @@
         <div><b>${d.hariIni.kunjungan}</b><span>kunjungan hari ini</span></div>
         <div class="${d.hariIni.rtPersenTarget < 100 ? 'pt-warn' : ''}"><b>${d.hariIni.rtPersenTarget}%</b><span>response time ≤5 menit</span></div>
       </div>
+      ${d.audit ? `<a class="pt-audit-line ${d.audit.jumlahTemuan ? 'warn' : ''}" href="pantau/#kelengkapan">Register ${d.audit.hari} hari terakhir: <b>${d.audit.persenLengkap}% lengkap</b>${d.audit.jumlahTemuan ? ' · ' + d.audit.jumlahTemuan + ' baris perlu dilengkapi' : ''}</a>` : ''}
       ${top.length ? `<ul class="pt-alerts">${top.map((a) => `<li class="pt-l${a.level}"><b>${esc(a.judul)}</b><span>${esc(a.isi)} ${waktuLalu(a.menitLalu)}.</span></li>`).join('')}</ul>` : ''}
       <a class="primary-btn pt-more" href="pantau/">Lihat detail Pantau IGD</a>
       ${banner(d)}`;
@@ -252,6 +253,19 @@
           </div>`).join('')}
         </div>
       </section>` : ''}
+
+      ${d.audit ? (() => { const a = d.audit; const maxK = Math.max(1, ...a.perKolom.map((k) => k.jumlah)); return `<section class="pt-card" id="kelengkapan">
+        <h2>Kelengkapan register</h2>
+        <p class="pt-sub">${a.hari} hari terakhir (sejak ${+a.sejak.slice(8)}/${+a.sejak.slice(5, 7)}). Nomor baris merujuk ke baris di spreadsheet register.</p>
+        <div class="pt-now"><b class="${a.persenLengkap < 95 ? 'pt-badtext' : 'pt-ok'}">${a.persenLengkap}%</b><span>${a.barisLengkap} dari ${a.totalBaris} baris lengkap</span></div>
+        ${a.perKolom.length ? `<div class="pt-bars">${a.perKolom.map((k) => `<div><span>${esc(k.masalah)}</span><i><em style="width:${k.jumlah / maxK * 100}%"></em></i><b>${k.jumlah}</b></div>`).join('')}</div>` : ''}
+        ${a.pola.length ? `<p class="pt-pola">Jam ditangani tercatat seragam 0–1 menit pada ${a.pola.map((g) => 'shift ' + g.shift + ' ' + (+g.tanggal.slice(8)) + '/' + (+g.tanggal.slice(5, 7)) + ' (' + g.seragam + ' dari ' + g.jumlah + ' pasien)').join(', ')}.</p>` : ''}
+        ${a.temuan.length ? `<div class="pt-list pt-audit">${a.temuan.map((t) => `
+          <div class="pt-row"><i class="pt-t-kosong"></i>
+            <div><b>Baris ${t.baris}</b> <small>${+t.tanggal.slice(8)}/${+t.tanggal.slice(5, 7)} · ${esc(t.nama)} · RM ${esc(t.rm)}${t.dokter ? ' · ' + esc(t.dokter) : ''}</small>
+              <span>${t.masalah.map(esc).join(', ')}</span></div><strong></strong>
+          </div>`).join('')}</div>${a.jumlahTemuan > a.temuan.length ? `<p class="pt-sub">Ditampilkan ${a.temuan.length} dari ${a.jumlahTemuan} baris.</p>` : ''}` : '<p class="pt-sub">Semua baris lengkap.</p>'}
+      </section>`; })() : ''}
 
       <section class="pt-card">
         <h2>Indikator mutu hari ini</h2>
