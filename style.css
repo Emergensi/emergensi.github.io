@@ -2061,3 +2061,11 @@ body.has-pantau .hero-copy { display: none; }
 .pt-now b.pt-ok { color: var(--tri-hijau); }
 .pt-shift { margin: 18px 0 8px; font-size: 1rem; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .pt-shift span { font-size: .82rem; font-weight: 600; color: var(--muted); }
+.pt-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+.pt-chip { font-size: .8rem; padding: 4px 10px; border-radius: 999px; background: #f1f5f9; color: var(--text); white-space: nowrap; }
+.pt-chip b { font-weight: 900; }
+.pt-chip.ok { background: #dcfce7; color: #14532d; }
+.pt-chip.info { background: #dbeafe; color: #1e3a8a; }
+.pt-chip.warn { background: #fef3c7; color: #78350f; }
+.pt-chip.bad { background: #fee2e2; color: #7f1d1d; }
+.pt-chip.muted { background: #f1f5f9; color: #475569; }

@@ -257,12 +257,24 @@
               <span>${p.diagnosis ? '<em class="pt-dx">' + esc(p.diagnosis) + '</em> ' : ''}Datang ${esc(p.jamDatang)}${p.jamKeluar ? ', keluar ' + esc(p.jamKeluar) : ', masih di IGD'}.${p.dokter ? ' ' + esc(p.dokter) + '.' : ''}</span></div>
             <strong class="pt-rtl">${p.rencana ? esc(rencanaTeks(p.rencana)) + (p.ruang ? '<small>' + esc(p.ruang) + '</small>' : '') : '<small>belum ada rencana</small>'}</strong>
           </div>`;
+        const JENIS = [['BLPL', 'Pulang (BLPL)', 'ok'], ['RAWAT INAP', 'Rawat inap', 'info'], ['RUJUK', 'Rujuk', 'warn'],
+          ['APS', 'APS', 'warn'], ['MENINGGAL', 'Meninggal', 'bad'], ['DOA', 'DOA', 'bad'], ['', 'Belum ada rencana', 'muted']];
+        const kenal = JENIS.map((j) => j[0]);
+        const jenisDari = (p) => { const r = String(p.rencana || '').toUpperCase(); return r === 'RANAP' ? 'RAWAT INAP' : (kenal.includes(r) ? r : (r ? 'LAIN' : '')); };
+        const chip = (list) => {
+          const isi = JENIS.map(([k, label, kelas]) => [label, kelas, list.filter((p) => jenisDari(p) === k).length]);
+          const lain = list.filter((p) => jenisDari(p) === 'LAIN').length;
+          if (lain) isi.push(['Lainnya', 'muted', lain]);
+          return `<div class="pt-chips">${isi.filter((x) => x[2]).map(([label, kelas, n]) => `<span class="pt-chip ${kelas}"><b>${n}</b> ${label}</span>`).join('')}</div>`;
+        };
         const grup = kelompok.map(([nama, jam, cocok]) => [nama, jam, d.pasienHariIni.filter((p) => cocok(keMenit(p.jamDatang)))]).filter((g) => g[2].length);
         return `<section class="pt-card">
         <h2>Pasien hari ini</h2>
         <p class="pt-sub">${d.pasienHariIni.length} pasien: ${grup.map((g) => g[0].replace('Shift ', '').toLowerCase() + ' ' + g[2].length).join(' · ')}</p>
+        ${chip(d.pasienHariIni)}
         ${grup.map(([nama, jam, list]) => `
           <h3 class="pt-shift">${nama} <span>${list.length} pasien${jam ? ' · ' + jam : ''}</span></h3>
+          ${chip(list)}
           <div class="pt-list">${list.map(baris).join('')}</div>`).join('')}
       </section>`;
       })() : ''}
