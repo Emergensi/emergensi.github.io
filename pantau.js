@@ -74,13 +74,60 @@
     };
   }
 
+  // Token login Pantau IGD disimpan di perangkat ini sampai kedaluwarsa (12 jam).
+  const TOKEN_KEY = 'pantau_token_v1';
+  function ambilToken() {
+    try {
+      const t = JSON.parse(localStorage.getItem(TOKEN_KEY) || 'null');
+      if (t && t.sampai > Date.now()) return t.token;
+    } catch (e) {}
+    return '';
+  }
+  function simpanToken(token, jam) {
+    try { localStorage.setItem(TOKEN_KEY, JSON.stringify({ token, sampai: Date.now() + (jam || 12) * 3600e3 })); } catch (e) {}
+  }
+  function hapusToken() { try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
+
+  class PerluLogin extends Error {}
+
   async function ambilData() {
     if (!CONFIG.API_URL) return dataContoh();
-    const token = sessionStorage.getItem('pantau_token') || '';
+    const token = ambilToken();
+    if (!token) throw new PerluLogin('login');
     const res = await fetch(CONFIG.API_URL + '?aksi=ringkasan&token=' + encodeURIComponent(token));
     const json = await res.json();
+    if (json.error === 'token') { hapusToken(); throw new PerluLogin('login'); }
     if (json.error) throw new Error(json.error);
     return json;
+  }
+
+  async function login(password) {
+    // text/plain agar tidak memicu preflight CORS di Apps Script
+    const res = await fetch(CONFIG.API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ aksi: 'login', password }) });
+    const json = await res.json();
+    if (json.error) throw new Error(json.error);
+    simpanToken(json.token, json.berlakuJam);
+  }
+
+  function renderLogin(el) {
+    el.innerHTML = `
+      <div class="pt-panel-head"><span class="eyebrow"><span></span> PANTAU IGD</span></div>
+      <p class="pt-sub">Masukkan password Pantau IGD untuk membuka data register. Login berlaku 12 jam di perangkat ini.</p>
+      <form class="pt-login">
+        <input type="password" autocomplete="current-password" placeholder="Password Pantau IGD" required>
+        <button class="primary-btn" type="submit">Buka data</button>
+        <p class="pt-error" role="alert"></p>
+      </form>`;
+    const form = el.querySelector('form');
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const err = form.querySelector('.pt-error');
+      const btn = form.querySelector('button');
+      btn.disabled = true; err.textContent = '';
+      try { await login(form.querySelector('input').value); muat(); }
+      catch (e) { err.textContent = e.message === 'password salah' ? 'Password salah.' : 'Gagal masuk: ' + e.message; btn.disabled = false; }
+    });
   }
 
   /* ---------- Util ---------- */
@@ -228,6 +275,7 @@
     const page = document.getElementById('pantauRoot');
     if (!panel && !page) return;
     if (!(window.IGDAuth && window.IGDAuth.isPimpinan())) return;
+    if (CONFIG.API_URL && !ambilToken() && document.querySelector('.pt-login')) return; // jangan hapus form login yang sedang diisi
     if (panel) {
       panel.hidden = false;
       document.body.classList.add('has-pantau');
@@ -237,6 +285,11 @@
       if (panel) renderPanel(panel, d);
       if (page) renderPage(page, d);
     } catch (e) {
+      if (e instanceof PerluLogin) {
+        if (panel) renderLogin(panel);
+        if (page) renderLogin(page);
+        return;
+      }
       const msg = '<p class="pt-error">Data Pantau IGD belum bisa dimuat: ' + esc(e.message) + '. Coba muat ulang halaman.</p>';
       if (panel) panel.innerHTML = msg;
       if (page) page.innerHTML = msg;
