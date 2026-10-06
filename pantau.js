@@ -241,18 +241,31 @@
         </div>
       </section>
 
-      ${(d.pasienHariIni || []).length ? `<section class="pt-card">
-        <h2>Pasien hari ini</h2>
-        <p class="pt-sub">${d.pasienHariIni.length} pasien, terbaru di atas.</p>
-        <div class="pt-list">${d.pasienHariIni.map((p) => `
+      ${(d.pasienHariIni || []).length ? (() => {
+        const kelompok = [
+          ['Shift malam', '21.00–24.00', (m) => m >= 1260],
+          ['Shift siang', '14.00–21.00', (m) => m >= 840 && m < 1260],
+          ['Shift pagi', '07.00–14.00', (m) => m >= 420 && m < 840],
+          ['Dini hari', '00.00–07.00, lanjutan shift malam kemarin', (m) => m < 420],
+          ['Jam datang belum diisi', '', (m) => m == null]
+        ];
+        const keMenit = (j) => { const x = String(j || '').match(/^(\d{1,2})[:.](\d{2})/); return x ? +x[1] * 60 + +x[2] : null; };
+        const baris = (p) => `
           <div class="pt-row">
             <i class="pt-t-${p.triase || 'kosong'}"></i>
             <div><b>${esc(p.nama)}</b> <small>RM ${esc(p.rm)}</small>
               <span>${p.diagnosis ? '<em class="pt-dx">' + esc(p.diagnosis) + '</em> ' : ''}Datang ${esc(p.jamDatang)}${p.jamKeluar ? ', keluar ' + esc(p.jamKeluar) : ', masih di IGD'}.${p.dokter ? ' ' + esc(p.dokter) + '.' : ''}</span></div>
             <strong class="pt-rtl">${p.rencana ? esc(rencanaTeks(p.rencana)) + (p.ruang ? '<small>' + esc(p.ruang) + '</small>' : '') : '<small>belum ada rencana</small>'}</strong>
-          </div>`).join('')}
-        </div>
-      </section>` : ''}
+          </div>`;
+        const grup = kelompok.map(([nama, jam, cocok]) => [nama, jam, d.pasienHariIni.filter((p) => cocok(keMenit(p.jamDatang)))]).filter((g) => g[2].length);
+        return `<section class="pt-card">
+        <h2>Pasien hari ini</h2>
+        <p class="pt-sub">${d.pasienHariIni.length} pasien: ${grup.map((g) => g[0].replace('Shift ', '').toLowerCase() + ' ' + g[2].length).join(' · ')}</p>
+        ${grup.map(([nama, jam, list]) => `
+          <h3 class="pt-shift">${nama} <span>${list.length} pasien${jam ? ' · ' + jam : ''}</span></h3>
+          <div class="pt-list">${list.map(baris).join('')}</div>`).join('')}
+      </section>`;
+      })() : ''}
 
       ${d.audit ? (() => { const a = d.audit; const maxK = Math.max(1, ...a.perKolom.map((k) => k.jumlah)); return `<section class="pt-card" id="kelengkapan">
         <h2>Kelengkapan register</h2>

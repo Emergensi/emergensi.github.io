@@ -2059,3 +2059,5 @@ body.has-pantau .hero-copy { display: none; }
 .pt-bars div { grid-template-columns: minmax(96px, 45%) 1fr 32px; }
 .pt-now b.pt-badtext { color: var(--tri-merah); }
 .pt-now b.pt-ok { color: var(--tri-hijau); }
+.pt-shift { margin: 18px 0 8px; font-size: 1rem; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.pt-shift span { font-size: .82rem; font-weight: 600; color: var(--muted); }
