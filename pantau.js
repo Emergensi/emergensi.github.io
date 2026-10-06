@@ -235,7 +235,7 @@
           <div class="pt-row ${p.menitDiIgd > CONFIG.LOS_BATAS_MENIT ? 'late' : ''}">
             <i class="pt-t-${p.triase || 'kosong'}"></i>
             <div><b>${esc(p.nama || p.inisial)}</b> <small>RM ${esc(p.rm)}</small>
-              <span>${p.diagnosis ? '<em class="pt-dx">' + esc(p.diagnosis) + '</em> ' : ''}${esc(kalimat(p.kasus))}. Datang ${esc(p.jamDatang)}, response time ${p.rtMenit} menit.${p.rencana ? ' Rencana: ' + esc(rencanaTeks(p.rencana)) + (p.ruang ? ' (' + esc(p.ruang) + ')' : '') + '.' : ' Belum ada rencana.'}</span></div>
+              <span>${p.diagnosis ? '<em class="pt-dx">' + esc(p.diagnosis) + '</em> ' : ''}${esc(kalimat(p.kasus))}. Datang ${esc(p.jamDatang)}, response time ${p.rtMenit} menit.${p.rencana ? ' Rencana: ' + esc(rencanaTeks(p.rencana)) + (p.ruang ? ' (' + esc(p.ruang) + ')' : '') + (p.dpjp ? ', DPJP ' + esc(p.dpjp) : '') + '.' : ' Belum ada rencana.'}</span></div>
             <strong>${lama(p.menitDiIgd)}</strong>
           </div>`).join('')}
         </div>
@@ -255,7 +255,7 @@
             <i class="pt-t-${p.triase || 'kosong'}"></i>
             <div><b>${esc(p.nama)}</b> <small>RM ${esc(p.rm)}</small>
               <span>${p.diagnosis ? '<em class="pt-dx">' + esc(p.diagnosis) + '</em> ' : ''}Datang ${esc(p.jamDatang)}${p.jamKeluar ? ', keluar ' + esc(p.jamKeluar) : ', masih di IGD'}.${p.dokter ? ' ' + esc(p.dokter) + '.' : ''}</span></div>
-            <strong class="pt-rtl">${p.rencana ? esc(rencanaTeks(p.rencana)) + (p.ruang ? '<small>' + esc(p.ruang) + '</small>' : '') : '<small>belum ada rencana</small>'}</strong>
+            <strong class="pt-rtl">${p.rencana ? esc(rencanaTeks(p.rencana)) + (p.ruang ? '<small>' + esc(p.ruang) + '</small>' : '') + (jenisDari(p) === 'RAWAT INAP' ? (p.dpjp ? '<small class="pt-dpjp">DPJP: ' + esc(p.dpjp) + '</small>' : '<small class="pt-dpjp kosong">DPJP belum diisi</small>') : '') : '<small>belum ada rencana</small>'}</strong>
           </div>`;
         const JENIS = [['BLPL', 'Pulang (BLPL)', 'ok'], ['RAWAT INAP', 'Rawat inap', 'info'], ['RUJUK', 'Rujuk', 'warn'],
           ['APS', 'APS', 'warn'], ['MENINGGAL', 'Meninggal', 'bad'], ['DOA', 'DOA', 'bad'], ['', 'Belum ada rencana', 'muted']];

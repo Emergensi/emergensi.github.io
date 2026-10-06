@@ -2069,3 +2069,6 @@ body.has-pantau .hero-copy { display: none; }
 .pt-chip.warn { background: #fef3c7; color: #78350f; }
 .pt-chip.bad { background: #fee2e2; color: #7f1d1d; }
 .pt-chip.muted { background: #f1f5f9; color: #475569; }
+.pt-row strong.pt-rtl { max-width: 150px; }
+.pt-row strong.pt-rtl small.pt-dpjp { color: var(--blue); font-weight: 700; }
+.pt-row strong.pt-rtl small.pt-dpjp.kosong { color: var(--tri-merah); }
