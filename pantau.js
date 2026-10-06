@@ -231,6 +231,7 @@
       <section class="pt-card">
         <h2>Pasien di IGD</h2>
         <p class="pt-sub">Urut dari yang paling lama. Garis merah berarti lebih dari 6 jam.</p>
+        ${list.length ? '' : '<p class="pt-sub">Tidak ada pasien di IGD saat ini.</p>'}
         <div class="pt-list">${list.map((p) => `
           <div class="pt-row ${p.menitDiIgd > CONFIG.LOS_BATAS_MENIT ? 'late' : ''}">
             <i class="pt-t-${p.triase || 'kosong'}"></i>
@@ -241,14 +242,8 @@
         </div>
       </section>
 
-      ${(d.pasienHariIni || []).length ? (() => {
-        const kelompok = [
-          ['Shift malam', '21.00–24.00', (m) => m >= 1260],
-          ['Shift siang', '14.00–21.00', (m) => m >= 840 && m < 1260],
-          ['Shift pagi', '07.00–14.00', (m) => m >= 420 && m < 840],
-          ['Dini hari', '00.00–07.00, lanjutan shift malam kemarin', (m) => m < 420],
-          ['Jam datang belum diisi', '', (m) => m == null]
-        ];
+      ${((d.pasien24 || d.pasienHariIni) || []).length ? (() => {
+        const daftar = d.pasien24 || d.pasienHariIni;
         const keMenit = (j) => { const x = String(j || '').match(/^(\d{1,2})[:.](\d{2})/); return x ? +x[1] * 60 + +x[2] : null; };
         const baris = (p) => `
           <div class="pt-row">
@@ -267,11 +262,26 @@
           if (lain) isi.push(['Lainnya', 'muted', lain]);
           return `<div class="pt-chips">${isi.filter((x) => x[2]).map(([label, kelas, n]) => `<span class="pt-chip ${kelas}"><b>${n}</b> ${label}</span>`).join('')}</div>`;
         };
-        const grup = kelompok.map(([nama, jam, cocok]) => [nama, jam, d.pasienHariIni.filter((p) => cocok(keMenit(p.jamDatang)))]).filter((g) => g[2].length);
+        const hariIniStr = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Jakarta' });
+        const geser = (t, n) => { const x = new Date(t + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
+        const tglPendek = (t) => +t.slice(8) + '/' + +t.slice(5, 7);
+        // kunci shift: tanggal mulai shift + jenis; pasien 00.00–07.00 masuk shift malam hari sebelumnya
+        const kunci = (p) => {
+          const m = keMenit(p.jamDatang), t = p.tanggal || hariIniStr;
+          if (m == null) return [t, 9, 'Jam datang belum diisi', ''];
+          if (m < 420) return [geser(t, -1), 3, 'Shift malam', '21.00–07.00'];
+          if (m < 840) return [t, 1, 'Shift pagi', '07.00–14.00'];
+          if (m < 1260) return [t, 2, 'Shift siang', '14.00–21.00'];
+          return [t, 3, 'Shift malam', '21.00–07.00'];
+        };
+        const peta = {};
+        daftar.forEach((p) => { const k = kunci(p); const id = k[0] + '#' + k[1]; (peta[id] = peta[id] || { k, list: [] }).list.push(p); });
+        const grup = Object.values(peta).sort((a, b) => (b.k[0] + b.k[1]).localeCompare(a.k[0] + a.k[1]))
+          .map(({ k, list }) => [k[2] + ' · ' + (k[1] === 3 ? tglPendek(k[0]) + '–' + tglPendek(geser(k[0], 1)) : tglPendek(k[0])), k[3], list]);
         return `<section class="pt-card">
-        <h2>Pasien hari ini</h2>
-        <p class="pt-sub">${d.pasienHariIni.length} pasien: ${grup.map((g) => g[0].replace('Shift ', '').toLowerCase() + ' ' + g[2].length).join(' · ')}</p>
-        ${chip(d.pasienHariIni)}
+        <h2>${d.pasien24 ? 'Pasien 24 jam terakhir' : 'Pasien hari ini'}</h2>
+        <p class="pt-sub">${daftar.length} pasien, dikelompokkan per shift, terbaru di atas.</p>
+        ${chip(daftar)}
         ${grup.map(([nama, jam, list]) => `
           <h3 class="pt-shift">${nama} <span>${list.length} pasien${jam ? ' · ' + jam : ''}</span></h3>
           ${chip(list)}
