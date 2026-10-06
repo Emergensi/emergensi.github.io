@@ -233,12 +233,25 @@
         <div class="pt-list">${list.map((p) => `
           <div class="pt-row ${p.menitDiIgd > CONFIG.LOS_BATAS_MENIT ? 'late' : ''}">
             <i class="pt-t-${p.triase || 'kosong'}"></i>
-            <div><b>${esc(p.inisial)}</b> <small>RM ${esc(p.rm)}</small>
-              <span>${esc(kalimat(p.kasus))}. Datang ${esc(p.jamDatang)}, response time ${p.rtMenit} menit.${p.rencana ? ' Rencana: ' + esc(rencanaTeks(p.rencana)) + (p.ruang ? ' (' + esc(p.ruang) + ')' : '') + '.' : ' Belum ada rencana.'}</span></div>
+            <div><b>${esc(p.nama || p.inisial)}</b> <small>RM ${esc(p.rm)}</small>
+              <span>${p.diagnosis ? '<em class="pt-dx">' + esc(p.diagnosis) + '</em> ' : ''}${esc(kalimat(p.kasus))}. Datang ${esc(p.jamDatang)}, response time ${p.rtMenit} menit.${p.rencana ? ' Rencana: ' + esc(rencanaTeks(p.rencana)) + (p.ruang ? ' (' + esc(p.ruang) + ')' : '') + '.' : ' Belum ada rencana.'}</span></div>
             <strong>${lama(p.menitDiIgd)}</strong>
           </div>`).join('')}
         </div>
       </section>
+
+      ${(d.pasienHariIni || []).length ? `<section class="pt-card">
+        <h2>Pasien hari ini</h2>
+        <p class="pt-sub">${d.pasienHariIni.length} pasien, terbaru di atas.</p>
+        <div class="pt-list">${d.pasienHariIni.map((p) => `
+          <div class="pt-row">
+            <i class="pt-t-${p.triase || 'kosong'}"></i>
+            <div><b>${esc(p.nama)}</b> <small>RM ${esc(p.rm)}</small>
+              <span>${p.diagnosis ? '<em class="pt-dx">' + esc(p.diagnosis) + '</em> ' : ''}Datang ${esc(p.jamDatang)}${p.jamKeluar ? ', keluar ' + esc(p.jamKeluar) : ', masih di IGD'}.${p.dokter ? ' ' + esc(p.dokter) + '.' : ''}</span></div>
+            <strong class="pt-rtl">${p.rencana ? esc(rencanaTeks(p.rencana)) + (p.ruang ? '<small>' + esc(p.ruang) + '</small>' : '') : '<small>belum ada rencana</small>'}</strong>
+          </div>`).join('')}
+        </div>
+      </section>` : ''}
 
       <section class="pt-card">
         <h2>Indikator mutu hari ini</h2>

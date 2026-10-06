@@ -2047,3 +2047,6 @@ body.has-pantau .hero-copy { display: none; }
 .pt-login { display: grid; gap: 10px; }
 .pt-login input { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; font: inherit; background: #fff; }
 .pt-login .primary-btn { width: 100%; justify-content: center; }
+.pt-dx { display: block; font-style: normal; color: var(--text); font-weight: 600; }
+.pt-row strong.pt-rtl { font-size: .85rem; text-align: right; white-space: normal; max-width: 110px; }
+.pt-row strong.pt-rtl small { display: block; color: var(--muted); font-weight: 600; }
