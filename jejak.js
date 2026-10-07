@@ -4,9 +4,18 @@
   const R = () => window.RegForm;
   const esc = (v) => R().esc(v);
   const root = () => document.getElementById('jejakRoot');
-  const ambil = () => { try { const t = JSON.parse(localStorage.getItem(KEY) || 'null'); return t && t.sampai > Date.now() ? t : null; } catch (e) { return null; } };
+  const ambil = () => {
+    try { const t = JSON.parse(localStorage.getItem(KEY) || 'null'); if (t && t.sampai > Date.now()) return t; } catch (e) {}
+    return R().perangkat();     // perangkat IGD terdaftar: tanpa password
+  };
   const simpan = (t) => { try { localStorage.setItem(KEY, JSON.stringify(t)); } catch (e) {} };
-  const hapus = () => { try { const t = ambil(); if (t) R().post({ aksi: 'logout', token: t.token }).catch(() => {}); localStorage.removeItem(KEY); } catch (e) {} };
+  const hapus = () => {
+    try {
+      const t = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (t) { R().post({ aksi: 'logout', token: t.token }).catch(() => {}); localStorage.removeItem(KEY); }
+      else R().lupakanPerangkat();   // token perangkat ditolak server (sudah dicabut)
+    } catch (e) {}
+  };
   const ms = (t) => (t ? new Date(String(t).replace(' ', 'T') + '+07:00').getTime() : null);
   const jam = (t) => String(t || '').slice(11, 16);
   let data = null, selisihServer = 0, formTerbuka = false;
@@ -117,8 +126,9 @@
       <h2 class="jw-h">Pasien di IGD <span>${aktif.length}</span></h2>
       ${aktif.length ? `<div class="jw-grid">${aktif.map(kartu).join('')}</div>` : '<p class="pt-sub">Belum ada pasien aktif. Ketuk "Pasien datang" saat pasien tiba.</p>'}
       ${selesai.length ? `<h2 class="jw-h">Selesai 12 jam terakhir <span>${selesai.length}</span></h2><div class="pt-list jw-selesai">${selesai.map(ringkas).join('')}</div>` : ''}
-      <p class="pt-sub">Masuk sebagai ${t && t.peran === 'pimpinan' ? 'pimpinan' : 'staf IGD'} · <a href="#" class="jw-keluar">keluar</a></p>`;
+      ${t && t.perangkat ? R().htmlPerangkat('staf') : `<p class="pt-sub">Masuk sebagai ${t && t.peran === 'pimpinan' ? 'pimpinan' : 'staf IGD'} · <a href="#" class="jw-keluar">keluar</a></p>` + R().htmlPerangkat(t && t.peran)}`;
     pasang();
+    R().pasangDaftar(root(), t && t.token, () => muat(true));
   }
 
   function pesan(teks, gagal) {
@@ -150,7 +160,8 @@
   function pasang() {
     const r = root();
     r.querySelector('.jw-refresh').addEventListener('click', () => { formTerbuka = false; muat(true); });
-    r.querySelector('.jw-keluar').addEventListener('click', (e) => { e.preventDefault(); hapus(); login(); });
+    const kl = r.querySelector('.jw-keluar');
+    if (kl) kl.addEventListener('click', (e) => { e.preventDefault(); hapus(); login(); });
     r.querySelector('.jw-datang').addEventListener('click', () => {
       const w = r.querySelector('.jw-form-datang');
       if (!w.hidden) { w.hidden = true; formTerbuka = false; return; }

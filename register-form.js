@@ -128,5 +128,34 @@
     });
   }
 
-  window.RegForm = { API_URL, get, post, opsi, bukaLengkapi, formPasienBaru, esc };
+  // Perangkat IGD yang didaftarkan pimpinan: staf memakai Jejak Waktu & Input Register tanpa password
+  const PERANGKAT = 'perangkat_token_v1';
+  function perangkat() { try { return JSON.parse(localStorage.getItem(PERANGKAT) || 'null'); } catch (e) { return null; } }
+  async function daftarPerangkat(tokenPimpinan, nama) {
+    const r = await post({ aksi: 'daftarPerangkat', token: tokenPimpinan, nama });
+    if (r.error) throw new Error(r.error);
+    localStorage.setItem(PERANGKAT, JSON.stringify({ token: r.token, peran: 'staf', sampai: 9e15, perangkat: r.perangkat }));
+    return r;
+  }
+  function lupakanPerangkat() { try { localStorage.removeItem(PERANGKAT); } catch (e) {} }
+  function htmlPerangkat(peran) {
+    const p = perangkat();
+    if (p) return `<p class="pt-sub">📱 Perangkat terdaftar untuk IGD (${esc(p.perangkat || '')}): staf dapat memakai halaman ini tanpa password.</p>`;
+    if (peran === 'pimpinan') return `<p class="pt-sub"><button type="button" class="rf-tombol rf-daftar">📱 Daftarkan perangkat ini untuk staf IGD</button>
+      <br><small>Untuk komputer atau HP di IGD: staf bisa memakai Jejak Waktu dan Input Register tanpa password, juga setelah Anda keluar.</small></p>`;
+    return '';
+  }
+  function pasangDaftar(root, tokenPimpinan, selesai) {
+    const b = root.querySelector('.rf-daftar');
+    if (!b) return;
+    b.addEventListener('click', async () => {
+      const nama = prompt('Nama perangkat ini (misalnya: Komputer meja perawat):', 'Komputer IGD');
+      if (!nama) return;
+      b.disabled = true;
+      try { await daftarPerangkat(tokenPimpinan, nama); alert('Perangkat terdaftar. Staf kini bisa memakai halaman ini tanpa password.'); if (selesai) selesai(); }
+      catch (e) { alert('Gagal: ' + e.message); b.disabled = false; }
+    });
+  }
+
+  window.RegForm = { API_URL, get, post, opsi, bukaLengkapi, formPasienBaru, esc, perangkat, lupakanPerangkat, htmlPerangkat, pasangDaftar };
 })();

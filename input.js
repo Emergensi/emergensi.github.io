@@ -2,9 +2,18 @@
 (function () {
   const KEY = 'input_token_v1';
   const esc = (v) => window.RegForm.esc(v);
-  const ambil = () => { try { const t = JSON.parse(localStorage.getItem(KEY) || 'null'); return t && t.sampai > Date.now() ? t : null; } catch (e) { return null; } };
+  const ambil = () => {
+    try { const t = JSON.parse(localStorage.getItem(KEY) || 'null'); if (t && t.sampai > Date.now()) return t; } catch (e) {}
+    return window.RegForm.perangkat();     // perangkat IGD terdaftar: tanpa password
+  };
   const simpan = (t) => { try { localStorage.setItem(KEY, JSON.stringify(t)); } catch (e) {} };
-  const hapus = () => { try { const t = ambil(); if (t) window.RegForm.post({ aksi: 'logout', token: t.token }).catch(() => {}); localStorage.removeItem(KEY); } catch (e) {} };
+  const hapus = () => {
+    try {
+      const t = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (t) { window.RegForm.post({ aksi: 'logout', token: t.token }).catch(() => {}); localStorage.removeItem(KEY); }
+      else window.RegForm.lupakanPerangkat();   // token perangkat ditolak server (sudah dicabut)
+    } catch (e) {}
+  };
   const root = () => document.getElementById('inputRoot');
 
   function login() {
@@ -33,9 +42,11 @@
         <button role="tab" data-tab="baru" aria-selected="${tab === 'baru'}">Pasien baru</button>
         <button role="tab" data-tab="lengkapi" aria-selected="${tab === 'lengkapi'}">Lengkapi data</button></div>
       <div class="pt-card" id="rfIsi"></div>
-      <p class="pt-sub">Masuk sebagai ${t.peran === 'pimpinan' ? 'pimpinan' : 'staf IGD'} · <a href="#" id="rfKeluar">keluar</a></p>`;
+      ${t.perangkat ? window.RegForm.htmlPerangkat('staf') : `<p class="pt-sub">Masuk sebagai ${t.peran === 'pimpinan' ? 'pimpinan' : 'staf IGD'} · <a href="#" id="rfKeluar">keluar</a></p>` + window.RegForm.htmlPerangkat(t.peran)}`;
+    window.RegForm.pasangDaftar(root(), t.token, () => tampil(tab));
     root().querySelectorAll('[data-tab]').forEach((b) => b.addEventListener('click', () => tampil(b.dataset.tab)));
-    root().querySelector('#rfKeluar').addEventListener('click', (e) => { e.preventDefault(); hapus(); login(); });
+    const kl = root().querySelector('#rfKeluar');
+    if (kl) kl.addEventListener('click', (e) => { e.preventDefault(); hapus(); login(); });
     const isi = root().querySelector('#rfIsi');
     if (tab === 'baru') {
       isi.innerHTML = '<h2>Pasien baru</h2><div id="rfBaru"></div>';
