@@ -2099,3 +2099,52 @@ body.has-pantau .hero-copy { display: none; }
 .rf-tabs button[aria-selected="true"] { background: #fff; color: var(--text); }
 .rf-item .pt-row, .rf-item { grid-template-columns: 6px 1fr; }
 .rf-item strong { display: none; }
+
+/* Jejak Waktu */
+.jw-top { display: flex; gap: 8px; margin-bottom: 12px; }
+.jw-datang { flex: 1; justify-content: center; font-size: 1.1rem; padding: 16px; }
+.jw-refresh { width: 56px; border: 1px solid var(--line); border-radius: 18px; background: #fff; font-size: 1.3rem; cursor: pointer; }
+.jw-fd { display: grid; gap: 12px; margin-bottom: 14px; }
+.jw-fd label { display: grid; gap: 4px; font-weight: 700; font-size: .9rem; }
+.jw-fd input[type=text], .jw-fd input:not([type]), .jw-fd details input, .jw-id input { border: 1px solid var(--line); border-radius: 12px; padding: 12px; font: inherit; width: 100%; margin-top: 6px; }
+.jw-triase { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.jw-tr { position: relative; }
+.jw-tr input { position: absolute; opacity: 0; }
+.jw-tr span { display: block; text-align: center; padding: 12px 4px; border-radius: 12px; color: #fff; font-weight: 800; opacity: .45; border: 3px solid transparent; }
+.jw-tr input:checked + span { opacity: 1; border-color: var(--text); }
+.jw-tr input:focus-visible + span { outline: 3px solid var(--blue); }
+.jw-tr.jw-merah span { background: var(--tri-merah); } .jw-tr.jw-kuning span { background: var(--tri-kuning); }
+.jw-tr.jw-hijau span { background: var(--tri-hijau); } .jw-tr.jw-hitam span { background: var(--tri-hitam); }
+.jw-h { display: flex; align-items: center; gap: 8px; font-size: 1.2rem !important; margin: 18px 0 10px; }
+.jw-h span { background: var(--text); color: #fff; border-radius: 999px; padding: 2px 10px; font-size: .85rem; }
+.jw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.jw-card { background: var(--paper-solid); border: 1px solid var(--line); border-left: 8px solid var(--tri-kosong); border-radius: 18px; padding: 14px; }
+.jw-card.jw-merah { border-left-color: var(--tri-merah); } .jw-card.jw-kuning { border-left-color: var(--tri-kuning); }
+.jw-card.jw-hijau { border-left-color: var(--tri-hijau); } .jw-card.jw-hitam { border-left-color: var(--tri-hitam); }
+.jw-head { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
+.jw-head b { font-size: 1.1rem; display: block; }
+.jw-head small { color: var(--muted); }
+.jw-badge { font-size: .75rem; font-weight: 800; padding: 3px 8px; border-radius: 999px; background: #f1f5f9; }
+.jw-sub { margin: 6px 0 10px; color: var(--muted); font-size: .9rem; }
+.jw-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.jw-step { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 12px; background: #f8fafc; font-size: .92rem; flex-wrap: wrap; }
+.jw-step.done { background: #f0fdf4; }
+.jw-step.next { background: #fff7ed; outline: 2px solid #fb923c; }
+.jw-step.opsi { opacity: .85; }
+.jw-step small { color: var(--muted); font-weight: 400; }
+.jw-t { display: flex; align-items: baseline; gap: 6px; font-weight: 800; }
+.jw-t small { font-size: .78rem; }
+.jw-ketuk { border: 0; background: var(--red); color: #fff; border-radius: 10px; padding: 8px 16px; font: inherit; font-weight: 800; cursor: pointer; }
+.jw-step:not(.next) .jw-ketuk { background: #64748b; }
+.jw-jenis { display: flex; flex-wrap: wrap; gap: 4px; }
+.jw-jenis button { border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 6px 10px; font: inherit; font-size: .82rem; font-weight: 700; cursor: pointer; }
+.jw-batal { border: 0; background: none; color: var(--muted); font: inherit; font-size: .75rem; text-decoration: underline; cursor: pointer; padding: 0 2px; }
+.jw-reg { margin: 10px 0 0; font-size: .8rem; color: var(--tri-hijau); font-weight: 700; }
+.jw-id { margin-top: 10px; font-size: .85rem; }
+.jw-id summary { cursor: pointer; color: #92400e; font-weight: 700; }
+.jw-id form { display: grid; gap: 6px; margin-top: 6px; }
+.jw-selesai .pt-row { grid-template-columns: 6px 1fr; }
+.jw-selesai .pt-row strong { display: none; }
+.jw-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); background: #14532d; color: #fff; padding: 12px 18px; border-radius: 14px; opacity: 0; transition: .25s; z-index: 50; font-weight: 700; pointer-events: none; }
+.jw-toast.gagal { background: #7f1d1d; }
+.jw-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
