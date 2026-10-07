@@ -107,7 +107,11 @@
       form.addEventListener('submit', async function (event) {
         event.preventDefault();
         error.textContent = '';
-        if (await auth.login(username.value, password.value)) {
+        const tombol = form.querySelector('button[type=submit]');
+        tombol.disabled = true; tombol.textContent = 'Memeriksa…';
+        const berhasil = await auth.login(username.value, password.value);
+        tombol.disabled = false; tombol.textContent = 'Masuk sebagai Pimpinan';
+        if (berhasil) {
           auth.goNext();
         } else {
           error.textContent = 'Username atau password salah.';

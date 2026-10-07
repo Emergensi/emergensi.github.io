@@ -6,6 +6,9 @@
   const USERNAME = 'IGD';
   // SHA-256 dari password Akses Pimpinan. Ganti nilai ini untuk mengganti password.
   const PASSWORD_SHA256 = '8d23cf6c86e834a7aa6eded54c26ce2bb2e74903538c61bdd5d2197997ab2f72';
+  // Apps Script Pantau IGD: login pimpinan sekaligus membuka data server (password harus sama)
+  const API_URL = 'https://script.google.com/macros/s/AKfycbzdXDcOLMnBj5kuhINSpVRKpQ1RWwdOhXuPfEOxd11b7s9yRWVjU3f8T744OyaQgxtJUw/exec';
+  const TOKEN_KEYS = ['pantau_token_v1', 'input_token_v1'];
   const MAX_AGE = { pimpinan: 12 * 60 * 60 * 1000, staf: 30 * 24 * 60 * 60 * 1000 };
 
   const scriptUrl = new URL(document.currentScript ? document.currentScript.src : 'auth.js', window.location.href);
@@ -51,10 +54,31 @@
 
   function enterStaf() { save('staf'); return true; }
 
+  async function loginServer(password) {
+    try {
+      const ctrl = new AbortController();
+      const batas = setTimeout(() => ctrl.abort(), 10000);
+      const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ aksi: 'login', password }), signal: ctrl.signal });
+      clearTimeout(batas);
+      const r = await res.json();
+      if (!r.token) return false;
+      const sampai = Date.now() + (r.berlakuJam || 12) * 3600e3;
+      localStorage.setItem('pantau_token_v1', JSON.stringify({ token: r.token, sampai }));
+      localStorage.setItem('input_token_v1', JSON.stringify({ token: r.token, peran: r.peran || 'pimpinan', sampai }));
+      return true;
+    } catch (e) {
+      return false; // server tidak terjangkau: halaman data akan meminta password sendiri
+    }
+  }
+
   function login(username, password) {
-    return sha256(password).then((hash) => {
+    return sha256(password).then(async (hash) => {
       const ok = String(username || '').trim().toUpperCase() === USERNAME && hash === PASSWORD_SHA256;
-      if (ok) save('pimpinan');
+      if (ok) {
+        save('pimpinan');
+        await loginServer(password);
+      }
       return ok;
     });
   }
@@ -75,7 +99,7 @@
   }
 
   function logout() {
-    try { localStorage.removeItem(SESSION_KEY); } catch (e) {}
+    try { localStorage.removeItem(SESSION_KEY); TOKEN_KEYS.forEach((k) => localStorage.removeItem(k)); } catch (e) {}
     window.location.href = appUrl('login.html');
   }
 
