@@ -179,7 +179,8 @@
     };
     const pantauChip = ROLE === 'pimpinan'
       ? `<a class="nav-chip nav-pantau ${groupId === 'pantau' ? 'active' : ''}" href="${internalUrl('pantau/')}">Pantau IGD</a>` : '';
-    nav.innerHTML = pantauChip + GROUPS.map((group) => {
+    const inputChip = ROLE ? `<a class="nav-chip nav-input ${groupId === 'input' ? 'active' : ''}" href="${internalUrl('input/')}">Input Register</a>` : '';
+    nav.innerHTML = pantauChip + inputChip + GROUPS.map((group) => {
       const active = group.id === groupId ? 'active' : '';
       const label = labels[group.id] || group.title;
       return `<a class="nav-chip ${active}" href="${groupUrl(group)}">${label}</a>`;

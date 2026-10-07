@@ -10,12 +10,12 @@
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
   <link rel="manifest" href="../assets/site.webmanifest" />
-  <title>Pantau IGD — Emergency Unit SGH</title>
+  <title>Input Register IGD — Emergency Unit SGH</title>
   <link rel="stylesheet" href="../style.css" />
   <script src="../auth.js"></script>
-  <script>window.IGDAuth.requirePimpinan();</script>
+  <script>window.IGDAuth.requireAuth();</script>
 </head>
-<body data-page="pantau" data-group="pantau" data-root="../">
+<body data-page="input" data-group="input" data-root="../">
   <div class="page-shell">
     <header class="page-hero">
       
@@ -36,25 +36,25 @@
       <section class="page-hero-card">
         <a class="breadcrumb" href="../index.html">← Kembali ke beranda</a>
         <div class="page-title-row">
-          <span class="page-big-icon" id="pageIcon">📈</span>
+          <span class="page-big-icon" id="pageIcon">✍️</span>
           <div>
-            <span class="eyebrow"><span></span> KHUSUS PIMPINAN</span>
-            <h1 id="pageTitle">Pantau IGD</h1>
+            <span class="eyebrow"><span></span> REGISTER IGD</span>
+            <h1 id="pageTitle">Input Register</h1>
           </div>
         </div>
-        <p id="pageSubtitle">Kondisi IGD terkini, indikator mutu, disposisi, dan tren kunjungan dari register IGD.</p>
-        <div class="page-hero-meta"><span>Diperbarui otomatis tiap 5 menit</span></div>
+        <p id="pageSubtitle">Catat pasien baru dan lengkapi data register IGD langsung dari HP. Tersimpan ke spreadsheet register.</p>
+        <div class="page-hero-meta"><span>Hanya mengisi kolom kosong, tidak menimpa data</span></div>
       </section>
     </header>
 
     <main>
-      <section class="section pt-page" id="pantauRoot"><p class="pt-sub">Memuat data…</p></section>
+      <section class="section pt-page" id="inputRoot"><p class="pt-sub">Memuat…</p></section>
     </main>
   </div>
 
   <script src="../data.js"></script>
   <script src="../app.js"></script>
   <script src="../register-form.js"></script>
-  <script src="../pantau.js"></script>
+  <script src="../input.js"></script>
 </body>
 </html>

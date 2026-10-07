@@ -2072,3 +2072,30 @@ body.has-pantau .hero-copy { display: none; }
 .pt-row strong.pt-rtl { max-width: 150px; }
 .pt-row strong.pt-rtl small.pt-dpjp { color: var(--blue); font-weight: 700; }
 .pt-row strong.pt-rtl small.pt-dpjp.kosong { color: var(--tri-merah); }
+
+/* Form register (lengkapi & pasien baru) */
+.rf-tombol { margin-top: 8px; border: 1px solid var(--red); color: var(--red-dark); background: #fff; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: .85rem; font-weight: 700; cursor: pointer; }
+.rf-wadah:empty { display: none; }
+.rf-wadah { margin-top: 10px; }
+.rf-form { display: grid; gap: 10px; }
+.rf-form fieldset { border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; display: grid; gap: 10px; margin: 0; }
+.rf-form legend { font-weight: 800; padding: 0 6px; }
+.rf-f { display: grid; gap: 4px; }
+.rf-f label { font-size: .85rem; font-weight: 700; color: var(--text); }
+.rf-f input[type=text], .rf-f input[type=time], .rf-f select, .rf-f textarea { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font: inherit; background: #fff; width: 100%; }
+.rf-jam { display: flex; gap: 8px; }
+.rf-jam input { flex: 1; }
+.rf-now { border: 1px solid var(--line); background: #f8fafc; border-radius: 12px; padding: 0 12px; font: inherit; font-size: .85rem; cursor: pointer; }
+.rf-cek label { display: flex; gap: 8px; align-items: center; }
+.rf-aksi { display: flex; gap: 8px; align-items: center; }
+.rf-aksi .primary-btn { flex: 1; justify-content: center; }
+.rf-batal { border: 0; background: none; font: inherit; color: var(--muted); cursor: pointer; text-decoration: underline; }
+.rf-baru .primary-btn { width: 100%; justify-content: center; }
+.rf-err { color: var(--tri-merah); font-weight: 700; margin: 0; }
+.rf-ok { color: var(--tri-hijau); font-weight: 700; margin: 0; }
+.rf-info { color: var(--muted); font-size: .85rem; margin: 0; }
+.rf-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--line); padding: 4px; border-radius: 16px; margin-bottom: 12px; }
+.rf-tabs button { border: 0; border-radius: 12px; padding: 10px; font: inherit; font-weight: 700; background: transparent; color: var(--muted); cursor: pointer; }
+.rf-tabs button[aria-selected="true"] { background: #fff; color: var(--text); }
+.rf-item .pt-row, .rf-item { grid-template-columns: 6px 1fr; }
+.rf-item strong { display: none; }

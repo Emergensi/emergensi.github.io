@@ -301,7 +301,8 @@
         ${a.temuan.length ? `<div class="pt-list pt-audit">${a.temuan.map((t) => `
           <div class="pt-row"><i class="pt-t-kosong"></i>
             <div><b>Baris ${t.baris}</b> <small>${+t.tanggal.slice(8)}/${+t.tanggal.slice(5, 7)} · ${esc(t.nama)} · RM ${esc(t.rm)}${t.dokter ? ' · ' + esc(t.dokter) : ''}</small>
-              <span>${t.masalah.map(esc).join(', ')}</span></div><strong></strong>
+              <span>${t.masalah.map(esc).join(', ')}</span>
+              ${t.kosong && t.kosong.length && window.RegForm && CONFIG.API_URL ? `<button type="button" class="rf-tombol" data-lengkapi="${t.baris}">Lengkapi</button><div class="rf-wadah" data-wadah="${t.baris}"></div>` : ''}</div><strong></strong>
           </div>`).join('')}</div>${a.jumlahTemuan > a.temuan.length ? `<p class="pt-sub">Ditampilkan ${a.temuan.length} dari ${a.jumlahTemuan} baris.</p>` : ''}` : '<p class="pt-sub">Semua baris lengkap.</p>'}
       </section>`; })() : ''}
 
@@ -335,12 +336,26 @@
       </section>`;
   }
 
+  function pasangLengkapi(page, d) {
+    if (!window.RegForm || !d.audit) return;
+    page.querySelectorAll('[data-lengkapi]').forEach((b) => b.addEventListener('click', () => {
+      const baris = +b.dataset.lengkapi;
+      const item = d.audit.temuan.find((t) => t.baris === baris);
+      const wadah = page.querySelector('[data-wadah="' + baris + '"]');
+      sedangIsi = true;
+      window.RegForm.bukaLengkapi(wadah, item, ambilToken(), () => { setTimeout(() => { sedangIsi = false; muat(); }, 2500); });
+    }));
+  }
+
+  let sedangIsi = false;
+
   async function muat() {
     const panel = document.getElementById('pantauPanel');
     const page = document.getElementById('pantauRoot');
     if (!panel && !page) return;
     if (!(window.IGDAuth && window.IGDAuth.isPimpinan())) return;
     if (CONFIG.API_URL && !ambilToken() && document.querySelector('.pt-login')) return; // jangan hapus form login yang sedang diisi
+    if (sedangIsi && document.querySelector('.rf-form')) return;                                // jangan hapus form lengkapi yang sedang diisi
     if (panel) {
       panel.hidden = false;
       document.body.classList.add('has-pantau');
@@ -348,7 +363,7 @@
     try {
       const d = await ambilData();
       if (panel) renderPanel(panel, d);
-      if (page) renderPage(page, d);
+      if (page) { renderPage(page, d); pasangLengkapi(page, d); }
     } catch (e) {
       if (e instanceof PerluLogin) {
         if (panel) renderLogin(panel);
