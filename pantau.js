@@ -74,7 +74,7 @@
     };
   }
 
-  // Token login Pantau IGD disimpan di perangkat ini sampai kedaluwarsa (12 jam).
+  // Token login Pantau IGD disimpan di perangkat ini sampai pengguna menekan Keluar.
   const TOKEN_KEY = 'pantau_token_v1';
   function ambilToken() {
     try {
@@ -84,7 +84,7 @@
     return '';
   }
   function simpanToken(token, jam) {
-    try { localStorage.setItem(TOKEN_KEY, JSON.stringify({ token, sampai: Date.now() + (jam || 12) * 3600e3 })); } catch (e) {}
+    try { localStorage.setItem(TOKEN_KEY, JSON.stringify({ token, sampai: jam ? Date.now() + jam * 3600e3 : 9e15 })); } catch (e) {}
   }
   function hapusToken() { try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
 
@@ -113,7 +113,7 @@
   function renderLogin(el) {
     el.innerHTML = `
       <div class="pt-panel-head"><span class="eyebrow"><span></span> PANTAU IGD</span></div>
-      <p class="pt-sub">Masukkan password Pantau IGD untuk membuka data register. Login berlaku 12 jam di perangkat ini.</p>
+      <p class="pt-sub">Masukkan password Pantau IGD untuk membuka data register. Tetap masuk sampai Anda menekan Keluar.</p>
       <form class="pt-login">
         <input type="password" autocomplete="current-password" placeholder="Password Pantau IGD" required>
         <button class="primary-btn" type="submit">Buka data</button>

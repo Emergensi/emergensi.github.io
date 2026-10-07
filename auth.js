@@ -9,7 +9,7 @@
   // Apps Script Pantau IGD: login pimpinan sekaligus membuka data server (password harus sama)
   const API_URL = 'https://script.google.com/macros/s/AKfycbzdXDcOLMnBj5kuhINSpVRKpQ1RWwdOhXuPfEOxd11b7s9yRWVjU3f8T744OyaQgxtJUw/exec';
   const TOKEN_KEYS = ['pantau_token_v1', 'input_token_v1'];
-  const MAX_AGE = { pimpinan: 12 * 60 * 60 * 1000, staf: 30 * 24 * 60 * 60 * 1000 };
+  const MAX_AGE = { pimpinan: true, staf: true }; // peran yang dikenal; sesi tidak punya batas waktu
 
   const scriptUrl = new URL(document.currentScript ? document.currentScript.src : 'auth.js', window.location.href);
   const rootUrl = new URL('./', scriptUrl);
@@ -33,7 +33,7 @@
       const raw = localStorage.getItem(SESSION_KEY);
       if (!raw) return null;
       const s = JSON.parse(raw);
-      if (!s || !MAX_AGE[s.role] || Date.now() - Number(s.loggedInAt) > MAX_AGE[s.role]) {
+      if (!s || !MAX_AGE[s.role]) {   // tidak ada batas waktu: sesi berakhir hanya saat Keluar
         localStorage.removeItem(SESSION_KEY);
         return null;
       }
@@ -63,7 +63,7 @@
       clearTimeout(batas);
       const r = await res.json();
       if (!r.token) return false;
-      const sampai = Date.now() + (r.berlakuJam || 12) * 3600e3;
+      const sampai = r.berlakuJam ? Date.now() + r.berlakuJam * 3600e3 : 9e15;
       localStorage.setItem('pantau_token_v1', JSON.stringify({ token: r.token, sampai }));
       localStorage.setItem('input_token_v1', JSON.stringify({ token: r.token, peran: r.peran || 'pimpinan', sampai }));
       return true;
@@ -99,6 +99,14 @@
   }
 
   function logout() {
+    // cabut token di server juga, lalu hapus semua sesi di perangkat ini
+    try {
+      TOKEN_KEYS.forEach((k) => {
+        const t = JSON.parse(localStorage.getItem(k) || 'null');
+        if (t && t.token) fetch(API_URL, { method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ aksi: 'logout', token: t.token }) }).catch(() => {});
+      });
+    } catch (e) {}
     try { localStorage.removeItem(SESSION_KEY); TOKEN_KEYS.forEach((k) => localStorage.removeItem(k)); } catch (e) {}
     window.location.href = appUrl('login.html');
   }

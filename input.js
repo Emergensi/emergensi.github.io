@@ -4,12 +4,12 @@
   const esc = (v) => window.RegForm.esc(v);
   const ambil = () => { try { const t = JSON.parse(localStorage.getItem(KEY) || 'null'); return t && t.sampai > Date.now() ? t : null; } catch (e) { return null; } };
   const simpan = (t) => { try { localStorage.setItem(KEY, JSON.stringify(t)); } catch (e) {} };
-  const hapus = () => { try { localStorage.removeItem(KEY); } catch (e) {} };
+  const hapus = () => { try { const t = ambil(); if (t) window.RegForm.post({ aksi: 'logout', token: t.token }).catch(() => {}); localStorage.removeItem(KEY); } catch (e) {} };
   const root = () => document.getElementById('inputRoot');
 
   function login() {
     root().innerHTML = `<div class="pt-card"><h2>Masuk</h2>
-      <p class="pt-sub">Gunakan password staf IGD. Pimpinan dapat memakai password Pantau IGD. Login berlaku 12 jam di perangkat ini.</p>
+      <p class="pt-sub">Gunakan password staf IGD. Pimpinan dapat memakai password Pantau IGD. Tetap masuk sampai menekan keluar.</p>
       <form class="pt-login"><input type="password" autocomplete="current-password" placeholder="Password" required>
       <button class="primary-btn" type="submit">Masuk</button><p class="pt-error" role="alert"></p></form></div>`;
     const f = root().querySelector('form');
@@ -20,7 +20,7 @@
       try {
         const r = await window.RegForm.post({ aksi: 'login', password: f.querySelector('input').value });
         if (r.error) throw new Error(r.error === 'password salah' ? 'Password salah.' : r.error);
-        simpan({ token: r.token, peran: r.peran, sampai: Date.now() + (r.berlakuJam || 12) * 3600e3 });
+        simpan({ token: r.token, peran: r.peran, sampai: r.berlakuJam ? Date.now() + r.berlakuJam * 3600e3 : 9e15 });
         tampil('baru');
       } catch (e) { err.textContent = e.message; btn.disabled = false; }
     });
