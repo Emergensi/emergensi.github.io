@@ -186,6 +186,10 @@
       const label = labels[group.id] || group.title;
       return `<a class="nav-chip ${active}" href="${groupUrl(group)}">${label}</a>`;
     }).join('');
+    // Tanda memudar di kanan hanya bila menu memang tidak muat
+    const cekLuap = () => nav.classList.toggle('meluap', nav.scrollWidth > nav.clientWidth + 2);
+    cekLuap();
+    window.addEventListener('resize', cekLuap);
     // Di HP, geser menu supaya kategori yang sedang dibuka terlihat.
     const current = nav.querySelector('.nav-chip.active');
     if (current) {

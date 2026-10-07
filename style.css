@@ -2148,3 +2148,44 @@ body.has-pantau .hero-copy { display: none; }
 .jw-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); background: #14532d; color: #fff; padding: 12px 18px; border-radius: 14px; opacity: 0; transition: .25s; z-index: 50; font-weight: 700; pointer-events: none; }
 .jw-toast.gagal { background: #7f1d1d; }
 .jw-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Layar lebar: bagian atas dalam satu baris (logo | Beranda + menu geser | Keluar) */
+@media (min-width: 641px) {
+  .topbar {
+    display: grid !important;
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px 14px !important;
+    flex-wrap: nowrap !important;
+  }
+  .topbar .brand { grid-column: 1; min-width: max-content; }
+  .topbar .top-actions { display: contents !important; }
+  .topbar .top-actions .home-first { grid-column: 2; grid-row: 1; width: auto !important; }
+  .topbar .top-actions .nav-links {
+    grid-column: 3; grid-row: 1;
+    display: flex !important; flex-wrap: nowrap !important; justify-content: flex-start !important;
+    overflow-x: auto; gap: 8px; padding: 2px 0; margin: 0; width: auto; min-width: 0;
+    scrollbar-width: none;
+    mask-image: none; -webkit-mask-image: none;
+  }
+  .topbar .top-actions .nav-links.meluap {
+    mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent);
+  }
+  .topbar .top-actions .nav-links::-webkit-scrollbar { display: none; }
+  .topbar .top-actions #logoutBtn { grid-column: 4; grid-row: 1; width: auto !important; }
+  .topbar .nav-chip, .topbar .top-actions .home-first, .topbar .top-actions #logoutBtn {
+    flex: 0 0 auto; white-space: nowrap; min-height: 38px;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding-top: 0 !important; padding-bottom: 0 !important; line-height: 1;
+  }
+}
+@media (min-width: 641px) {
+  .topbar .nav-chip, .topbar .top-actions .home-first, .topbar .top-actions #logoutBtn { padding-left: 12px !important; padding-right: 12px !important; font-size: .82rem; min-height: 34px; }
+  .topbar .top-actions .nav-links { gap: 6px; }
+  .topbar { gap: 10px 10px !important; }
+}
+@media (min-width: 1200px) {
+  /* bagian atas boleh lebih lebar dari isi halaman agar semua menu muat dalam satu baris */
+  .topbar { width: min(calc(100vw - 64px), 1640px); margin-left: 50%; transform: translateX(-50%); }
+}
