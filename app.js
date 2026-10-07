@@ -190,7 +190,15 @@
       return `<a class="nav-chip ${active}" href="${groupUrl(group)}">${label}</a>`;
     }).join('');
     // Tanda memudar di kanan hanya bila menu memang tidak muat
-    const cekLuap = () => nav.classList.toggle('meluap', nav.scrollWidth > nav.clientWidth + 2);
+    // Bila menu tidak muat, tombol dirapatkan bertahap; baru setelah itu bisa digeser
+    const bar = nav.closest('.topbar');
+    const cekLuap = () => {
+      if (bar) bar.classList.remove('rapat', 'rapat2');
+      const luap = () => nav.scrollWidth > nav.clientWidth + 2;
+      if (bar && window.innerWidth > 640 && luap()) bar.classList.add('rapat');
+      if (bar && window.innerWidth > 640 && luap()) bar.classList.add('rapat2');
+      nav.classList.toggle('meluap', luap());
+    };
     cekLuap();
     window.addEventListener('resize', cekLuap);
     // Di HP, geser menu supaya kategori yang sedang dibuka terlihat.
