@@ -80,7 +80,7 @@
       btn.disabled = true; btn.textContent = 'Menyimpan…'; err.textContent = '';
       try {
         const r = await post({ aksi: 'lengkapi', token, baris: item.baris, isian });
-        if (r.error) throw new Error(r.error === 'token' ? 'Sesi login habis, silakan masuk lagi.' : r.error);
+        if (r.error) throw new Error(r.error === 'token' ? 'Muat ulang halaman lalu coba lagi.' : r.error);
         wadah.innerHTML = `<p class="rf-ok">Tersimpan di baris ${r.baris}: ${esc(r.terisi.join(', ') || '-')}${r.dilewati.length ? '. Sudah terisi sebelumnya (tidak ditimpa): ' + esc(r.dilewati.join(', ')) : ''}.</p>`;
         if (selesai) selesai(r);
       } catch (e) {
@@ -115,7 +115,7 @@
       btn.disabled = true; btn.textContent = 'Menyimpan…'; err.textContent = '';
       try {
         const r = await post({ aksi: 'pasienBaru', token, data });
-        if (r.error) throw new Error(r.error === 'token' ? 'Sesi login habis, silakan masuk lagi.' : r.error);
+        if (r.error) throw new Error(r.error === 'token' ? 'Muat ulang halaman lalu coba lagi.' : r.error);
         form.reset();
         form.querySelector('[name=jamDatang]').value = jamSekarang();
         err.innerHTML = `<span class="rf-ok">Tersimpan di register baris ${r.baris} (No. ${r.no}).</span>`;

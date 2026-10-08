@@ -4,49 +4,21 @@
   const esc = (v) => window.RegForm.esc(v);
   const ambil = () => {
     try { const t = JSON.parse(localStorage.getItem(KEY) || 'null'); if (t && t.sampai > Date.now()) return t; } catch (e) {}
-    return window.RegForm.perangkat();     // perangkat IGD terdaftar: tanpa password
+    return { token: '', peran: 'publik' };   // tanpa password: identitas pasien tampil sebagai inisial
   };
-  const simpan = (t) => { try { localStorage.setItem(KEY, JSON.stringify(t)); } catch (e) {} };
-  const hapus = () => {
-    try {
-      const t = JSON.parse(localStorage.getItem(KEY) || 'null');
-      if (t) { window.RegForm.post({ aksi: 'logout', token: t.token }).catch(() => {}); localStorage.removeItem(KEY); }
-      else window.RegForm.lupakanPerangkat();   // token perangkat ditolak server (sudah dicabut)
-    } catch (e) {}
-  };
+  const hapus = () => { try { localStorage.removeItem(KEY); } catch (e) {} };
   const root = () => document.getElementById('inputRoot');
 
-  function login() {
-    root().innerHTML = `<div class="pt-card"><h2>Masuk</h2>
-      <p class="pt-sub">Gunakan password staf IGD. Pimpinan dapat memakai password Pantau IGD. Tetap masuk sampai menekan keluar.</p>
-      <form class="pt-login"><input type="password" autocomplete="current-password" placeholder="Password" required>
-      <button class="primary-btn" type="submit">Masuk</button><p class="pt-error" role="alert"></p></form></div>`;
-    const f = root().querySelector('form');
-    f.addEventListener('submit', async (ev) => {
-      ev.preventDefault();
-      const err = f.querySelector('.pt-error'); const btn = f.querySelector('button');
-      btn.disabled = true; err.textContent = '';
-      try {
-        const r = await window.RegForm.post({ aksi: 'login', password: f.querySelector('input').value });
-        if (r.error) throw new Error(r.error === 'password salah' ? 'Password salah.' : r.error);
-        simpan({ token: r.token, peran: r.peran, sampai: r.berlakuJam ? Date.now() + r.berlakuJam * 3600e3 : 9e15 });
-        tampil('baru');
-      } catch (e) { err.textContent = e.message; btn.disabled = false; }
-    });
-  }
+  function login() { hapus(); tampil('baru'); }   // tidak ada password: kembali ke mode tanpa login
 
   function tampil(tab) {
     const t = ambil();
-    if (!t) return login();
-    root().innerHTML = `<div class="rf-tabs" role="tablist">
+        root().innerHTML = `<div class="rf-tabs" role="tablist">
         <button role="tab" data-tab="baru" aria-selected="${tab === 'baru'}">Pasien baru</button>
         <button role="tab" data-tab="lengkapi" aria-selected="${tab === 'lengkapi'}">Lengkapi data</button></div>
       <div class="pt-card" id="rfIsi"></div>
-      ${t.perangkat ? window.RegForm.htmlPerangkat('staf') : `<p class="pt-sub">Masuk sebagai ${t.peran === 'pimpinan' ? 'pimpinan' : 'staf IGD'} · <a href="#" id="rfKeluar">keluar</a></p>` + window.RegForm.htmlPerangkat(t.peran)}`;
-    window.RegForm.pasangDaftar(root(), t.token, () => tampil(tab));
+      ${t.peran === 'pimpinan' ? '<p class="pt-sub">Akses pimpinan: nama dan No. RM tampil lengkap.</p>' : ''}`;
     root().querySelectorAll('[data-tab]').forEach((b) => b.addEventListener('click', () => tampil(b.dataset.tab)));
-    const kl = root().querySelector('#rfKeluar');
-    if (kl) kl.addEventListener('click', (e) => { e.preventDefault(); hapus(); login(); });
     const isi = root().querySelector('#rfIsi');
     if (tab === 'baru') {
       isi.innerHTML = '<h2>Pasien baru</h2><div id="rfBaru"></div>';

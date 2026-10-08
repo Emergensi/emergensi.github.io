@@ -111,23 +111,12 @@
   }
 
   function renderLogin(el) {
+    // Tidak ada kolom password kedua: password hanya di Akses Pimpinan
     el.innerHTML = `
       <div class="pt-panel-head"><span class="eyebrow"><span></span> PANTAU IGD</span></div>
-      <p class="pt-sub">Masukkan password Pantau IGD untuk membuka data register. Tetap masuk sampai Anda menekan Keluar.</p>
-      <form class="pt-login">
-        <input type="password" autocomplete="current-password" placeholder="Password Pantau IGD" required>
-        <button class="primary-btn" type="submit">Buka data</button>
-        <p class="pt-error" role="alert"></p>
-      </form>`;
-    const form = el.querySelector('form');
-    form.addEventListener('submit', async (ev) => {
-      ev.preventDefault();
-      const err = form.querySelector('.pt-error');
-      const btn = form.querySelector('button');
-      btn.disabled = true; err.textContent = '';
-      try { await login(form.querySelector('input').value); muat(); }
-      catch (e) { err.textContent = e.message === 'password salah' ? 'Password salah.' : 'Gagal masuk: ' + e.message; btn.disabled = false; }
-    });
+      <p class="pt-sub">Data register belum terhubung di perangkat ini. Silakan keluar lalu masuk lagi lewat Akses Pimpinan.</p>
+      <button class="primary-btn" type="button">Masuk ulang</button>`;
+    el.querySelector('button').addEventListener('click', () => window.IGDAuth.logout());
   }
 
   /* ---------- Util ---------- */
