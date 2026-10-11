@@ -538,6 +538,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Halaman",
         "tag": "page",
         "slug": "kebijakan-emergency-department-policies",
+        "arsip": true,
         "localPath": "link/kebijakan-emergency-department-policies/",
         "externalUrl": ""
       },
@@ -656,6 +657,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Halaman",
         "tag": "page",
         "slug": "pedoman-emergency-department-guidelines",
+        "arsip": true,
         "localPath": "link/pedoman-emergency-department-guidelines/",
         "externalUrl": ""
       },
@@ -696,6 +698,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Halaman",
         "tag": "page",
         "slug": "pedoman-emergency-department-sop",
+        "arsip": true,
         "localPath": "link/pedoman-emergency-department-sop/",
         "externalUrl": ""
       },
@@ -736,6 +739,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Halaman",
         "tag": "page",
         "slug": "pedoman-assessment-form",
+        "arsip": true,
         "localPath": "link/pedoman-assessment-form/",
         "externalUrl": ""
       },
