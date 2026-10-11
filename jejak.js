@@ -31,7 +31,7 @@
   async function kirim(body) {
     const t = ambil();
     const r = await R().post(Object.assign({ aksi: 'jejak', token: t.token }, body));
-    if (r.error === 'token') { hapus(); throw new Error('Coba ketuk sekali lagi'); }
+    if (r.error === 'token') { if (t.token) { hapus(); throw new Error('Coba ketuk sekali lagi'); } throw new Error('Server Apps Script belum diperbarui: buka Apps Script → Deploy → Manage deployments → Edit → New version → Deploy.'); }
     return r;
   }
 
@@ -40,7 +40,7 @@
     if (!paksa && formTerbuka) return;
     try {
       const d = await R().get('jejakAktif', t.token);
-      if (d.error === 'token') { hapus(); return login(); }
+      if (d.error === 'token') { if (t.token) { hapus(); return login(); } throw new Error('Server Apps Script belum diperbarui: buka Apps Script → Deploy → Manage deployments → Edit → New version → Deploy.'); }
       if (d.error) throw new Error(d.error);
       data = d; selisihServer = ms(d.sekarang) - Date.now();
       render();

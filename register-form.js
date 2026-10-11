@@ -18,7 +18,7 @@
   async function opsi(token) {
     if (opsiCache) return opsiCache;
     const d = await get('opsi', token);
-    if (d.error) throw new Error(d.error);
+    if (d.error) throw new Error(d.error === 'token' ? 'Server Apps Script belum diperbarui (Deploy → New version).' : d.error);
     opsiCache = d;
     return d;
   }

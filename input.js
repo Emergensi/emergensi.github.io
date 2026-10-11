@@ -32,7 +32,7 @@
     isi.innerHTML = '<h2>Lengkapi data</h2><p class="pt-sub">Memuat pasien yang datanya belum lengkap…</p>';
     let d;
     try { d = await window.RegForm.get('perluLengkapi', t.token); } catch (e) { d = { error: e.message }; }
-    if (d.error === 'token') { hapus(); return login(); }
+    if (d.error === 'token') { if (t.token) { hapus(); return login(); } d = { error: 'Server Apps Script belum diperbarui: buka Apps Script → Deploy → Manage deployments → Edit → New version → Deploy.' }; }
     if (d.error) { isi.innerHTML = '<h2>Lengkapi data</h2><p class="pt-error">' + esc(d.error) + '</p>'; return; }
     const label = { jamDatang: 'jam datang', jamTangani: 'jam ditangani', jamKeluar: 'jam keluar', triase: 'triase', diagnosis: 'diagnosis',
       dokter: 'dokter', rencana: 'rencana tindak lanjut', ruang: 'ruang', dpjp: 'DPJP', indikasiRujuk: 'indikasi rujuk', rsRujukan: 'RS rujukan' };
