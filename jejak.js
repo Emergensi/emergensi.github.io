@@ -76,7 +76,7 @@
       <p class="jw-sub">🚪 Datang ${jam(o.datang)} · <b>${lamaTeks(menit(tDatang, now))}</b> di IGD
         <button type="button" class="jw-batal" data-id="${o.id}" data-titik="datang" data-waktu="${esc(o.datang)}">hapus</button></p>
       <ul class="jw-steps">${baris}</ul>
-      ${o.baris ? `<p class="jw-reg">Register baris ${esc(o.baris)}</p>` : `<details class="jw-id"><summary>Belum masuk register · isi nama & No. RM</summary>
+      ${o.baris ? `<p class="jw-reg">Register baris ${esc(o.baris)} · <a href="../input/#lengkapi" class="jw-lengkapi">📝 lengkapi data</a></p>` : `<details class="jw-id"><summary>Belum masuk register · isi nama & No. RM</summary>
         <form data-id="${o.id}"><input name="nama" placeholder="Nama pasien" required><input name="rm" placeholder="No. RM / registrasi" required>
         <button class="primary-btn" type="submit">Catat ke register</button></form></details>`}
     </div>`;
@@ -177,6 +177,10 @@
       const body = { sub: 'batal', id: b.dataset.id, titik: b.dataset.titik };
       if (lewat) { const alasan = prompt('Sudah lewat 2 menit. Tulis alasan koreksi:'); if (!alasan) return; body.alasan = alasan; }
       aksi(body, b);
+    }));
+    r.querySelectorAll('.jw-lengkapi').forEach((x) => x.addEventListener('click', (e) => {
+      const tab = document.querySelector('.jw-tab [data-panel=input]');
+      if (tab && window.IGDInput) { e.preventDefault(); tab.click(); window.IGDInput.buka('lengkapi'); window.scrollTo(0, 0); }
     }));
     r.querySelectorAll('.jw-id').forEach((d) => d.addEventListener('toggle', () => { formTerbuka = d.open; }));
     r.querySelectorAll('.jw-id form').forEach((f) => f.addEventListener('submit', (ev) => {

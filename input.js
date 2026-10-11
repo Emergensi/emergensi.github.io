@@ -34,7 +34,7 @@
     try { d = await window.RegForm.get('perluLengkapi', t.token); } catch (e) { d = { error: e.message }; }
     if (d.error === 'token') { if (t.token) { hapus(); return login(); } d = { error: 'Server Apps Script belum diperbarui: buka Apps Script → Deploy → Manage deployments → Edit → New version → Deploy.' }; }
     if (d.error) { isi.innerHTML = '<h2>Lengkapi data</h2><p class="pt-error">' + esc(d.error) + '</p>'; return; }
-    const label = { jamDatang: 'jam datang', jamTangani: 'jam ditangani', jamKeluar: 'jam keluar', triase: 'triase', diagnosis: 'diagnosis',
+    const label = { jk: 'jenis kelamin', umur: 'umur', status: 'pasien lama/baru', alamat: 'alamat', jaminan: 'jaminan', gadar: 'gawat darurat', kll: 'KLL', caraDatang: 'cara datang', rujukanDari: 'rujukan dari', kasus: 'kasus', perawat: 'perawat', tindakan: 'tindakan', jamDatang: 'jam datang', jamTangani: 'jam ditangani', jamKeluar: 'jam keluar', triase: 'triase', diagnosis: 'diagnosis',
       dokter: 'dokter', rencana: 'rencana tindak lanjut', ruang: 'ruang', dpjp: 'DPJP', indikasiRujuk: 'indikasi rujuk', rsRujukan: 'RS rujukan' };
     isi.innerHTML = `<h2>Lengkapi data</h2><p class="pt-sub">${d.temuan.length ? d.temuan.length + ' pasien perlu dilengkapi, terbaru di atas.' : 'Semua data sudah lengkap. 🎉'}</p>
       <div class="pt-list">${d.temuan.map((x) => `<div class="pt-row rf-item"><i class="pt-t-kosong"></i><div>
@@ -47,5 +47,6 @@
     }));
   }
 
-  document.addEventListener('DOMContentLoaded', () => tampil('baru'));
+  window.IGDInput = { buka: (tab) => tampil(tab || 'lengkapi') };
+  document.addEventListener('DOMContentLoaded', () => tampil(location.hash === '#lengkapi' ? 'lengkapi' : 'baru'));
 })();
