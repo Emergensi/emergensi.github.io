@@ -214,7 +214,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-emergency-room-manager",
         "localPath": "link/struktur-emergency-room-manager/",
         "externalUrl": "",
-        "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUDVurUuc4mQ704SDovcE9ftCNdSTHoXWXpJUte_vqmlO0q-XKTXc7enD6zvsfopoG4F4Jc-Az7_Pv17MZp9_G95O_VwgZldXns2a-jYrNo6Xj0YIPcJzSPE0JoVpOV0ZxSAbDGFTiem0H1jR9rMOUosIT_hBa00s6gpSiQVKahvDJTrwpskRVfKyJAiyBbOXROr2-Qoxuy8JYWGpw9Aca6eELYIiKTg5o99Ux-o6T8=w1280",
+        "photo": "assets/staff/linggar-dwi-cahyo.jpg",
         "personName": "Linggar Dwi Cahyo, S.Kep., Ners",
         "personRole": "Emergency Room Manager"
       },
@@ -227,7 +227,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-secretary",
         "localPath": "link/struktur-secretary/",
         "externalUrl": "",
-        "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBaQhkpUtPVnDVYcnRiQNmClxoj6OcvCoIiZp8qtx8wPdsdfu0NIYgzcyx-J5Z1qJQbiXyN75oGzA0z2EOF5w0fPWJgv9PkUqFGJd2_gE2ls3NV9fupNPZaoOMPY41ROFnNUGJFa07cbV-h-V55zLRYBhxlguvfanVk6hKEorUs7aiKOW7I9thwXzztFEgtLHSP8zfddPLWBgysI411FwXn_xu51KUNueEXXDbMTQY=w1280",
+        "photo": "assets/staff/devi-rikah-anugraini.jpg",
         "personName": "Devi Rikah Anugraini, AMK",
         "personRole": "Emergency Department Secretary"
       },
@@ -240,7 +240,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-finance-manager",
         "localPath": "link/struktur-finance-manager/",
         "externalUrl": "",
-        "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUCAPv3UHiXF9q8eLIO_ZhA16NDhHuRnWcHuVAQZrkY2k25obJlFzxPAZk0hTS54Z_aELeMGi94Kx-l141tpj14FYu5Vc-iSM6I8r2xQoOaP9cOnCAju-Txeo6MJgMxJS-akPQZAjLiy2FI3bdV2RToAfcvmEIuZQI1j4wuwNked7X4u-cBinbRDBFZchgWL4ch8i0mJ_sNSMQHg1UTM9ru8m81Ngtcdk_FMjgTw=w1280",
+        "photo": "assets/staff/vensensia-lindani.jpg",
         "personName": "Vensensia Lindani, Amd.Kep",
         "personRole": "Finance Manager"
       },
@@ -253,7 +253,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-emr-division",
         "localPath": "link/struktur-emr-division/",
         "externalUrl": "",
-        "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUC8zoM6TPCyeoBhSBdapDut4WJBQrPuQNA7il4IUB7mu14MOYLnS3Xco_8qlqSRz7vqKf6BI-WJhcgLZAieZETYIfS5mm6VS5HWWC-qaD_7WTeh1hnudtR-3Nxzpv-L08LEJyrYvem2DVx_EvF0NYo2IhzhWZphMGzWdV0rAVoFMzHs8EFvI0dWAizIEo_vekSEUR7WfUhLJmCJp6kRv_cMC5f7xgxjWRPCexneT5k=w1280",
+        "photo": "assets/staff/aditya-kurniawan.jpg",
         "personName": "Aditya Kurniawan, Amd.Kep",
         "personRole": "EMR Division"
       },
@@ -266,7 +266,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-training-and-development-division",
         "localPath": "link/struktur-training-and-development-division/",
         "externalUrl": "",
-        "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUAEIPbyw5HX_PvhbSavNuwNw-Ikdfw_hR8fXqFF4hhaN15Auy_DNz6MrKCpXZ0pMeZczz1RCh4tfBvtHJwMRcrUnkN1J1gfEgGcwtePOHF1hV_DEPPvZeAjLetZ5n9BFFh_jvqJDUliJuPihkFpxrl2vgjZGpAG95mAxf0yRsHKUiiVpJQI6uxGsn-m86G4Juin4YkEolKYHzwVcS6oP1-C_kBVh3DklFQlFfBWn5A=w1280",
+        "photo": "assets/staff/angelica-rendisa-putri-priyono.jpg",
         "personName": "Angelica Rendisa Putri Priyono, Amd.Kep",
         "personRole": "Training and Development Division"
       },
@@ -279,7 +279,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-inventory-division",
         "localPath": "link/struktur-inventory-division/",
         "externalUrl": "",
-        "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUA6gQQQnspzkETRpaoVyb1l7-tZG5heGwFrcnoTjuk3Cj5yDaEs3tO-x74KvN1Fa9bNasVil1WwXlQ0ECbPAaOYWc6msbdXtE8aZIpBX0Oin_xVeFGNLXwe91-p1X3uPyRWSZ1sYTGMVvx59RYu3M4n-Y1630W4HguEyPoziYbd_fO3PL2W-7DGy3mG5lS_DarmC3yAPvJ7vPF4qyWGGD6mm3HCP9bqQCdf7y-i=w1280",
+        "photo": "assets/staff/rio-agil-nurhendratno.jpg",
         "personName": "Rio Agil Nurhendratno, Amd.Kep",
         "personRole": "Inventory Division"
       },
@@ -292,7 +292,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-equipment-maintenance-division",
         "localPath": "link/struktur-equipment-maintenance-division/",
         "externalUrl": "",
-        "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBjVL5MUabeNMFji6tFljVHWCBi_4Naj6VXUqefzN-YHgWHtPbbs7ZoZ0Tl_92SlDtVAMachZiHlW5vQhpSg8TG0LBcK5BhJAsZnFWyC0BRdf8EjNmP_wx7pR-LcY09X6An8zXvXpHkth_TxPTE6l8VS-oOn3sA8OL6Ke-nWJLPtDGtWYTmgBdD0MJo0KoLaB4BXK5fMyASg2YDDLxamu5wUs5Cg8VTXhV8PkY5AQ8=w1280",
+        "photo": "assets/staff/triosep-satrio-wijaya.jpg",
         "personName": "Triosep Satrio Wijaya, Amd.Kep",
         "personRole": "Equipment Maintenance Division"
       }
@@ -1011,74 +1011,74 @@ window.IGD_STAFF_PHOTOS = [
     "name": "Linggar Dwi Cahyo, S.Kep., Ners",
     "role": "Emergency Room Manager",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUDVurUuc4mQ704SDovcE9ftCNdSTHoXWXpJUte_vqmlO0q-XKTXc7enD6zvsfopoG4F4Jc-Az7_Pv17MZp9_G95O_VwgZldXns2a-jYrNo6Xj0YIPcJzSPE0JoVpOV0ZxSAbDGFTiem0H1jR9rMOUosIT_hBa00s6gpSiQVKahvDJTrwpskRVfKyJAiyBbOXROr2-Qoxuy8JYWGpw9Aca6eELYIiKTg5o99Ux-o6T8=w1280",
+    "photo": "assets/staff/linggar-dwi-cahyo.jpg",
     "slug": "struktur-emergency-room-manager"
   },
   {
     "name": "Devi Rikah Anugraini, AMK",
     "role": "Emergency Department Secretary",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBaQhkpUtPVnDVYcnRiQNmClxoj6OcvCoIiZp8qtx8wPdsdfu0NIYgzcyx-J5Z1qJQbiXyN75oGzA0z2EOF5w0fPWJgv9PkUqFGJd2_gE2ls3NV9fupNPZaoOMPY41ROFnNUGJFa07cbV-h-V55zLRYBhxlguvfanVk6hKEorUs7aiKOW7I9thwXzztFEgtLHSP8zfddPLWBgysI411FwXn_xu51KUNueEXXDbMTQY=w1280",
+    "photo": "assets/staff/devi-rikah-anugraini.jpg",
     "slug": "struktur-secretary"
   },
   {
     "name": "Angelica Rendisa Putri Priyono, Amd.Kep",
     "role": "Training and Development Division",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUAEIPbyw5HX_PvhbSavNuwNw-Ikdfw_hR8fXqFF4hhaN15Auy_DNz6MrKCpXZ0pMeZczz1RCh4tfBvtHJwMRcrUnkN1J1gfEgGcwtePOHF1hV_DEPPvZeAjLetZ5n9BFFh_jvqJDUliJuPihkFpxrl2vgjZGpAG95mAxf0yRsHKUiiVpJQI6uxGsn-m86G4Juin4YkEolKYHzwVcS6oP1-C_kBVh3DklFQlFfBWn5A=w1280",
+    "photo": "assets/staff/angelica-rendisa-putri-priyono.jpg",
     "slug": "struktur-training-and-development-division"
   },
   {
     "name": "Aditya Kurniawan, Amd.Kep",
     "role": "EMR Division",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUC8zoM6TPCyeoBhSBdapDut4WJBQrPuQNA7il4IUB7mu14MOYLnS3Xco_8qlqSRz7vqKf6BI-WJhcgLZAieZETYIfS5mm6VS5HWWC-qaD_7WTeh1hnudtR-3Nxzpv-L08LEJyrYvem2DVx_EvF0NYo2IhzhWZphMGzWdV0rAVoFMzHs8EFvI0dWAizIEo_vekSEUR7WfUhLJmCJp6kRv_cMC5f7xgxjWRPCexneT5k=w1280",
+    "photo": "assets/staff/aditya-kurniawan.jpg",
     "slug": "struktur-emr-division"
   },
   {
     "name": "Rio Agil Nurhendratno, Amd.Kep",
     "role": "Inventory Division",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUA6gQQQnspzkETRpaoVyb1l7-tZG5heGwFrcnoTjuk3Cj5yDaEs3tO-x74KvN1Fa9bNasVil1WwXlQ0ECbPAaOYWc6msbdXtE8aZIpBX0Oin_xVeFGNLXwe91-p1X3uPyRWSZ1sYTGMVvx59RYu3M4n-Y1630W4HguEyPoziYbd_fO3PL2W-7DGy3mG5lS_DarmC3yAPvJ7vPF4qyWGGD6mm3HCP9bqQCdf7y-i=w1280",
+    "photo": "assets/staff/rio-agil-nurhendratno.jpg",
     "slug": "struktur-inventory-division"
   },
   {
     "name": "Triosep Satrio Wijaya, Amd.Kep",
     "role": "Equipment Maintenance Division",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBjVL5MUabeNMFji6tFljVHWCBi_4Naj6VXUqefzN-YHgWHtPbbs7ZoZ0Tl_92SlDtVAMachZiHlW5vQhpSg8TG0LBcK5BhJAsZnFWyC0BRdf8EjNmP_wx7pR-LcY09X6An8zXvXpHkth_TxPTE6l8VS-oOn3sA8OL6Ke-nWJLPtDGtWYTmgBdD0MJo0KoLaB4BXK5fMyASg2YDDLxamu5wUs5Cg8VTXhV8PkY5AQ8=w1280",
+    "photo": "assets/staff/triosep-satrio-wijaya.jpg",
     "slug": "struktur-equipment-maintenance-division"
   },
   {
     "name": "Vensensia Lindani, Amd.Kep",
     "role": "Finance Manager",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUCAPv3UHiXF9q8eLIO_ZhA16NDhHuRnWcHuVAQZrkY2k25obJlFzxPAZk0hTS54Z_aELeMGi94Kx-l141tpj14FYu5Vc-iSM6I8r2xQoOaP9cOnCAju-Txeo6MJgMxJS-akPQZAjLiy2FI3bdV2RToAfcvmEIuZQI1j4wuwNked7X4u-cBinbRDBFZchgWL4ch8i0mJ_sNSMQHg1UTM9ru8m81Ngtcdk_FMjgTw=w1280",
+    "photo": "assets/staff/vensensia-lindani.jpg",
     "slug": "struktur-finance-manager"
   },
   {
     "name": "Joko Suseno, AMK",
     "role": "Perawat IGD",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUDlZpy8R40csvXQm7HisYNviiErMvHGl2zTQwAWRfu8i5vY_UBI8i8jvdvrMeyOtNOnMDGvDx95_cqh9zcNYPz08TCiCQy_D5h-dvOmAD1MvFVAagmCAFtOvP9Y64kln2z001IzmvkL3sLsWvfDc2IPrbBcu73QNu3HcL2XMKcPFwlZW4sUN2wK09Azivky1SL5Bn81tzxiwhWVhQAysxGtQiLYx4HJ_ERDzGWdEYk=w1280"
+    "photo": "assets/staff/joko-suseno.jpg"
   },
   {
     "name": "Cahya Tri Kuncoro, S.Kep., Ners",
     "role": "Perawat IGD",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBpnn5b5DBYKPm1OKzLFp4aXavd1Ti88MUNCdmui-fXFEKIXEVVDCSljPoJUk6c40F5ueay_nb-tStd1t9Ff-FbeuvUf3Sn2MamAKPGi_5ghuEcRS3kfdfNs0O3x0Z-r_2TCXcdpkaeN1AFPh5m0yKf5kQrjH4mQsZzCbEPv4x4aJ3R50N46WKWPYHeaAEzgDdUiMiaxL6LkyzNcNOtbJPUpEYqoNWmJgjZ8X3BZi4=w1280"
+    "photo": "assets/staff/cahya-tri-kuncoro.jpg"
   },
   {
     "name": "Irma Nafiyati, Amd.Kep",
     "role": "Perawat IGD",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUATEM1dSHWEm70PxO-f7UWKKqqhpqKKKWb0uXP4vzmVigPrsKfKO-L_znJqFLEKmbwmkUJsV4e30c0SUixWZF6ysjvr0Nj-qInjUFZPx8VfBKkNfQCJBgjoRI-wZ9LrBn6MaD6j4HWl4IjrWiVq1kxDHtos9y2XN2VfiQG1SbL4qg7u06YQYp8nddQb-TQ8zfPE1SHqqSVx02wmkEc9TSJaWNL7BSEcfAK7V6grpXA=w1280"
+    "photo": "assets/staff/irma-nafiyati.jpg"
   },
   {
     "name": "Farel Govind Alfayed Ariyanto, S.Kep., Ners",
     "role": "Perawat IGD",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUAmYCtdGm9UBlA89oQUG5_LoVIcuIdV5_swfCHzhYnKtXmW2f0hOBDu7VySNSVPls90XWkh54ab8Ytd-1fHt0KVxcsERgsraUc1oyq8dz6BQ3pxnyX8v-77q3Pr1UNZql0YhUYAmPY_Wb8Tkj315pqd2hrnTBH7ZHV6nCMYJI-dKBOyX9Hy2y1Ku9pW13NrLBtwS8PStJY0lUtuPZ-SKH9ifmNjYgDfBa6X-q2sBWU=w1280"
+    "photo": "assets/staff/farel-govind-alfayed-ariyanto.jpg"
   },
   {
     "name": "Arum Karunia Sari",
@@ -1123,49 +1123,49 @@ window.IGD_STAFF_BY_SLUG = {
     "name": "Linggar Dwi Cahyo, S.Kep., Ners",
     "role": "Emergency Room Manager",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUDVurUuc4mQ704SDovcE9ftCNdSTHoXWXpJUte_vqmlO0q-XKTXc7enD6zvsfopoG4F4Jc-Az7_Pv17MZp9_G95O_VwgZldXns2a-jYrNo6Xj0YIPcJzSPE0JoVpOV0ZxSAbDGFTiem0H1jR9rMOUosIT_hBa00s6gpSiQVKahvDJTrwpskRVfKyJAiyBbOXROr2-Qoxuy8JYWGpw9Aca6eELYIiKTg5o99Ux-o6T8=w1280",
+    "photo": "assets/staff/linggar-dwi-cahyo.jpg",
     "slug": "struktur-emergency-room-manager"
   },
   "struktur-secretary": {
     "name": "Devi Rikah Anugraini, AMK",
     "role": "Emergency Department Secretary",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBaQhkpUtPVnDVYcnRiQNmClxoj6OcvCoIiZp8qtx8wPdsdfu0NIYgzcyx-J5Z1qJQbiXyN75oGzA0z2EOF5w0fPWJgv9PkUqFGJd2_gE2ls3NV9fupNPZaoOMPY41ROFnNUGJFa07cbV-h-V55zLRYBhxlguvfanVk6hKEorUs7aiKOW7I9thwXzztFEgtLHSP8zfddPLWBgysI411FwXn_xu51KUNueEXXDbMTQY=w1280",
+    "photo": "assets/staff/devi-rikah-anugraini.jpg",
     "slug": "struktur-secretary"
   },
   "struktur-training-and-development-division": {
     "name": "Angelica Rendisa Putri Priyono, Amd.Kep",
     "role": "Training and Development Division",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUAEIPbyw5HX_PvhbSavNuwNw-Ikdfw_hR8fXqFF4hhaN15Auy_DNz6MrKCpXZ0pMeZczz1RCh4tfBvtHJwMRcrUnkN1J1gfEgGcwtePOHF1hV_DEPPvZeAjLetZ5n9BFFh_jvqJDUliJuPihkFpxrl2vgjZGpAG95mAxf0yRsHKUiiVpJQI6uxGsn-m86G4Juin4YkEolKYHzwVcS6oP1-C_kBVh3DklFQlFfBWn5A=w1280",
+    "photo": "assets/staff/angelica-rendisa-putri-priyono.jpg",
     "slug": "struktur-training-and-development-division"
   },
   "struktur-emr-division": {
     "name": "Aditya Kurniawan, Amd.Kep",
     "role": "EMR Division",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUC8zoM6TPCyeoBhSBdapDut4WJBQrPuQNA7il4IUB7mu14MOYLnS3Xco_8qlqSRz7vqKf6BI-WJhcgLZAieZETYIfS5mm6VS5HWWC-qaD_7WTeh1hnudtR-3Nxzpv-L08LEJyrYvem2DVx_EvF0NYo2IhzhWZphMGzWdV0rAVoFMzHs8EFvI0dWAizIEo_vekSEUR7WfUhLJmCJp6kRv_cMC5f7xgxjWRPCexneT5k=w1280",
+    "photo": "assets/staff/aditya-kurniawan.jpg",
     "slug": "struktur-emr-division"
   },
   "struktur-inventory-division": {
     "name": "Rio Agil Nurhendratno, Amd.Kep",
     "role": "Inventory Division",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUA6gQQQnspzkETRpaoVyb1l7-tZG5heGwFrcnoTjuk3Cj5yDaEs3tO-x74KvN1Fa9bNasVil1WwXlQ0ECbPAaOYWc6msbdXtE8aZIpBX0Oin_xVeFGNLXwe91-p1X3uPyRWSZ1sYTGMVvx59RYu3M4n-Y1630W4HguEyPoziYbd_fO3PL2W-7DGy3mG5lS_DarmC3yAPvJ7vPF4qyWGGD6mm3HCP9bqQCdf7y-i=w1280",
+    "photo": "assets/staff/rio-agil-nurhendratno.jpg",
     "slug": "struktur-inventory-division"
   },
   "struktur-equipment-maintenance-division": {
     "name": "Triosep Satrio Wijaya, Amd.Kep",
     "role": "Equipment Maintenance Division",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBjVL5MUabeNMFji6tFljVHWCBi_4Naj6VXUqefzN-YHgWHtPbbs7ZoZ0Tl_92SlDtVAMachZiHlW5vQhpSg8TG0LBcK5BhJAsZnFWyC0BRdf8EjNmP_wx7pR-LcY09X6An8zXvXpHkth_TxPTE6l8VS-oOn3sA8OL6Ke-nWJLPtDGtWYTmgBdD0MJo0KoLaB4BXK5fMyASg2YDDLxamu5wUs5Cg8VTXhV8PkY5AQ8=w1280",
+    "photo": "assets/staff/triosep-satrio-wijaya.jpg",
     "slug": "struktur-equipment-maintenance-division"
   },
   "struktur-finance-manager": {
     "name": "Vensensia Lindani, Amd.Kep",
     "role": "Finance Manager",
     "team": "Tim Perawat",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUCAPv3UHiXF9q8eLIO_ZhA16NDhHuRnWcHuVAQZrkY2k25obJlFzxPAZk0hTS54Z_aELeMGi94Kx-l141tpj14FYu5Vc-iSM6I8r2xQoOaP9cOnCAju-Txeo6MJgMxJS-akPQZAjLiy2FI3bdV2RToAfcvmEIuZQI1j4wuwNked7X4u-cBinbRDBFZchgWL4ch8i0mJ_sNSMQHg1UTM9ru8m81Ngtcdk_FMjgTw=w1280",
+    "photo": "assets/staff/vensensia-lindani.jpg",
     "slug": "struktur-finance-manager"
   }
 };
