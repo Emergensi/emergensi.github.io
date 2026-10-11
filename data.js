@@ -51,16 +51,6 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "http://103.105.252.26:8090/LIVE4/Login/Login.aspx"
       },
       {
-        "title": "Form Pemantauan Suhu Ruangan",
-        "desc": "Form monitoring suhu ruangan IGD.",
-        "url": "link/operasional-room-temperature-monitoring-form/",
-        "type": "Sheets",
-        "tag": "sheet",
-        "slug": "operasional-room-temperature-monitoring-form",
-        "localPath": "link/operasional-room-temperature-monitoring-form/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1ZsYjDGx_zfm6hKRXqO7IiR7qO1vcbfWp-2cwR0QeGOY/edit?gid=2055685808"
-      },
-      {
         "title": "Logbook Harian Perawat",
         "desc": "Log book kerja perawat RS Sedayu General Hospital.",
         "url": "link/operasional-nurse-daily-logbook/",
@@ -310,6 +300,16 @@ window.IGD_LINK_GROUPS = [
     "subtitle": "Laporan, rapat dan notulen, SDM dan pelatihan, inventaris dan stok, serta administrasi keuangan.",
     "icon": "🧭",
     "items": [
+      {
+        "title": "Form Pemantauan Suhu Ruangan",
+        "desc": "Form monitoring suhu ruangan IGD.",
+        "url": "link/operasional-room-temperature-monitoring-form/",
+        "type": "Sheets",
+        "tag": "sheet",
+        "slug": "operasional-room-temperature-monitoring-form",
+        "localPath": "link/operasional-room-temperature-monitoring-form/",
+        "externalUrl": "https://docs.google.com/spreadsheets/d/1ZsYjDGx_zfm6hKRXqO7IiR7qO1vcbfWp-2cwR0QeGOY/edit?gid=2055685808"
+      },
       {
         "title": "Laporan Kunjungan IGD",
         "desc": "Laporan kunjungan/pelayanan IGD RS SGH.",

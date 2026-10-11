@@ -232,10 +232,8 @@
     if (totalCategories) totalCategories.textContent = GROUPS.length;
 
     const categoryRoot = $('categoryRoot');
-    // Beranda disederhanakan: satu grid berisi halaman bagian + tautan IGD yang sering dipakai
-    const priorityTitles = ['Registrasi Pasien', 'Billing Pasien', 'AVIAT (Jaringan RS)', 'Form Pemantauan Suhu Ruangan'];
-    const ikonLink = { 'Registrasi Pasien': '📋', 'Billing Pasien': '💳', 'AVIAT (Jaringan RS)': '🖥️', 'Form Pemantauan Suhu Ruangan': '🌡️' };
-    const priority = priorityTitles.map((title) => allItems().find((item) => item.title === title)).filter(Boolean);
+    // Beranda: satu grid, urutan tetap (tautan langsung & halaman bagian)
+    const ikonLink = { 'Registrasi Pasien': '📋', 'Billing Pasien': '💳', 'AVIAT (Jaringan RS)': '🖥️' };
     const linkKartu = (item) => {
       const href = itemHref(item);
       const external = isExternal(href);
@@ -252,7 +250,15 @@
         </div>
       </a>`;
     };
-    if (categoryRoot) categoryRoot.innerHTML = GROUPS.filter((g) => g.id !== 'operasional').map(categoryCard).join('') + priority.map(linkKartu).join('');
+    const URUTAN = [['link', 'AVIAT (Jaringan RS)'], ['link', 'Registrasi Pasien'], ['grup', 'jadwal'], ['grup', 'manajemen'], ['grup', 'akreditasi'],
+      ['grup', 'laporan'], ['link', 'Billing Pasien'], ['grup', 'pedoman'], ['grup', 'kebijakan'], ['grup', 'struktur']];
+    const kartu = URUTAN.map(([jenis, kunci]) => {
+      if (jenis === 'link') { const it = allItems().find((x) => x.title === kunci); return it ? linkKartu(it) : ''; }
+      const g = GROUPS.find((x) => x.id === kunci); return g ? categoryCard(g) : '';
+    });
+    // grup lain yang belum ada di urutan (kecuali Operasional) tetap ditampilkan di belakang
+    GROUPS.filter((g) => g.id !== 'operasional' && !URUTAN.some(([j, k]) => j === 'grup' && k === g.id)).forEach((g) => kartu.push(categoryCard(g)));
+    if (categoryRoot) categoryRoot.innerHTML = kartu.join('');
     const priorityRoot = $('priorityRoot');
     if (priorityRoot) priorityRoot.innerHTML = '';
 
