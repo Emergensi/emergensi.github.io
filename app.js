@@ -232,12 +232,11 @@
     if (totalCategories) totalCategories.textContent = GROUPS.length;
 
     const categoryRoot = $('categoryRoot');
-    if (categoryRoot) categoryRoot.innerHTML = GROUPS.map(categoryCard).join('');
+    // Beranda disederhanakan: kartu "Beranda Operasional" tidak ditampilkan (halamannya tetap ada di menu atas)
+    if (categoryRoot) categoryRoot.innerHTML = GROUPS.filter((g) => g.id !== 'operasional').map(categoryCard).join('');
 
     const priorityTitles = [
-      'Registrasi Pasien', 'Billing Pasien', 'Jadwal Jaga Medis', 'Jadwal Dokter Umum',
-      'Jadwal Perawat', 'AVIAT (Jaringan RS)', 'Stok Obat', 'Form Pemantauan Suhu Ruangan', 'Laporan Pagi (Morning Report)',
-      'Akreditasi'
+      'Registrasi Pasien', 'Billing Pasien', 'AVIAT (Jaringan RS)', 'Form Pemantauan Suhu Ruangan', 'Akreditasi'
     ];
     const priority = sortByTitle(priorityTitles
       .map((title) => allItems().find((item) => item.title === title))
