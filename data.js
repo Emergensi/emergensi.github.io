@@ -187,6 +187,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Halaman",
         "tag": "page",
         "slug": "struktur-organizational-structure",
+        "arsip": true,
         "localPath": "link/struktur-organizational-structure/",
         "externalUrl": "",
         "photo": "assets/emergency-logo.png"
@@ -200,8 +201,8 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-head-of-emergency-department",
         "localPath": "link/struktur-head-of-emergency-department/",
         "externalUrl": "",
-        "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUASTCniW2kGb13SQ3jwbe8907J_oW8BSSmkEAWJvP9gqpMp4tnCJ82MjSLCaEFw8TAj5ueDXvNBs0QDKWIb0uXncqwJTGmUmsEbf2NEqiRcAyIRfb2yRFdgk5mnUJ7waZjKpO9-zOovSvoqCE7uAzaR7Qg2THodTxPhklzPRggDf4mRP8OEjf1korVFEanSui1ZqxMDHdTmj_O9akfwyKSRQjUplXjZA6Q8tt-Vlac=w1280",
-        "personName": "dr. Mahendra DD Luhurpakarti",
+        "photo": "",
+        "personName": "dr. Nurul Khafidz Subekti, AIFO-K",
         "personRole": "Head of Emergency Department"
       },
       {

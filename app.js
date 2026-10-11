@@ -123,6 +123,32 @@
     </article>`;
   }
 
+  // Bagan struktur organisasi IGD dari data kartu Struktur (nama & jabatan diambil dari data.js)
+  function baganStruktur(items) {
+    const cari = (slug) => items.find((i) => i.slug === slug) || RAW_GROUPS.flatMap((g) => g.items).find((i) => i.slug === slug);
+    const kotak = (slug, jabatan, kelas) => {
+      const it = cari(slug);
+      if (!it) return '';
+      const nama = it.personName || '-';
+      const foto = it.photo ? photoBlock({ ...it, personName: nama }, 'bagan-foto') : `<div class="bagan-foto photo-failed"><span>${initials(nama.replace(/^dr\.\s*/i, ''))}</span></div>`;
+      return `<a class="bagan-kotak ${kelas || ''}" href="${itemHref(it)}">${foto}<span class="bagan-jabatan">${jabatan}</span><strong>${nama}</strong></a>`;
+    };
+    const divisi = [
+      ['struktur-secretary', 'Sekretaris'], ['struktur-finance-manager', 'Keuangan'], ['struktur-emr-division', 'EMR (Ambulans)'],
+      ['struktur-training-and-development-division', 'Pendidikan & Pelatihan'], ['struktur-inventory-division', 'Inventaris'],
+      ['struktur-equipment-maintenance-division', 'Pemeliharaan Alat']
+    ];
+    return `<section class="bagan" id="bagan" aria-label="Bagan struktur organisasi IGD">
+      <h2 class="bagan-judul">Bagan Struktur Organisasi IGD</h2>
+      <div class="bagan-level">${kotak('struktur-head-of-emergency-department', 'Kepala Instalasi IGD', 'utama')}</div>
+      <div class="bagan-garis"></div>
+      <div class="bagan-level">${kotak('struktur-emergency-room-manager', 'Kepala Ruang IGD')}</div>
+      <div class="bagan-garis"></div>
+      <div class="bagan-anak">${divisi.map(([s, j]) => `<div class="bagan-cabang">${kotak(s, j)}</div>`).join('')}</div>
+      <p class="bagan-cat">Klik kotak untuk melihat detail. Perubahan nama pemegang jabatan diperbarui lewat data struktur.</p>
+    </section>`;
+  }
+
   function staffGallery(filterTeam) {
     const staff = window.IGD_STAFF_PHOTOS || [];
     const people = sortStaff(filterTeam ? staff.filter((p) => p.team === filterTeam) : staff);
@@ -306,8 +332,9 @@
           .concat(sortByTitle(semua.filter((i) => !group.urutan.includes(i.slug))))
         : sortByTitle(semua);
       const gallery = (groupId === 'struktur' && !query) ? staffGallery() : '';
+      const bagan = (groupId === 'struktur' && !query) ? baganStruktur(group.items) : '';
       root.innerHTML = items.length
-        ? `<div class="card-grid">${items.map(linkCard).join('')}</div>${gallery}`
+        ? `${bagan}<div class="card-grid">${items.map(linkCard).join('')}</div>${gallery}`
         : '<div class="empty-state">Tidak ada link yang cocok dengan pencarian.</div>';
     }
     if (input) input.addEventListener('input', render);
