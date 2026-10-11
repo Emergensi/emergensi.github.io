@@ -18,6 +18,10 @@
     .jw-app-jam { margin-left: auto; font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums; color: #0f172a; }
     .jw-pasang { display: none; margin-left: 12px; border: 1px solid #e2e8f0; background: #fff; border-radius: 999px; padding: 8px 14px; font-weight: 700; cursor: pointer; }
     .jw-pasang.tampil { display: inline-block; }
+    .jw-tab { display: flex; gap: 8px; margin: 0 0 16px; background: #fff; padding: 6px; border-radius: 999px; border: 1px solid #e2e8f0; width: fit-content; }
+    .jw-tab button { border: 0; background: transparent; border-radius: 999px; padding: 9px 18px; font-weight: 800; font-size: .95rem; cursor: pointer; color: #334155; }
+    .jw-tab button[aria-selected="true"] { background: #0f172a; color: #fff; }
+    .jw-panel[hidden] { display: none; }
     .jw-app-kaki { margin-top: 28px; font-size: .85rem; color: #64748b; text-align: center; }
     .jw-app-kaki a { color: inherit; }
     @media (max-width: 560px) { .jw-app-jam { font-size: 1.2rem; } .jw-pasang { margin-left: 6px; padding: 6px 10px; } }
@@ -31,8 +35,15 @@
       <span class="jw-app-jam" id="jam">--:--</span>
       <button class="jw-pasang" id="pasang" type="button">⬇ Pasang di desktop</button>
     </header>
-    <main><section class="pt-page" id="jejakRoot"><p class="pt-sub">Memuat…</p></section></main>
-    <p class="jw-app-kaki">Waktu dicatat otomatis dari server · <a href="../jejak/">buka di situs IGD</a></p>
+    <div class="jw-tab" role="tablist">
+      <button type="button" role="tab" data-panel="jejak" aria-selected="true">⏱️ Jejak Waktu</button>
+      <button type="button" role="tab" data-panel="input" aria-selected="false">📝 Input Data</button>
+    </div>
+    <main>
+      <section class="pt-page jw-panel" id="jejakRoot" data-panel="jejak"><p class="pt-sub">Memuat…</p></section>
+      <section class="pt-page jw-panel" id="inputRoot" data-panel="input" hidden><p class="pt-sub">Memuat…</p></section>
+    </main>
+    <p class="jw-app-kaki">Waktu dicatat otomatis dari server · data lain dilengkapi di tab Input Data · <a href="../jejak/">buka di situs IGD</a></p>
   </div>
   <script>
     (function () {
@@ -44,9 +55,18 @@
       window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); prompt = e; btn.classList.add('tampil'); });
       btn.addEventListener('click', async () => { if (!prompt) return; prompt.prompt(); await prompt.userChoice; prompt = null; btn.classList.remove('tampil'); });
       window.addEventListener('appinstalled', () => btn.classList.remove('tampil'));
+      // Tab: Jejak Waktu / Input Data (pilihan terakhir diingat di perangkat ini)
+      const pilih = (nama) => {
+        document.querySelectorAll('.jw-tab button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.panel === nama)));
+        document.querySelectorAll('main .jw-panel').forEach((x) => { x.hidden = x.dataset.panel !== nama; });
+        try { localStorage.setItem('jw_tab', nama); } catch (e) {}
+      };
+      document.querySelectorAll('.jw-tab button').forEach((b) => b.addEventListener('click', () => pilih(b.dataset.panel)));
+      try { const t = localStorage.getItem('jw_tab'); if (t === 'input') pilih('input'); } catch (e) {}
     })();
   </script>
   <script src="../register-form.js"></script>
   <script src="../jejak.js"></script>
+  <script src="../input.js"></script>
 </body>
 </html>
