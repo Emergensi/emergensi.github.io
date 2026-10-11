@@ -88,17 +88,15 @@
     return doc;
   }
 
+  // Ke Telegram: PDF A4 yang dibuat server (sama dengan /bulanan dan kiriman otomatis)
   async function kirimTele() {
     if (!data) return;
-    const b = $('lbTele'); b.disabled = true; pesan('Membuat gambar dan mengirim ke Telegram…');
+    const b = $('lbTele'); b.disabled = true; pesan('Membuat PDF dan mengirim ke Telegram…');
     try {
-      const g = await gambarLaporan();
-      const doc = pdfDari(g);
-      const pdf = doc ? doc.output('datauristring').split(',')[1] : '';
       const d = await bacaJson(await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ aksi: 'kirimBulananGambar', token: token(), tahun: data.tahun, bulan: data.bulan, gambar: g.jpg.split(',')[1], pdf }) }));
+        body: JSON.stringify({ aksi: 'kirimBulanan', token: token(), tahun: data.tahun, bulan: data.bulan }) }));
       cekToken(d);
-      pesan('Terkirim ke Telegram: gambar JPG + PDF (' + d.penerima + ' penerima).');
+      pesan('Terkirim ke Telegram sebagai PDF (' + d.penerima + ' penerima).');
     } catch (e) { pesan(e.message, true); }
     b.disabled = false;
   }
