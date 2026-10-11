@@ -144,9 +144,9 @@
       <div class="bagan-garis"></div>
       <div class="bagan-samping">
         <div></div>
-        <div class="bagan-pusat">${kotak('struktur-emergency-room-manager', 'Kepala Ruang IGD')}</div>
+        <div class="bagan-pusat">${kotak('struktur-emergency-room-manager', 'Kepala Ruang IGD')}<span class="bagan-vgaris"></span></div>
         <div class="bagan-kanan"><span class="bagan-hgaris"></span>
-          <div class="bagan-tumpuk">${kotak('struktur-secretary', 'Sekretaris', 'kecil')}${kotak('struktur-finance-manager', 'Keuangan', 'kecil')}</div>
+          <div class="bagan-tumpuk">${kotak('struktur-secretary', 'Sekretaris')}${kotak('struktur-finance-manager', 'Keuangan')}</div>
         </div>
       </div>
       <div class="bagan-garis"></div>

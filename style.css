@@ -2335,7 +2335,7 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 .bagan-kanan { display: flex; align-items: center; }
 .bagan-hgaris { width: 36px; height: 2px; background: #94a3b8; flex: none; }
 .bagan-tumpuk { display: flex; flex-direction: column; gap: 10px; padding-left: 18px; border-left: 2px solid #94a3b8; position: relative; }
-.bagan-tumpuk .bagan-kotak { position: relative; }
+.bagan-tumpuk .bagan-kotak { position: relative; width: 200px; }
 .bagan-tumpuk .bagan-kotak::before { content: ""; position: absolute; left: -20px; top: 50%; width: 18px; height: 2px; background: #94a3b8; }
 .bagan-kotak.kecil { flex-direction: row; text-align: left; width: 250px; padding: 10px 12px; gap: 10px; }
 .bagan-kotak.kecil .bagan-foto { width: 44px; height: 44px; flex: none; }
@@ -2352,3 +2352,21 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
   .bagan-kotak.kecil { width: 160px; flex-direction: column; text-align: center; }
   .bagan-kotak.kecil .bagan-teks { align-items: center; }
 }
+
+/* semua kotak bagan sama ukuran */
+.bagan-kotak, .bagan-kotak.utama, .bagan-cabang .bagan-kotak, .bagan-tumpuk .bagan-kotak { width: 200px; min-height: 160px; justify-content: center; }
+.bagan-anak { grid-template-columns: repeat(4, 200px); justify-content: center; column-gap: 24px; }
+.bagan-anak::before { left: 100px; right: 100px; }
+@media (max-width: 1000px) { .bagan-anak { grid-template-columns: repeat(2, 200px); } }
+@media (max-width: 560px) { .bagan-anak { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bagan-kotak, .bagan-kotak.utama, .bagan-cabang .bagan-kotak, .bagan-tumpuk .bagan-kotak { width: 100%; max-width: 200px; } }
+
+/* perapian sambungan garis bagan */
+.bagan-samping { align-items: stretch; }
+.bagan-pusat { flex-direction: column; align-items: center; }
+.bagan-vgaris { flex: 1; width: 2px; background: #94a3b8; min-height: 0; }
+.bagan-kanan { align-items: flex-start; }
+.bagan-kanan .bagan-hgaris { margin-top: 79px; }
+.bagan-tumpuk { border-left: none; }
+.bagan-tumpuk::after { content: ""; position: absolute; left: 0; top: 79px; height: 172px; width: 2px; background: #94a3b8; }
+.bagan-anak::before { left: calc(50% - 336px); right: calc(50% - 336px); }
+@media (max-width: 860px) { .bagan-tumpuk::after, .bagan-vgaris { display: none; } .bagan-kanan .bagan-hgaris { margin-top: 0; } }
