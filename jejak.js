@@ -106,7 +106,10 @@
         .filter((x) => x[1] != null).map((x) => `${x[0]} <b>${lamaTeks(x[1])}</b>`).join(' · ');
       return `<div class="pt-row"><i class="pt-t-${WARNA[o.triase] || 'kosong'}"></i><div><b>${esc(o.nama || o.penanda)}</b>
         <small>${jam(o.datang)}–${jam(o.keluar)}${o.jenis ? ' · ' + esc((JENIS.find((j) => j[0] === o.jenis) || [0, o.jenis])[1]) : ''}
-        · <button type="button" class="jw-batal" data-id="${o.id}" data-titik="datang" data-waktu="${esc(o.datang)}">hapus</button></small><span>${isi}</span></div><strong></strong></div>`;
+        · <button type="button" class="jw-batal" data-id="${o.id}" data-titik="datang" data-waktu="${esc(o.datang)}">hapus</button></small><span>${isi}</span>
+        ${o.baris ? `<p class="jw-reg">Register baris ${esc(o.baris)} · <a href="../input/#lengkapi" class="jw-lengkapi">📝 lengkapi data</a></p>` : `<details class="jw-id"><summary>Belum masuk register · isi nama & No. RM</summary>
+        <form data-id="${o.id}"><input name="nama" placeholder="Nama pasien" required><input name="rm" placeholder="No. RM / registrasi" required>
+        <button class="primary-btn" type="submit">Catat ke register</button></form></details>`}</div><strong></strong></div>`;
     };
     root().innerHTML = `
       <div class="jw-top"><button type="button" class="primary-btn jw-datang">🚪 Pasien datang</button>
