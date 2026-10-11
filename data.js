@@ -824,6 +824,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": "https://docs.google.com/spreadsheets/d/17Ua28p-JfhNmndYfURVg_UlpFJowVOHjS4g_tsItV8M/edit?usp=sharing"
       },
       {
+        "arsip": true,
         "title": "Situs Akreditasi",
         "desc": "Website akreditasi.",
         "url": "link/akreditasi-web-akreditasi/",
