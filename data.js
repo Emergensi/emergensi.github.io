@@ -1084,13 +1084,13 @@ window.IGD_STAFF_PHOTOS = [
     "name": "Arum Karunia Sari",
     "role": "Bidan IGD",
     "team": "Tim Bidan",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUAOFO10qcQXqXiSEAkG3JkdcLYCANRZGIrmBNa0buLHWuQy1L2HyF8aRbKIIQBnknNynN5uMuxyru5p3KsE4jnuPQdtL-t1-BOrHekm6aT-VuncjFU1REWRXwrJD10AxJN9mbjjwquki_oO_ZeUrl99YJCMkM4bvbj2j0qFOANX8--J3zKr_p8ISpSVuxVg7Sm3MXpzKMvac9ySg8yWaIQMjYOHcjNR7PmXSnD86Hw=w1280"
+    "photo": "assets/staff/arum-karunia-sari.jpg"
   },
   {
     "name": "Rusni",
     "role": "Bidan IGD",
     "team": "Tim Bidan",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUDgo2NVfGiRU2GNHAnYxTbEdKhEWcQws2DBHFujCr9e-LA9a5PuBI9HGGQrDJqubG1hJTjZ4ZGnc5zrrG8WL8Pbf3PEMxtdyD0wgznBDZj-mx1p2EPybAOC_TBtMpzZp4prqipIVGB4gK6A9ZAmOei31fnYII0kGVO32A0RYT5zETSb04pW7WukHEDehCILmTY5Ig2mW6F4mFhmcxac1HS5Mu5MORmPNvUsRE6h=w1280"
+    "photo": "assets/staff/rusni.jpg"
   },
   {
     "name": "dr. Nuri Anang, Sp. KLL",
