@@ -70,23 +70,31 @@
       </div></article>`;
   }
 
+  async function gambarLaporan() {
+    if (!window.html2canvas) throw new Error('Pembuat gambar belum termuat; muat ulang halaman.');
+    const c = await window.html2canvas($('lbLembar'), { scale: 2, backgroundColor: '#f5f3ee', windowWidth: 1240 });
+    return c.toDataURL('image/jpeg', 0.92);
+  }
+
   async function kirimTele() {
     if (!data) return;
-    const b = $('lbTele'); b.disabled = true; pesan('Mengirim ke Telegram…');
+    const b = $('lbTele'); b.disabled = true; pesan('Membuat gambar dan mengirim ke Telegram…');
     try {
+      const jpg = await gambarLaporan();
       const d = await bacaJson(await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ aksi: 'kirimBulanan', token: token(), tahun: data.tahun, bulan: data.bulan }) }));
+        body: JSON.stringify({ aksi: 'kirimBulananGambar', token: token(), tahun: data.tahun, bulan: data.bulan, gambar: jpg.split(',')[1] }) }));
       cekToken(d);
-      pesan('Terkirim ke Telegram sebagai PDF (' + d.penerima + ' penerima).');
+      pesan('Terkirim ke Telegram sebagai gambar (' + d.penerima + ' penerima).');
     } catch (e) { pesan(e.message, true); }
     b.disabled = false;
   }
 
   async function unduh() {
-    if (!data || !window.html2canvas) return pesan('Pembuat gambar belum termuat; coba muat ulang halaman.', true);
-    const c = await window.html2canvas($('lbLembar'), { scale: 2, backgroundColor: '#f5f3ee' });
-    const a = document.createElement('a');
-    a.href = c.toDataURL('image/png'); a.download = 'Laporan_Bulanan_IGD_' + data.namaBulan + '_' + data.tahun + '.png'; a.click();
+    if (!data) return;
+    try {
+      const a = document.createElement('a');
+      a.href = await gambarLaporan(); a.download = 'Laporan_Bulanan_IGD_' + data.namaBulan + '_' + data.tahun + '.jpg'; a.click();
+    } catch (e) { pesan(e.message, true); }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
