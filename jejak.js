@@ -126,8 +126,33 @@
     clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 3000);
   }
 
+  // Waktu server perkiraan (WIB) untuk tampilan sementara sebelum server menjawab
+  function sekarangTeks() {
+    const d = new Date(Date.now() + selisihServer);
+    const f = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' });
+    return f.format(d).replace('T', ' ');
+  }
+  // Tampilkan hasil ketukan seketika; server mengonfirmasi di belakang
+  function tampilSementara(body) {
+    if (!data) return false;
+    const t = sekarangTeks();
+    if (body.sub === 'datang') {
+      data.aktif = [{ id: 'sementara', penanda: body.penanda, triase: body.triase, datang: t, nama: body.nama || '', rm: body.rm || '', sementara: true }].concat(data.aktif || []);
+    } else if (body.sub === 'ketuk') {
+      const o = (data.aktif || []).find((x) => x.id === body.id);
+      if (!o) return false;
+      o[body.titik] = t; if (body.titik === 'keputusan') o.jenis = body.jenis;
+      if (body.titik === 'keluar') { data.aktif = data.aktif.filter((x) => x !== o); data.selesai = [Object.assign({}, o, { keluar: t })].concat(data.selesai || []); }
+    } else return false;
+    formTerbuka = false; render();
+    return true;
+  }
+
   async function aksi(body, tombol) {
     if (tombol) tombol.disabled = true;
+    if (body.id === 'sementara') { pesan('Tunggu sebentar, masih menyimpan…'); return; }
+    const cepat = tampilSementara(body);
+    if (cepat) pesan('Menyimpan…');
     try {
       const r = await kirim(body);
       if (r.perluSemua) {
@@ -146,10 +171,12 @@
       if (r.error) throw new Error(r.error);
       pesan(r.peringatan || (r.dihapus ? 'Pasien dihapus' + (r.register ? ' · ' + r.register : '') : body.sub === 'batal' ? 'Dibatalkan' : r.waktu ? 'Tercatat pukul ' + jam(r.waktu) : 'Tersimpan'), !!r.peringatan);
       formTerbuka = false;
-      muat(true);
+      if (r.daftar && r.daftar.aktif) { data = r.daftar; selisihServer = ms(r.daftar.sekarang) - Date.now(); keCache(data); tertunda = false; render(); }
+      else muat(true);
     } catch (e) {
       pesan(e.message, true);
       if (tombol) tombol.disabled = false;
+      if (cepat) muat(true);       // kembalikan tampilan sesuai server
     }
   }
 
