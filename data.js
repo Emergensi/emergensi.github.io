@@ -201,7 +201,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-head-of-emergency-department",
         "localPath": "link/struktur-head-of-emergency-department/",
         "externalUrl": "",
-        "photo": "assets/staff/dr-nurul-khafidz-subekti.jpg",
+        "photo": "assets/staff/dr-nurul-khafidz-subekti.jpg?v=2",
         "personName": "dr. Nurul Khafidz Subekti, AIFO-K",
         "personRole": "Head of Emergency Department"
       },
@@ -214,7 +214,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-emergency-room-manager",
         "localPath": "link/struktur-emergency-room-manager/",
         "externalUrl": "",
-        "photo": "assets/staff/linggar-dwi-cahyo.jpg",
+        "photo": "assets/staff/linggar-dwi-cahyo.jpg?v=2",
         "personName": "Linggar Dwi Cahyo, S.Kep., Ners",
         "personRole": "Emergency Room Manager"
       },
@@ -227,7 +227,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-secretary",
         "localPath": "link/struktur-secretary/",
         "externalUrl": "",
-        "photo": "assets/staff/devi-rikah-anugraini.jpg",
+        "photo": "assets/staff/devi-rikah-anugraini.jpg?v=2",
         "personName": "Devi Rikah Anugraini, AMK",
         "personRole": "Emergency Department Secretary"
       },
@@ -240,7 +240,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-finance-manager",
         "localPath": "link/struktur-finance-manager/",
         "externalUrl": "",
-        "photo": "assets/staff/vensensia-lindani.jpg",
+        "photo": "assets/staff/vensensia-lindani.jpg?v=2",
         "personName": "Vensensia Lindani, Amd.Kep",
         "personRole": "Finance Manager"
       },
@@ -253,7 +253,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-emr-division",
         "localPath": "link/struktur-emr-division/",
         "externalUrl": "",
-        "photo": "assets/staff/aditya-kurniawan.jpg",
+        "photo": "assets/staff/aditya-kurniawan.jpg?v=2",
         "personName": "Aditya Kurniawan, Amd.Kep",
         "personRole": "EMR Division"
       },
@@ -266,7 +266,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-training-and-development-division",
         "localPath": "link/struktur-training-and-development-division/",
         "externalUrl": "",
-        "photo": "assets/staff/angelica-rendisa-putri-priyono.jpg",
+        "photo": "assets/staff/angelica-rendisa-putri-priyono.jpg?v=2",
         "personName": "Angelica Rendisa Putri Priyono, Amd.Kep",
         "personRole": "Training and Development Division"
       },
@@ -279,7 +279,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-inventory-division",
         "localPath": "link/struktur-inventory-division/",
         "externalUrl": "",
-        "photo": "assets/staff/rio-agil-nurhendratno.jpg",
+        "photo": "assets/staff/rio-agil-nurhendratno.jpg?v=2",
         "personName": "Rio Agil Nurhendratno, Amd.Kep",
         "personRole": "Inventory Division"
       },
@@ -292,7 +292,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-equipment-maintenance-division",
         "localPath": "link/struktur-equipment-maintenance-division/",
         "externalUrl": "",
-        "photo": "assets/staff/triosep-satrio-wijaya.jpg",
+        "photo": "assets/staff/triosep-satrio-wijaya.jpg?v=2",
         "personName": "Triosep Satrio Wijaya, Amd.Kep",
         "personRole": "Equipment Maintenance Division"
       }
@@ -962,153 +962,153 @@ window.IGD_STAFF_PHOTOS = [
     "name": "dr. Nurul Khafidz Subekti",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-nurul-khafidz-subekti.jpg"
+    "photo": "assets/staff/dr-nurul-khafidz-subekti.jpg?v=2"
   },
   {
     "name": "dr. Muhammad Adib Ridhani",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-muhammad-adib-ridhani.jpg"
+    "photo": "assets/staff/dr-muhammad-adib-ridhani.jpg?v=2"
   },
   {
     "name": "dr. Muhammad Nugraha Putra, MARS",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-muhammad-nugraha-putra-mars.jpg"
+    "photo": "assets/staff/dr-muhammad-nugraha-putra-mars.jpg?v=2"
   },
   {
     "name": "dr. Mahendra DD Luhurpakarti",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-mahendra-dd-luhurpakarti.jpg",
+    "photo": "assets/staff/dr-mahendra-dd-luhurpakarti.jpg?v=2",
     "slug": "struktur-head-of-emergency-department"
   },
   {
     "name": "dr. Dyah Chandra",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-dyah-chandra.jpg"
+    "photo": "assets/staff/dr-dyah-chandra.jpg?v=2"
   },
   {
     "name": "dr. Ika Irmawati Susanto",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-ika-irmawati-susanto.jpg"
+    "photo": "assets/staff/dr-ika-irmawati-susanto.jpg?v=2"
   },
   {
     "name": "dr. Rahma Arsyta Sulchaini",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-rahma-arsyta-sulchaini.jpg"
+    "photo": "assets/staff/dr-rahma-arsyta-sulchaini.jpg?v=2"
   },
   {
     "name": "dr. Wahyu Tri Atmojo",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-wahyu-tri-atmojo.jpg"
+    "photo": "assets/staff/dr-wahyu-tri-atmojo.jpg?v=2"
   },
   {
     "name": "Linggar Dwi Cahyo, S.Kep., Ners",
     "role": "Emergency Room Manager",
     "team": "Tim Perawat",
-    "photo": "assets/staff/linggar-dwi-cahyo.jpg",
+    "photo": "assets/staff/linggar-dwi-cahyo.jpg?v=2",
     "slug": "struktur-emergency-room-manager"
   },
   {
     "name": "Devi Rikah Anugraini, AMK",
     "role": "Emergency Department Secretary",
     "team": "Tim Perawat",
-    "photo": "assets/staff/devi-rikah-anugraini.jpg",
+    "photo": "assets/staff/devi-rikah-anugraini.jpg?v=2",
     "slug": "struktur-secretary"
   },
   {
     "name": "Angelica Rendisa Putri Priyono, Amd.Kep",
     "role": "Training and Development Division",
     "team": "Tim Perawat",
-    "photo": "assets/staff/angelica-rendisa-putri-priyono.jpg",
+    "photo": "assets/staff/angelica-rendisa-putri-priyono.jpg?v=2",
     "slug": "struktur-training-and-development-division"
   },
   {
     "name": "Aditya Kurniawan, Amd.Kep",
     "role": "EMR Division",
     "team": "Tim Perawat",
-    "photo": "assets/staff/aditya-kurniawan.jpg",
+    "photo": "assets/staff/aditya-kurniawan.jpg?v=2",
     "slug": "struktur-emr-division"
   },
   {
     "name": "Rio Agil Nurhendratno, Amd.Kep",
     "role": "Inventory Division",
     "team": "Tim Perawat",
-    "photo": "assets/staff/rio-agil-nurhendratno.jpg",
+    "photo": "assets/staff/rio-agil-nurhendratno.jpg?v=2",
     "slug": "struktur-inventory-division"
   },
   {
     "name": "Triosep Satrio Wijaya, Amd.Kep",
     "role": "Equipment Maintenance Division",
     "team": "Tim Perawat",
-    "photo": "assets/staff/triosep-satrio-wijaya.jpg",
+    "photo": "assets/staff/triosep-satrio-wijaya.jpg?v=2",
     "slug": "struktur-equipment-maintenance-division"
   },
   {
     "name": "Vensensia Lindani, Amd.Kep",
     "role": "Finance Manager",
     "team": "Tim Perawat",
-    "photo": "assets/staff/vensensia-lindani.jpg",
+    "photo": "assets/staff/vensensia-lindani.jpg?v=2",
     "slug": "struktur-finance-manager"
   },
   {
     "name": "Joko Suseno, AMK",
     "role": "Perawat IGD",
     "team": "Tim Perawat",
-    "photo": "assets/staff/joko-suseno.jpg"
+    "photo": "assets/staff/joko-suseno.jpg?v=2"
   },
   {
     "name": "Cahya Tri Kuncoro, S.Kep., Ners",
     "role": "Perawat IGD",
     "team": "Tim Perawat",
-    "photo": "assets/staff/cahya-tri-kuncoro.jpg"
+    "photo": "assets/staff/cahya-tri-kuncoro.jpg?v=2"
   },
   {
     "name": "Irma Nafiyati, Amd.Kep",
     "role": "Perawat IGD",
     "team": "Tim Perawat",
-    "photo": "assets/staff/irma-nafiyati.jpg"
+    "photo": "assets/staff/irma-nafiyati.jpg?v=2"
   },
   {
     "name": "Farel Govind Alfayed Ariyanto, S.Kep., Ners",
     "role": "Perawat IGD",
     "team": "Tim Perawat",
-    "photo": "assets/staff/farel-govind-alfayed-ariyanto.jpg"
+    "photo": "assets/staff/farel-govind-alfayed-ariyanto.jpg?v=2"
   },
   {
     "name": "Arum Karunia Sari",
     "role": "Bidan IGD",
     "team": "Tim Bidan",
-    "photo": "assets/staff/arum-karunia-sari.jpg"
+    "photo": "assets/staff/arum-karunia-sari.jpg?v=2"
   },
   {
     "name": "Rusni",
     "role": "Bidan IGD",
     "team": "Tim Bidan",
-    "photo": "assets/staff/rusni.jpg"
+    "photo": "assets/staff/rusni.jpg?v=2"
   },
   {
     "name": "Nuri Anang",
     "role": "Driver / Pendukung Operasional",
     "team": "Tim Driver",
-    "photo": "assets/staff/nuri-anang.jpg"
+    "photo": "assets/staff/nuri-anang.jpg?v=2"
   },
   {
     "name": "Arief Lailatul Khusuuf Iman",
     "role": "Driver / Pendukung Operasional",
     "team": "Tim Driver",
-    "photo": "assets/staff/arief-lailatul-khusuuf-iman.jpg"
+    "photo": "assets/staff/arief-lailatul-khusuuf-iman.jpg?v=2"
   },
   {
     "name": "Veri Agus Saputra",
     "role": "Driver / Pendukung Operasional",
     "team": "Tim Driver",
-    "photo": "assets/staff/veri-agus-saputra.jpg"
+    "photo": "assets/staff/veri-agus-saputra.jpg?v=2"
   }
 ];
 window.IGD_STAFF_BY_SLUG = {
@@ -1116,56 +1116,56 @@ window.IGD_STAFF_BY_SLUG = {
     "name": "dr. Nurul Khafidz Subekti, AIFO-K",
     "role": "Kepala Instalasi IGD",
     "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-nurul-khafidz-subekti.jpg",
+    "photo": "assets/staff/dr-nurul-khafidz-subekti.jpg?v=2",
     "slug": "struktur-head-of-emergency-department"
   },
   "struktur-emergency-room-manager": {
     "name": "Linggar Dwi Cahyo, S.Kep., Ners",
     "role": "Emergency Room Manager",
     "team": "Tim Perawat",
-    "photo": "assets/staff/linggar-dwi-cahyo.jpg",
+    "photo": "assets/staff/linggar-dwi-cahyo.jpg?v=2",
     "slug": "struktur-emergency-room-manager"
   },
   "struktur-secretary": {
     "name": "Devi Rikah Anugraini, AMK",
     "role": "Emergency Department Secretary",
     "team": "Tim Perawat",
-    "photo": "assets/staff/devi-rikah-anugraini.jpg",
+    "photo": "assets/staff/devi-rikah-anugraini.jpg?v=2",
     "slug": "struktur-secretary"
   },
   "struktur-training-and-development-division": {
     "name": "Angelica Rendisa Putri Priyono, Amd.Kep",
     "role": "Training and Development Division",
     "team": "Tim Perawat",
-    "photo": "assets/staff/angelica-rendisa-putri-priyono.jpg",
+    "photo": "assets/staff/angelica-rendisa-putri-priyono.jpg?v=2",
     "slug": "struktur-training-and-development-division"
   },
   "struktur-emr-division": {
     "name": "Aditya Kurniawan, Amd.Kep",
     "role": "EMR Division",
     "team": "Tim Perawat",
-    "photo": "assets/staff/aditya-kurniawan.jpg",
+    "photo": "assets/staff/aditya-kurniawan.jpg?v=2",
     "slug": "struktur-emr-division"
   },
   "struktur-inventory-division": {
     "name": "Rio Agil Nurhendratno, Amd.Kep",
     "role": "Inventory Division",
     "team": "Tim Perawat",
-    "photo": "assets/staff/rio-agil-nurhendratno.jpg",
+    "photo": "assets/staff/rio-agil-nurhendratno.jpg?v=2",
     "slug": "struktur-inventory-division"
   },
   "struktur-equipment-maintenance-division": {
     "name": "Triosep Satrio Wijaya, Amd.Kep",
     "role": "Equipment Maintenance Division",
     "team": "Tim Perawat",
-    "photo": "assets/staff/triosep-satrio-wijaya.jpg",
+    "photo": "assets/staff/triosep-satrio-wijaya.jpg?v=2",
     "slug": "struktur-equipment-maintenance-division"
   },
   "struktur-finance-manager": {
     "name": "Vensensia Lindani, Amd.Kep",
     "role": "Finance Manager",
     "team": "Tim Perawat",
-    "photo": "assets/staff/vensensia-lindani.jpg",
+    "photo": "assets/staff/vensensia-lindani.jpg?v=2",
     "slug": "struktur-finance-manager"
   }
 };
