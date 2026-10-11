@@ -143,6 +143,15 @@
       if (!o) return false;
       o[body.titik] = t; if (body.titik === 'keputusan') o.jenis = body.jenis;
       if (body.titik === 'keluar') { data.aktif = data.aktif.filter((x) => x !== o); data.selesai = [Object.assign({}, o, { keluar: t })].concat(data.selesai || []); }
+    } else if (body.sub === 'batal') {                       // hapus / batal langsung hilang dari layar
+      if (body.titik === 'datang') {
+        data.aktif = (data.aktif || []).filter((x) => x.id !== body.id);
+        data.selesai = (data.selesai || []).filter((x) => x.id !== body.id);
+      } else {
+        const o = (data.aktif || []).find((x) => x.id === body.id);
+        if (!o) return false;
+        o[body.titik] = ''; if (body.titik === 'keputusan') o.jenis = '';
+      }
     } else return false;
     formTerbuka = false; render();
     return true;
@@ -226,10 +235,19 @@
     }));
     r.querySelectorAll('.jw-batal').forEach((b) => b.addEventListener('click', () => {
       const lewat = (Date.now() + selisihServer - ms(b.dataset.waktu)) / 60000 > 2;
-      const tanya = b.dataset.titik === 'datang' ? 'Hapus pasien ini dari Respon Time?' : 'Batalkan catatan ini?';
-      if (!confirm(tanya)) return;
+      const o = (data.aktif || []).concat(data.selesai || []).find((x) => x.id === b.dataset.id) || {};
+      const lanjut = o.dokter || o.konsul || o.advis || o.keputusan || o.keluar;
       const body = { sub: 'batal', id: b.dataset.id, titik: b.dataset.titik };
-      if (lewat) { const alasan = prompt('Sudah lewat 2 menit. Tulis alasan koreksi:'); if (!alasan) return; body.alasan = alasan; }
+      if (b.dataset.titik === 'datang' && lanjut) {
+        // satu kali konfirmasi + alasan, langsung hapus semua (tanpa bolak-balik ke server dulu)
+        if (!confirm('Hapus pasien ini beserta SEMUA catatannya' + (o.baris ? ', termasuk mengosongkan Register baris ' + o.baris : '') +
+          '?\nGunakan hanya untuk data simulasi atau salah input.')) return;
+        const alasan = prompt('Alasan penghapusan:', 'simulasi'); if (!alasan) return;
+        Object.assign(body, { semua: true, alasan });
+      } else {
+        if (!confirm(b.dataset.titik === 'datang' ? 'Hapus pasien ini dari Respon Time?' : 'Batalkan catatan ini?')) return;
+        if (lewat) { const alasan = prompt('Sudah lewat 2 menit. Tulis alasan koreksi:'); if (!alasan) return; body.alasan = alasan; }
+      }
       aksi(body, b);
     }));
     r.querySelectorAll('.jw-lengkapi').forEach((x) => x.addEventListener('click', (e) => {
