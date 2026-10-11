@@ -5,13 +5,22 @@
   const esc = (v) => String(v == null ? '' : v).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const jamSekarang = () => new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date());
 
+  // Apps Script kadang membalas halaman HTML (error skrip / sedang diperbarui); tampilkan pesannya, bukan "Unexpected token <"
+  async function bacaJson(res) {
+    const teks = await res.text();
+    try { return JSON.parse(teks); } catch (e) {
+      const isi = teks.replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      const pesan = (isi.match(/(TypeError|ReferenceError|SyntaxError|Exception|Error)[^.]{0,160}/) || [isi.slice(0, 160)])[0];
+      throw new Error('Server Apps Script membalas error: ' + pesan + ' — coba muat ulang; bila tetap, buka Apps Script dan deploy ulang (New version).');
+    }
+  }
   async function get(aksi, token) {
-    const res = await fetch(API_URL + '?aksi=' + aksi + '&token=' + encodeURIComponent(token || ''));
-    return res.json();
+    const res = await fetch(API_URL + '?aksi=' + aksi + '&token=' + encodeURIComponent(token || '') + '&_=' + Date.now());
+    return bacaJson(res);
   }
   async function post(body) {
     const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) });
-    return res.json();
+    return bacaJson(res);
   }
 
   let opsiCache = null;
