@@ -134,7 +134,7 @@
       return `<a class="bagan-kotak ${kelas || ''}" href="${itemHref(it)}">${foto}<span class="bagan-jabatan">${jabatan}</span><strong>${nama}</strong></a>`;
     };
     const divisi = [
-      ['struktur-secretary', 'Sekretaris'], ['struktur-finance-manager', 'Keuangan'], ['struktur-emr-division', 'EMR (Ambulans)'],
+      ['struktur-emr-division', 'EMR (Ambulans)'],
       ['struktur-training-and-development-division', 'Pendidikan & Pelatihan'], ['struktur-inventory-division', 'Inventaris'],
       ['struktur-equipment-maintenance-division', 'Pemeliharaan Alat']
     ];
@@ -142,7 +142,11 @@
       <h2 class="bagan-judul">Bagan Struktur Organisasi IGD</h2>
       <div class="bagan-level">${kotak('struktur-head-of-emergency-department', 'Kepala Instalasi IGD', 'utama')}</div>
       <div class="bagan-garis"></div>
-      <div class="bagan-level">${kotak('struktur-emergency-room-manager', 'Kepala Ruang IGD')}</div>
+      <div class="bagan-level bagan-samping">
+        <div class="bagan-sisi">${kotak('struktur-secretary', 'Sekretaris')}</div><span class="bagan-hgaris"></span>
+        <div class="bagan-pusat">${kotak('struktur-emergency-room-manager', 'Kepala Ruang IGD')}</div><span class="bagan-hgaris"></span>
+        <div class="bagan-sisi">${kotak('struktur-finance-manager', 'Keuangan')}</div>
+      </div>
       <div class="bagan-garis"></div>
       <div class="bagan-anak">${divisi.map(([s, j]) => `<div class="bagan-cabang">${kotak(s, j)}</div>`).join('')}</div>
       <p class="bagan-cat">Klik kotak untuk melihat detail. Perubahan nama pemegang jabatan diperbarui lewat data struktur.</p>
