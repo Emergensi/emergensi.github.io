@@ -77,7 +77,7 @@
       const d = await bacaJson(await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ aksi: 'kirimBulanan', token: token(), tahun: data.tahun, bulan: data.bulan }) }));
       cekToken(d);
-      pesan('Terkirim ke Telegram (' + d.penerima + ' penerima).');
+      pesan('Terkirim ke Telegram sebagai PDF (' + d.penerima + ' penerima).');
     } catch (e) { pesan(e.message, true); }
     b.disabled = false;
   }
