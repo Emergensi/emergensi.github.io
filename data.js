@@ -350,6 +350,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Drive",
         "tag": "drive",
         "slug": "manajemen-notulen-meeting",
+        "arsip": true,
         "localPath": "link/manajemen-notulen-meeting/",
         "externalUrl": "https://drive.google.com/drive/u/0/folders/1JFvOm19Rct65OqY9J9FG-bggsaHM2GYT"
       },
@@ -371,6 +372,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Sheets",
         "tag": "sheet",
         "slug": "manajemen-iht",
+        "arsip": true,
         "localPath": "link/manajemen-iht/",
         "externalUrl": "https://docs.google.com/spreadsheets/d/1w6doKENmyzpjmF3WvqpFIOqqPKZKPBKn66OwHFiqG2s/edit?gid=1681802920"
       },
@@ -381,6 +383,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Sheets",
         "tag": "sheet",
         "slug": "manajemen-maintenance-schedule",
+        "arsip": true,
         "localPath": "link/manajemen-maintenance-schedule/",
         "externalUrl": "https://docs.google.com/spreadsheets/d/1ir63D8GB5FQvTUrhXc2Zcxy0pzMqRVtemPWEY7pJtZA/edit?usp=sharing"
       },
@@ -413,6 +416,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Sheets",
         "tag": "sheet",
         "slug": "manajemen-notulensi-morning-report",
+        "arsip": true,
         "localPath": "link/manajemen-notulensi-morning-report/",
         "externalUrl": "https://docs.google.com/spreadsheets/d/18Ac9z5tJaeNu_GZhMGtop0rwHIvZFqqzg3UC_xcX4R8/edit?usp=sharing"
       },
@@ -423,6 +427,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Sheets",
         "tag": "sheet",
         "slug": "manajemen-stok-obat",
+        "arsip": true,
         "localPath": "link/manajemen-stok-obat/",
         "externalUrl": "https://docs.google.com/spreadsheets/d/1wjbyoVb2a19boCgN4BTqGNI_xfvWa9ZNj3Y5cSbRkF0/edit?usp=drivesdk"
       },
@@ -445,6 +450,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Drive",
         "tag": "drive",
         "slug": "operasional-meeting",
+        "arsip": true,
         "localPath": "link/operasional-meeting/",
         "externalUrl": "https://drive.google.com/drive/u/0/folders/1JFvOm19Rct65OqY9J9FG-bggsaHM2GYT"
       },
@@ -475,6 +481,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Halaman",
         "tag": "page",
         "slug": "operasional-official-report",
+        "arsip": true,
         "localPath": "link/operasional-official-report/",
         "externalUrl": ""
       },
@@ -485,6 +492,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Halaman",
         "tag": "page",
         "slug": "operasional-morning-report",
+        "arsip": true,
         "localPath": "link/operasional-morning-report/",
         "externalUrl": ""
       },
@@ -496,6 +504,7 @@ window.IGD_LINK_GROUPS = [
         "tag": "sheet",
         "sensitive": true,
         "slug": "operasional-laporan-bulanan-pelayanan",
+        "arsip": true,
         "localPath": "link/operasional-laporan-bulanan-pelayanan/",
         "externalUrl": "https://docs.google.com/spreadsheets/d/1Lzsf7r-Qgu0dQQ_QMq8tNiCASQX3-ocilMLSvErOP80/edit?gid=0&hl=id"
       },

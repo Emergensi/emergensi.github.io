@@ -8,7 +8,7 @@
   const GROUPS = RAW_GROUPS
     .filter((group) => group.akses !== 'pimpinan' || ROLE === 'pimpinan')
     .map((group) => ({ ...group, items: (group.refs ? group.refs.map((slug) => BY_SLUG[slug]).filter(Boolean) : group.items)
-      .filter((item) => item.akses !== 'pimpinan' || ROLE === 'pimpinan') }))
+      .filter((item) => (item.akses !== 'pimpinan' || ROLE === 'pimpinan') && !item.arsip) }))   // "arsip": tidak dipakai lagi, disembunyikan
     .filter((group) => group.items.length);
   const ROOT = document.body ? (document.body.dataset.root || '') : '';
   const page = document.body ? document.body.dataset.page : '';
