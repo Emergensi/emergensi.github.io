@@ -2222,3 +2222,7 @@ body.has-pantau .hero-copy { display: none; }
   .topbar.rapat2 .nav-chip, .topbar.rapat2 .top-actions #logoutBtn { font-size: .85rem !important; padding-left: 11px !important; padding-right: 11px !important; min-height: 40px !important; }
   .topbar.rapat2 .top-actions .nav-links { gap: 6px !important; }
 }
+
+/* Respon Time: umpan balik tombol muat ulang */
+.jw-refresh.berputar { animation: jw-putar .8s linear infinite; opacity: .6; }
+@keyframes jw-putar { to { transform: rotate(360deg); } }

@@ -115,13 +115,21 @@
     if (tombol) tombol.disabled = true;
     try {
       const r = await kirim(body);
+      if (r.perluSemua) {
+        const teks = 'Pasien ini sudah punya catatan lanjutan' + (r.baris ? ' dan sudah masuk Register baris ' + r.baris : '') +
+          '.\n\nHapus SEMUA catatannya' + (r.baris ? ', termasuk mengosongkan baris register tersebut' : '') + '?\nGunakan hanya untuk data uji/simulasi atau salah input.';
+        if (!confirm(teks)) { if (tombol) tombol.disabled = false; return; }
+        const alasan = prompt('Alasan penghapusan (misalnya: simulasi):', 'simulasi');
+        if (!alasan) { if (tombol) tombol.disabled = false; return; }
+        return aksi(Object.assign({}, body, { semua: true, alasan }), tombol);
+      }
       if (r.perluAlasan) {
         const alasan = prompt('Sudah lewat 2 menit. Tulis alasan koreksi:');
         if (!alasan) { if (tombol) tombol.disabled = false; return; }
         return aksi(Object.assign({}, body, { alasan }), tombol);
       }
       if (r.error) throw new Error(r.error);
-      pesan(r.peringatan || (body.sub === 'batal' ? 'Dibatalkan' : r.waktu ? 'Tercatat pukul ' + jam(r.waktu) : 'Tersimpan'), !!r.peringatan);
+      pesan(r.peringatan || (r.dihapus ? 'Pasien dihapus' + (r.register ? ' · ' + r.register : '') : body.sub === 'batal' ? 'Dibatalkan' : r.waktu ? 'Tercatat pukul ' + jam(r.waktu) : 'Tersimpan'), !!r.peringatan);
       formTerbuka = false;
       muat(true);
     } catch (e) {
@@ -132,7 +140,12 @@
 
   function pasang() {
     const r = root();
-    r.querySelector('.jw-refresh').addEventListener('click', () => { formTerbuka = false; muat(true); });
+    r.querySelector('.jw-refresh').addEventListener('click', async (ev) => {
+      const t = ev.currentTarget; t.disabled = true; t.classList.add('berputar'); formTerbuka = false;
+      await muat(true);
+      t.disabled = false; t.classList.remove('berputar');
+      pesan('Diperbarui pukul ' + new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date()));
+    });
     r.querySelector('.jw-datang').addEventListener('click', () => {
       const w = r.querySelector('.jw-form-datang');
       if (!w.hidden) { w.hidden = true; formTerbuka = false; return; }
