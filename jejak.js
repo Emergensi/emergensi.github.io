@@ -1,4 +1,4 @@
-// Jejak Waktu IGD: petugas mengetuk tombol saat kejadian; waktu diambil dari server Apps Script.
+// Respon Time IGD: petugas mengetuk tombol saat kejadian; waktu diambil dari server Apps Script.
 (function () {
   const KEY = 'input_token_v1';                       // satu login dengan halaman Input Register
   const R = () => window.RegForm;
@@ -159,7 +159,7 @@
     }));
     r.querySelectorAll('.jw-batal').forEach((b) => b.addEventListener('click', () => {
       const lewat = (Date.now() + selisihServer - ms(b.dataset.waktu)) / 60000 > 2;
-      const tanya = b.dataset.titik === 'datang' ? 'Hapus pasien ini dari Jejak Waktu?' : 'Batalkan catatan ini?';
+      const tanya = b.dataset.titik === 'datang' ? 'Hapus pasien ini dari Respon Time?' : 'Batalkan catatan ini?';
       if (!confirm(tanya)) return;
       const body = { sub: 'batal', id: b.dataset.id, titik: b.dataset.titik };
       if (lewat) { const alasan = prompt('Sudah lewat 2 menit. Tulis alasan koreksi:'); if (!alasan) return; body.alasan = alasan; }

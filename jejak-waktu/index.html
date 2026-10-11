@@ -7,7 +7,7 @@
   <link rel="icon" href="../assets/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <title>Jejak Waktu IGD SGH</title>
+  <title>Respon Time IGD SGH</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
     .jw-app { max-width: 1040px; margin: 0 auto; padding: 16px 16px 40px; }
@@ -31,12 +31,12 @@
   <div class="jw-app">
     <header class="jw-app-head">
       <img src="../assets/emergency-logo.png" alt="Logo IGD SGH" />
-      <div><h1>Jejak Waktu IGD</h1><small>Sedayu General Hospital</small></div>
+      <div><h1>Respon Time IGD</h1><small>Sedayu General Hospital</small></div>
       <span class="jw-app-jam" id="jam">--:--</span>
       <button class="jw-pasang" id="pasang" type="button">⬇ Pasang di desktop</button>
     </header>
     <div class="jw-tab" role="tablist">
-      <button type="button" role="tab" data-panel="jejak" aria-selected="true">⏱️ Jejak Waktu</button>
+      <button type="button" role="tab" data-panel="jejak" aria-selected="true">⏱️ Respon Time</button>
       <button type="button" role="tab" data-panel="input" aria-selected="false">📝 Input Data</button>
     </div>
     <main>
@@ -55,7 +55,7 @@
       window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); prompt = e; btn.classList.add('tampil'); });
       btn.addEventListener('click', async () => { if (!prompt) return; prompt.prompt(); await prompt.userChoice; prompt = null; btn.classList.remove('tampil'); });
       window.addEventListener('appinstalled', () => btn.classList.remove('tampil'));
-      // Tab: Jejak Waktu / Input Data (pilihan terakhir diingat di perangkat ini)
+      // Tab: Respon Time / Input Data (pilihan terakhir diingat di perangkat ini)
       const pilih = (nama) => {
         document.querySelectorAll('.jw-tab button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.panel === nama)));
         document.querySelectorAll('main .jw-panel').forEach((x) => { x.hidden = x.dataset.panel !== nama; });

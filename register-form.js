@@ -128,7 +128,7 @@
     });
   }
 
-  // Perangkat IGD yang didaftarkan pimpinan: staf memakai Jejak Waktu & Input Register tanpa password
+  // Perangkat IGD yang didaftarkan pimpinan: staf memakai Respon Time & Input Register tanpa password
   const PERANGKAT = 'perangkat_token_v1';
   function perangkat() { try { return JSON.parse(localStorage.getItem(PERANGKAT) || 'null'); } catch (e) { return null; } }
   async function daftarPerangkat(tokenPimpinan, nama) {
@@ -142,7 +142,7 @@
     const p = perangkat();
     if (p) return `<p class="pt-sub">📱 Perangkat terdaftar untuk IGD (${esc(p.perangkat || '')}): staf dapat memakai halaman ini tanpa password.</p>`;
     if (peran === 'pimpinan') return `<p class="pt-sub"><button type="button" class="rf-tombol rf-daftar">📱 Daftarkan perangkat ini untuk staf IGD</button>
-      <br><small>Untuk komputer atau HP di IGD: staf bisa memakai Jejak Waktu dan Input Register tanpa password, juga setelah Anda keluar.</small></p>`;
+      <br><small>Untuk komputer atau HP di IGD: staf bisa memakai Respon Time dan Input Register tanpa password, juga setelah Anda keluar.</small></p>`;
     return '';
   }
   function pasangDaftar(root, tokenPimpinan, selesai) {

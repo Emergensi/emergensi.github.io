@@ -1,7 +1,7 @@
 {
   "id": "/jejak-waktu/",
-  "name": "Jejak Waktu IGD SGH",
-  "short_name": "Jejak Waktu",
+  "name": "Respon Time IGD SGH",
+  "short_name": "Respon Time",
   "description": "Ketuk saat kejadian: pasien datang, dokter memeriksa, keputusan, keluar IGD.",
   "lang": "id",
   "start_url": "/jejak-waktu/",

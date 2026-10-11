@@ -183,7 +183,7 @@
     const pantauChip = ROLE === 'pimpinan'
       ? `<a class="nav-chip nav-pantau ${groupId === 'pantau' ? 'active' : ''}" href="${internalUrl('pantau/')}">Pantau IGD</a>` : '';
     const inputChip = ROLE ? `<a class="nav-chip nav-input ${groupId === 'input' ? 'active' : ''}" href="${internalUrl('input/')}">Input Register</a>` : '';
-    const jejakChip = ROLE ? `<a class="nav-chip nav-input ${groupId === 'jejak' ? 'active' : ''}" href="${internalUrl('jejak/')}">Jejak Waktu</a>` : '';
+    const jejakChip = ROLE ? `<a class="nav-chip nav-input ${groupId === 'jejak' ? 'active' : ''}" href="${internalUrl('jejak/')}">Respon Time</a>` : '';
     nav.innerHTML = homeChip + pantauChip + jejakChip + inputChip + GROUPS.map((group) => {
       const active = group.id === groupId ? 'active' : '';
       const label = labels[group.id] || group.title;
