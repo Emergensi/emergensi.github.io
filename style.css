@@ -2464,3 +2464,5 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 .team-section h3 { font-size: 24px !important; letter-spacing: .05em; gap: 22px; }
 .team-section h3::before, .team-section h3::after { height: 3px; }
 @media (max-width: 560px) { .team-section h3 { font-size: 18px !important; gap: 12px; } }
+.bagan-judul { margin-bottom: 40px !important; }
+@media (max-width: 560px) { .bagan-judul { margin-bottom: 26px !important; } }
