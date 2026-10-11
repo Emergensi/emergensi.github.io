@@ -138,6 +138,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Halaman",
         "tag": "page",
         "slug": "operasional-medical-duty-schedule",
+        "arsip": true,
         "localPath": "link/operasional-medical-duty-schedule/",
         "externalUrl": ""
       },
