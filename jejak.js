@@ -103,7 +103,8 @@
         ['Keputusan→keluar', menit(ms(o.keputusan), ms(o.keluar))], ['Konsul→advis', menit(ms(o.konsul), ms(o.advis))], ['Total', menit(d, ms(o.keluar))]]
         .filter((x) => x[1] != null).map((x) => `${x[0]} <b>${lamaTeks(x[1])}</b>`).join(' · ');
       return `<div class="pt-row"><i class="pt-t-${WARNA[o.triase] || 'kosong'}"></i><div><b>${esc(o.nama || o.penanda)}</b>
-        <small>${jam(o.datang)}–${jam(o.keluar)}${o.jenis ? ' · ' + esc((JENIS.find((j) => j[0] === o.jenis) || [0, o.jenis])[1]) : ''}</small><span>${isi}</span></div><strong></strong></div>`;
+        <small>${jam(o.datang)}–${jam(o.keluar)}${o.jenis ? ' · ' + esc((JENIS.find((j) => j[0] === o.jenis) || [0, o.jenis])[1]) : ''}
+        · <button type="button" class="jw-batal" data-id="${o.id}" data-titik="datang" data-waktu="${esc(o.datang)}">hapus</button></small><span>${isi}</span></div><strong></strong></div>`;
     };
     root().innerHTML = `
       <div class="jw-top"><button type="button" class="primary-btn jw-datang">🚪 Pasien datang</button>
