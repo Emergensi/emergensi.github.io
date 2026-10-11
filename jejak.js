@@ -11,7 +11,7 @@
   const hapus = () => { try { localStorage.removeItem(KEY); } catch (e) {} };
   const ms = (t) => (t ? new Date(String(t).replace(' ', 'T') + '+07:00').getTime() : null);
   const jam = (t) => String(t || '').slice(11, 16);
-  let data = null, selisihServer = 0, formTerbuka = false;
+  let data = null, selisihServer = 0, formTerbuka = false, tertunda = false;
 
   const TITIK = [
     ['dokter', '👨‍⚕️', 'Dokter mulai memeriksa', true],
@@ -55,6 +55,8 @@
       if (d.error) throw new Error(d.error);
       data = d; selisihServer = ms(d.sekarang) - Date.now();
       keCache(d);
+      if (formTerbuka) { tertunda = true; return; }   // jangan tutup formulir yang sedang diisi; tampilkan setelah selesai
+      tertunda = false;
       render();
     } catch (e) {
       if (!data) root().innerHTML = '<p class="pt-error">Gagal memuat: ' + esc(e.message) + '</p>';
@@ -161,7 +163,7 @@
     });
     r.querySelector('.jw-datang').addEventListener('click', () => {
       const w = r.querySelector('.jw-form-datang');
-      if (!w.hidden) { w.hidden = true; formTerbuka = false; return; }
+      if (!w.hidden) { w.hidden = true; formTerbuka = false; if (tertunda) { tertunda = false; render(); } return; }
       formTerbuka = true; w.hidden = false;
       w.innerHTML = `<form class="pt-card jw-fd">
         <label>Penanda pasien *<input name="penanda" placeholder="contoh: Bed 2, Tn. A, kaos merah" required></label>
