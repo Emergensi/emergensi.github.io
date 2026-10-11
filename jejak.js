@@ -148,13 +148,23 @@
     return true;
   }
 
+  let antre = 0, janjiDatang = null;      // jumlah simpanan yang belum dijawab server; id pasien baru yang masih disimpan
+
   async function aksi(body, tombol) {
     if (tombol) tombol.disabled = true;
-    if (body.id === 'sementara') { pesan('Tunggu sebentar, masih menyimpan…'); return; }
     const cepat = tampilSementara(body);
     if (cepat) pesan('Menyimpan…');
+    if (body.id === 'sementara') {                  // diketuk sebelum pasien baru selesai disimpan: tunggu id aslinya
+      const id = janjiDatang ? await janjiDatang : null;
+      if (!id) { pesan('Pasien belum tersimpan, coba ketuk lagi.', true); muat(true); return; }
+      body = Object.assign({}, body, { id });
+    }
+    let selesaiDatang = null;
+    if (body.sub === 'datang') janjiDatang = new Promise((ok) => { selesaiDatang = ok; });
+    antre++;
     try {
-      const r = await kirim(body);
+      const r = await kirim(body).finally(() => { antre--; });
+      if (selesaiDatang) selesaiDatang(r && r.id ? r.id : null);
       if (r.perluSemua) {
         const teks = 'Pasien ini sudah punya catatan lanjutan' + (r.baris ? ' dan sudah masuk Register baris ' + r.baris : '') +
           '.\n\nHapus SEMUA catatannya' + (r.baris ? ', termasuk mengosongkan baris register tersebut' : '') + '?\nGunakan hanya untuk data uji/simulasi atau salah input.';
@@ -171,9 +181,11 @@
       if (r.error) throw new Error(r.error);
       pesan(r.peringatan || (r.dihapus ? 'Pasien dihapus' + (r.register ? ' · ' + r.register : '') : body.sub === 'batal' ? 'Dibatalkan' : r.waktu ? 'Tercatat pukul ' + jam(r.waktu) : 'Tersimpan'), !!r.peringatan);
       formTerbuka = false;
+      if (antre > 0) return;                         // masih ada ketukan lain yang disimpan: tunggu jawaban terakhir
       if (r.daftar && r.daftar.aktif) { data = r.daftar; selisihServer = ms(r.daftar.sekarang) - Date.now(); keCache(data); tertunda = false; render(); }
       else muat(true);
     } catch (e) {
+      if (selesaiDatang) selesaiDatang(null);
       pesan(e.message, true);
       if (tombol) tombol.disabled = false;
       if (cepat) muat(true);       // kembalikan tampilan sesuai server
