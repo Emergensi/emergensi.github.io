@@ -201,7 +201,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-head-of-emergency-department",
         "localPath": "link/struktur-head-of-emergency-department/",
         "externalUrl": "",
-        "photo": "",
+        "photo": "assets/staff/dr-nurul-khafidz-subekti.jpg",
         "personName": "dr. Nurul Khafidz Subekti, AIFO-K",
         "personRole": "Head of Emergency Department"
       },
@@ -962,50 +962,50 @@ window.IGD_STAFF_PHOTOS = [
     "name": "dr. Nurul Khafidz Subekti",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUDpgnLnBIxP_k_Pxhv5sjQ1S76Qt-ORY2OylEisfLqAthTgN4dv5HItiDzxIN9uZYfm7lRzzV-HdLAkTHq1VMCdfhhyHTbXfLbTvKP5tNjZCiQZuhBCM2piArdoUsLqazCDjcspru_9jzENBNqYs5vLDaRlM6ruYAeaplT8bFeIvexsnOIib2eh-dbSzT_t-pGlVyaV0JnMHWwdSGnZwZW6wWE7-rsJuA_8JsFPxek=w1280"
+    "photo": "assets/staff/dr-nurul-khafidz-subekti.jpg"
   },
   {
     "name": "dr. Muhammad Adib Ridhani",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBMnO0nxOBs0tgTCbS1UabZXV_JUI3E6aQXSrtU5_6WGcf8N3oanI8Zw5xL3ssWBji0tF7gcWhdkSm8_GYIRtgfErmwngincMa3a0pKt-iriEd1ItlMBwAfFnCRzaG5zjXiQSjkEax4MksapcHwyt054DMr1bvj5yqi7KhUvoWz0QgQYxlu-YKQnXhzFOvZJSoJ_U-6e4IVU3kKwPDV_RgYITJlJkON0xKkEsrvgIo=w1280"
+    "photo": "assets/staff/dr-muhammad-adib-ridhani.jpg"
   },
   {
     "name": "dr. Muhammad Nugraha Putra, MARS",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUDHCpry8Tx1WR0yafWAGp21tfkudkfbfXghAT6JEE6YAm4cbSykIgvlOCpx_75M2bhBQHMgHWIUUM2nmR5FXDLNw3wQ2ISyBNRvTHGd46mxsOSFJaaaRyRtW7c4AR2D9VyZNyS9uxsBvgV4AgUbQh8YPM8iJbMjK9fWzuhREi7ZqXKa13itLVFSbXrEE8aRLUt8yjsEyoW13Q5EBGenTbm5093_Oo5Ny6uPKMJMMII=w1280"
+    "photo": "assets/staff/dr-muhammad-nugraha-putra-mars.jpg"
   },
   {
     "name": "dr. Mahendra DD Luhurpakarti",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUASTCniW2kGb13SQ3jwbe8907J_oW8BSSmkEAWJvP9gqpMp4tnCJ82MjSLCaEFw8TAj5ueDXvNBs0QDKWIb0uXncqwJTGmUmsEbf2NEqiRcAyIRfb2yRFdgk5mnUJ7waZjKpO9-zOovSvoqCE7uAzaR7Qg2THodTxPhklzPRggDf4mRP8OEjf1korVFEanSui1ZqxMDHdTmj_O9akfwyKSRQjUplXjZA6Q8tt-Vlac=w1280",
+    "photo": "assets/staff/dr-mahendra-dd-luhurpakarti.jpg",
     "slug": "struktur-head-of-emergency-department"
   },
   {
     "name": "dr. Dyah Chandra",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUD1a0Zz0KCGDvONUNC57BhZfiyN9lLPB7hV_op9ROprUBe3xVhtUXeXA6-b9xJgR6mBsbKPE2SSyKQdrarAd-xm7std_eNZf-MkNl2excFEbpYdEGUEzba-8x1aLadu4gKLppaCo_nqwczqEgP9dtLGoOPFzd5DAd04M35r5CJPOf1PONf79Q6VtOJJrD-wXxGsasioAaGHSXHmVOzQScE-Br0EF-ifjwnSDPozIU4=w1280"
+    "photo": "assets/staff/dr-dyah-chandra.jpg"
   },
   {
     "name": "dr. Ika Irmawati Susanto",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBJ-XnwHF39NwZ5Oqti29V-oQhzLl3RmkfwifORCI08ztu5KpwAD-V2Qa2VIq5OEGoh-LxEI63C4g5R-xScxGBHSUtHfwreNJJgmCh5Zcd86CQuxSWa5lfie0mvkNWDScc1_7L2-u30cgyNeP9v8-QMWuKhe6QD5YDHwXCjcCo0vhutarTSROFhDYFQB5eb8RRmhU5DZzkHr5XLAngA1pLQq3T6lJsBIHn8E74ws7o=w1280"
+    "photo": "assets/staff/dr-ika-irmawati-susanto.jpg"
   },
   {
     "name": "dr. Rahma Arsyta Sulchaini",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBiDw8oZQ6F6W-aPDPvBH3GyYbZketjpFY8m8r4dksWG_pi5iCjwUauVoNG47VTVs4G6TQ7e-2GdSd3XKOcS9lIkiBFSS8p2o1gBPdznEPeLd6bON-Q6GNHosa4hgWVigufR8h2cc-936yO4LVIRL_mki0jQ2zz-hawM5s0RSDkIb284DpOg1KGAXLDb32NozCPNrjp91qtVeiTL1sUDV-Npo3San4ZLec_pBZQvfU=w1280"
+    "photo": "assets/staff/dr-rahma-arsyta-sulchaini.jpg"
   },
   {
     "name": "dr. Wahyu Tri Atmojo",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBfIRLXUuHCleBFETSs-GNtYr0E9tnaGILs-6VV6D8J6VICVhDD6eckz1ANriuiFj24D9PBWGcCev_aaOgJwdk5Ar_GV0THd6hZJTqGSneFBXe2xCylZ59JcTs_FWAplOUjfkaVY4cW5zYfRxx0lAXIoDbR9BkSnSjgDBByIPeR6oTbvJnM6g_8rgJtYAiGKJlZ7ZYTHQ_hj7oVNOdJEitZp5cZ43nZC-yXfGjwQcs=w1280"
+    "photo": "assets/staff/dr-wahyu-tri-atmojo.jpg"
   },
   {
     "name": "Linggar Dwi Cahyo, S.Kep., Ners",
@@ -1116,7 +1116,7 @@ window.IGD_STAFF_BY_SLUG = {
     "name": "dr. Nurul Khafidz Subekti, AIFO-K",
     "role": "Kepala Instalasi IGD",
     "team": "Tim Dokter Umum",
-    "photo": "",
+    "photo": "assets/staff/dr-nurul-khafidz-subekti.jpg",
     "slug": "struktur-head-of-emergency-department"
   },
   "struktur-emergency-room-manager": {
