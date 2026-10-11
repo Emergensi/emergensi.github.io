@@ -73,18 +73,32 @@
   async function gambarLaporan() {
     if (!window.html2canvas) throw new Error('Pembuat gambar belum termuat; muat ulang halaman.');
     const c = await window.html2canvas($('lbLembar'), { scale: 2, backgroundColor: '#f5f3ee', windowWidth: 1240 });
-    return c.toDataURL('image/jpeg', 0.92);
+    return { jpg: c.toDataURL('image/jpeg', 0.92), w: c.width, h: c.height };
+  }
+
+  // PDF A4 mendatar berisi gambar laporan yang sama (jsPDF)
+  function pdfDari(g) {
+    const PDF = window.jspdf && window.jspdf.jsPDF;
+    if (!PDF) return null;
+    const doc = new PDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+    const W = 297, H = 210, m = 10;
+    const skala = Math.min((W - 2 * m) / g.w, (H - 2 * m) / g.h);
+    const w = g.w * skala, h = g.h * skala;
+    doc.addImage(g.jpg, 'JPEG', (W - w) / 2, (H - h) / 2, w, h);
+    return doc;
   }
 
   async function kirimTele() {
     if (!data) return;
     const b = $('lbTele'); b.disabled = true; pesan('Membuat gambar dan mengirim ke Telegram…');
     try {
-      const jpg = await gambarLaporan();
+      const g = await gambarLaporan();
+      const doc = pdfDari(g);
+      const pdf = doc ? doc.output('datauristring').split(',')[1] : '';
       const d = await bacaJson(await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ aksi: 'kirimBulananGambar', token: token(), tahun: data.tahun, bulan: data.bulan, gambar: jpg.split(',')[1] }) }));
+        body: JSON.stringify({ aksi: 'kirimBulananGambar', token: token(), tahun: data.tahun, bulan: data.bulan, gambar: g.jpg.split(',')[1], pdf }) }));
       cekToken(d);
-      pesan('Terkirim ke Telegram sebagai gambar (' + d.penerima + ' penerima).');
+      pesan('Terkirim ke Telegram: gambar JPG + PDF (' + d.penerima + ' penerima).');
     } catch (e) { pesan(e.message, true); }
     b.disabled = false;
   }
@@ -93,7 +107,7 @@
     if (!data) return;
     try {
       const a = document.createElement('a');
-      a.href = await gambarLaporan(); a.download = 'Laporan_Bulanan_IGD_' + data.namaBulan + '_' + data.tahun + '.jpg'; a.click();
+      a.href = (await gambarLaporan()).jpg; a.download = 'Laporan_Bulanan_IGD_' + data.namaBulan + '_' + data.tahun + '.jpg'; a.click();
     } catch (e) { pesan(e.message, true); }
   }
 
@@ -104,6 +118,10 @@
     $('lbBuat').addEventListener('click', buat);
     $('lbTele').addEventListener('click', kirimTele);
     $('lbGambar').addEventListener('click', unduh);
-    $('lbCetak').addEventListener('click', () => window.print());
+    $('lbCetak').addEventListener('click', async () => {
+      if (!data) return;
+      try { const doc = pdfDari(await gambarLaporan()); if (!doc) throw new Error('Pembuat PDF belum termuat; muat ulang halaman.');
+        doc.save('Laporan_Bulanan_IGD_' + data.namaBulan + '_' + data.tahun + '.pdf'); } catch (e) { pesan(e.message, true); }
+    });
   });
 })();
