@@ -2375,3 +2375,19 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 .bagan-vgaris-atas { width: 2px; height: 85px; background: #94a3b8; flex: none; }
 .bagan-kanan .bagan-hgaris { margin-top: 164px; }
 @media (max-width: 860px) { .bagan-vgaris-atas { display: none; } .bagan-kanan .bagan-hgaris { margin-top: 0; } }
+
+/* Garis bagan kini digambar dengan SVG (panah); garis CSS lama hanya jadi pengatur jarak */
+.bagan { position: relative; }
+.bagan-svg { position: absolute; left: 0; top: 0; pointer-events: none; z-index: 0; overflow: visible; }
+.bagan-kotak { position: relative; z-index: 1; }
+.bagan-garis, .bagan-vgaris, .bagan-vgaris-atas, .bagan-hgaris { background: transparent !important; }
+.bagan-anak::before, .bagan-cabang::before, .bagan-tumpuk::after, .bagan-tumpuk .bagan-kotak::before { display: none !important; }
+.bagan-garis { height: 34px; }
+.bagan-anak { padding-top: 36px; }
+@media (max-width: 860px) { .bagan-samping { row-gap: 34px; } .bagan-tumpuk { gap: 16px; } .bagan-anak { row-gap: 34px; } }
+
+@media (max-width: 860px) {
+  .bagan-kanan { width: 100%; justify-content: center; }
+  .bagan-tumpuk { display: grid; grid-template-columns: repeat(2, minmax(0, 200px)); gap: 12px; justify-content: center; width: 100%; }
+  .bagan-tumpuk .bagan-kotak { width: 100%; }
+}

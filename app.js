@@ -128,10 +128,11 @@
     const cari = (slug) => items.find((i) => i.slug === slug) || RAW_GROUPS.flatMap((g) => g.items).find((i) => i.slug === slug);
     const kotak = (slug, jabatan, kelas) => {
       const it = cari(slug);
+      const peran = { 'struktur-head-of-emergency-department': 'kain', 'struktur-emergency-room-manager': 'karu', 'struktur-secretary': 'staf', 'struktur-finance-manager': 'staf' }[slug] || 'divisi';
       if (!it) return '';
       const nama = it.personName || '-';
       const foto = it.photo ? photoBlock({ ...it, personName: nama }, 'bagan-foto') : `<div class="bagan-foto photo-failed"><span>${initials(nama.replace(/^dr\.\s*/i, ''))}</span></div>`;
-      return `<a class="bagan-kotak ${kelas || ''}" href="${itemHref(it)}">${foto}<span class="bagan-teks"><span class="bagan-jabatan">${jabatan}</span><strong>${nama}</strong></span></a>`;
+      return `<a class="bagan-kotak ${kelas || ''}" data-bagan="${peran}" href="${itemHref(it)}">${foto}<span class="bagan-teks"><span class="bagan-jabatan">${jabatan}</span><strong>${nama}</strong></span></a>`;
     };
     const divisi = [
       ['struktur-emr-division', 'EMR (Ambulans)'],
@@ -153,6 +154,54 @@
       <div class="bagan-anak">${divisi.map(([s, j]) => `<div class="bagan-cabang">${kotak(s, j)}</div>`).join('')}</div>
       <p class="bagan-cat">Klik kotak untuk melihat detail. Perubahan nama pemegang jabatan diperbarui lewat data struktur.</p>
     </section>`;
+  }
+
+  // Garis & panah bagan digambar dari posisi kotak yang sebenarnya, jadi selalu rapi di semua ukuran layar
+  function gambarPanah() {
+    const bagan = document.getElementById('bagan');
+    if (!bagan) return;
+    let svg = bagan.querySelector('svg.bagan-svg');
+    if (!svg) { svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('class', 'bagan-svg'); svg.setAttribute('aria-hidden', 'true'); bagan.prepend(svg); }
+    const B = bagan.getBoundingClientRect();
+    svg.setAttribute('width', B.width); svg.setAttribute('height', B.height);
+    const r = (el) => { const x = el.getBoundingClientRect(); return { l: x.left - B.left, r: x.right - B.left, t: x.top - B.top, b: x.bottom - B.top, cx: (x.left + x.right) / 2 - B.left, cy: (x.top + x.bottom) / 2 - B.top }; };
+    const q = (s) => [...bagan.querySelectorAll('[data-bagan="' + s + '"]')].map(r);
+    const [kain] = q('kain'), [karu] = q('karu'), staf = q('staf'), divisi = q('divisi');
+    if (!kain || !karu) return;
+    const p = [];
+    const garis = (d) => p.push(`<path d="${d}" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#ujung)"/>`);
+    const tanpa = (d) => p.push(`<path d="${d}" fill="none" stroke="#94a3b8" stroke-width="2"/>`);
+    garis(`M${kain.cx},${kain.b} V${karu.t - 2}`);
+    const lebar = window.innerWidth > 860;
+    if (lebar && staf.length) {
+      const xBus = karu.r + (Math.min(...staf.map((s) => s.l)) - karu.r) / 2;
+      tanpa(`M${karu.r},${karu.cy} H${xBus}`);
+      tanpa(`M${xBus},${Math.min(...staf.map((s) => s.cy))} V${Math.max(...staf.map((s) => s.cy))}`);
+      staf.forEach((s) => garis(`M${xBus},${s.cy} H${s.l - 2}`));
+    } else if (staf.length) {
+      const yBus = karu.b + (Math.min(...staf.map((s) => s.t)) - karu.b) / 2;
+      tanpa(`M${karu.cx},${karu.b} V${yBus}`);
+      if (staf.length > 1) tanpa(`M${Math.min(...staf.map((s) => s.cx))},${yBus} H${Math.max(...staf.map((s) => s.cx))}`);
+      staf.forEach((s) => garis(`M${s.cx},${yBus} V${s.t - 2}`));
+    }
+    if (divisi.length) {
+      // kelompokkan per baris; tiap baris punya garis datar sendiri, tersambung lewat garis tegak di tengah
+      const barisList = [];
+      divisi.slice().sort((m, n) => m.t - n.t).forEach((d) => {
+        const b = barisList.find((x) => Math.abs(x[0].t - d.t) < 4);
+        if (b) b.push(d); else barisList.push([d]);
+      });
+      const asal = karu;                                   // garis induk selalu dari Kepala Ruang (di HP lewat celah Sekretaris–Keuangan)
+      const busTerakhir = barisList[barisList.length - 1][0].t - 18;
+      tanpa(`M${asal.cx},${asal.b} V${busTerakhir}`);
+      barisList.forEach((baris) => {
+        const yBus = baris[0].t - 18;
+        const xs = baris.map((d) => d.cx).concat([asal.cx]);
+        tanpa(`M${Math.min(...xs)},${yBus} H${Math.max(...xs)}`);
+        baris.forEach((d) => garis(`M${d.cx},${yBus} V${d.t - 2}`));
+      });
+    }
+    svg.innerHTML = '<defs><marker id="ujung" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker></defs>' + p.join('');
   }
 
   function staffGallery(filterTeam) {
@@ -343,7 +392,10 @@
         ? (bagan ? `${bagan}${gallery}` : `<div class="card-grid">${items.map(linkCard).join('')}</div>${gallery}`)   // Struktur: cukup bagan (kotaknya bisa diklik)
         : '<div class="empty-state">Tidak ada link yang cocok dengan pencarian.</div>';
     }
-    if (input) input.addEventListener('input', render);
+    if (input) input.addEventListener('input', () => { render(); gambarPanah(); });
+    window.addEventListener('resize', gambarPanah);
+    setTimeout(gambarPanah, 50);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(gambarPanah);
     render();
   }
 
