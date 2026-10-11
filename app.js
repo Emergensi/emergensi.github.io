@@ -299,7 +299,12 @@
     function render() {
       if (!root) return;
       const query = input ? input.value.trim() : '';
-      const items = sortByTitle(group.items.map((item) => ({ ...item, groupTitle: group.title, groupId: group.id })).filter((item) => itemMatches(item, query)));
+      const semua = group.items.map((item) => ({ ...item, groupTitle: group.title, groupId: group.id })).filter((item) => itemMatches(item, query));
+      // grup dengan "urutan" (daftar slug) ditampilkan sesuai urutan itu; sisanya menurut abjad
+      const items = group.urutan
+        ? semua.filter((i) => group.urutan.includes(i.slug)).sort((x, y) => group.urutan.indexOf(x.slug) - group.urutan.indexOf(y.slug))
+          .concat(sortByTitle(semua.filter((i) => !group.urutan.includes(i.slug))))
+        : sortByTitle(semua);
       const gallery = (groupId === 'struktur' && !query) ? staffGallery() : '';
       root.innerHTML = items.length
         ? `<div class="card-grid">${items.map(linkCard).join('')}</div>${gallery}`

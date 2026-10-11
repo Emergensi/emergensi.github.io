@@ -3,6 +3,7 @@
 window.IGD_LINK_GROUPS = [
   {
     "id": "operasional",
+    "urutan": ["operasional-aviat-in-hospital", "operasional-aviat-out-hospital", "operasional-patient-registration", "operasional-patient-registration-homecare", "operasional-formulir-igd", "operasional-gdrive-ugd-file"],
     "title": "Beranda Operasional",
     "subtitle": "Tautan kerja harian setiap shift: register, formulir, AVIAT, dan folder IGD.",
     "icon": "⚡",
