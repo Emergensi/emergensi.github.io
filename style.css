@@ -2427,3 +2427,12 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
   .bagan-kotak strong { font-size: .9rem; }
 }
 .bagan-cat { margin-top: 22px !important; }
+/* Bagan: kotak putih profesional, aksen biru tua (kontras dgn latar foto biru muda) */
+.bagan-kotak, .bagan-cabang .bagan-kotak, .bagan-tumpuk .bagan-kotak {
+  background: #ffffff !important; border: 1px solid #d3e1ec !important; border-top: 5px solid #1d6a96 !important;
+  box-shadow: 0 8px 22px rgba(16,52,82,.10) !important; }
+.bagan-kotak.utama { background: linear-gradient(160deg,#1d6a96,#134a6b) !important; border: 1px solid #134a6b !important; border-top: 5px solid #0c3550 !important; }
+.bagan-kotak.utama .bagan-jabatan { color: #cfe6f5 !important; }
+.bagan-kotak.utama .bagan-nama, .bagan-kotak.utama strong { color: #fff !important; }
+.bagan-foto { border: 3px solid #eef4f9 !important; box-shadow: 0 3px 10px rgba(16,52,82,.16) !important; }
+.bagan-kotak.utama .bagan-foto { border-color: #fff !important; }
