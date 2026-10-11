@@ -28,11 +28,24 @@
     }
   }
 
+  // Daftar terakhir ditampilkan dulu dari perangkat, lalu diperbarui dari server
+  const kunciDaftar = (t) => 'rf_lengkapi_' + (t.token ? 'p' : 's');
   async function daftar(isi, t) {
-    isi.innerHTML = '<h2>Lengkapi data</h2><p class="pt-sub">Memuat pasien yang datanya belum lengkap…</p>';
+    let tampilCache = false;
+    try {
+      const c = JSON.parse(localStorage.getItem(kunciDaftar(t)) || 'null');
+      if (c && c.d && Date.now() - c.waktu < 6 * 3600e3) { tulisDaftar(isi, t, c.d, true); tampilCache = true; }
+    } catch (e) {}
+    if (!tampilCache) isi.innerHTML = '<h2>Lengkapi data</h2><p class="pt-sub">Memuat pasien yang datanya belum lengkap…</p>';
     let d;
     try { d = await window.RegForm.get('perluLengkapi', t.token); } catch (e) { d = { error: e.message }; }
-    if (d.error === 'token') { if (t.token) { hapus(); return login(); } d = { error: 'Server Apps Script belum diperbarui: buka Apps Script → Deploy → Manage deployments → Edit → New version → Deploy.' }; }
+    if (!d.error) { try { localStorage.setItem(kunciDaftar(t), JSON.stringify({ d, waktu: Date.now() })); } catch (e) {} }
+    if (isi.querySelector('.rf-form')) return;          // sedang mengisi formulir: jangan ditimpa
+    tulisDaftar(isi, t, d, false);
+  }
+
+  function tulisDaftar(isi, t, d, dariCache) {
+    if (d.error === 'token') { if (t.token && !dariCache) { hapus(); return login(); } d = { error: 'Server Apps Script belum diperbarui: buka Apps Script → Deploy → Manage deployments → Edit → New version → Deploy.' }; }
     if (d.error) { isi.innerHTML = '<h2>Lengkapi data</h2><p class="pt-error">' + esc(d.error) + '</p>'; return; }
     const label = { jk: 'jenis kelamin', umur: 'umur', status: 'pasien lama/baru', alamat: 'alamat', jaminan: 'jaminan', gadar: 'gawat darurat', kll: 'KLL', caraDatang: 'cara datang', rujukanDari: 'rujukan dari', kasus: 'kasus', perawat: 'perawat', tindakan: 'tindakan', jamDatang: 'jam datang', jamTangani: 'jam ditangani', jamKeluar: 'jam keluar', triase: 'triase', diagnosis: 'diagnosis',
       dokter: 'dokter', rencana: 'rencana tindak lanjut', ruang: 'ruang', dpjp: 'DPJP', indikasiRujuk: 'indikasi rujuk', rsRujukan: 'RS rujukan' };

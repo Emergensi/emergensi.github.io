@@ -64,10 +64,12 @@
       };
       document.querySelectorAll('.jw-tab button').forEach((b) => b.addEventListener('click', () => pilih(b.dataset.panel)));
       window.addEventListener('load', () => { try { const t = localStorage.getItem('jw_tab'); if (t === 'input') pilih('input'); } catch (e) {} });
+      // siapkan pilihan form Input Data di belakang layar, agar tab itu langsung terbuka
+      window.addEventListener('load', () => setTimeout(() => { try { window.RegForm.opsi('').catch(() => {}); } catch (e) {} }, 3000));
     })();
   </script>
-  <script src="../register-form.js?v=202610111804"></script>
-  <script src="../jejak.js?v=202610111804"></script>
-  <script src="../input.js?v=202610111804"></script>
+  <script src="../register-form.js?v=202610111806"></script>
+  <script src="../jejak.js?v=202610111806"></script>
+  <script src="../input.js?v=202610111806"></script>
 </body>
 </html>

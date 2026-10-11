@@ -23,13 +23,25 @@
     return bacaJson(res);
   }
 
-  let opsiCache = null;
+  // Pilihan form disimpan di perangkat: form langsung tampil, lalu diperbarui diam-diam dari server
+  const OPSI_KEY = 'rf_opsi_v1';
+  let opsiCache = null, opsiSegar = null;
+  function ambilOpsiServer(token) {
+    if (!opsiSegar) opsiSegar = get('opsi', token).then((d) => {
+      if (d.error) throw new Error(d.error === 'token' ? 'Server Apps Script belum diperbarui (Deploy → New version).' : d.error);
+      opsiCache = d;
+      try { localStorage.setItem(OPSI_KEY, JSON.stringify({ d, waktu: Date.now() })); } catch (e) {}
+      return d;
+    }).catch((e) => { opsiSegar = null; throw e; });
+    return opsiSegar;
+  }
   async function opsi(token) {
     if (opsiCache) return opsiCache;
-    const d = await get('opsi', token);
-    if (d.error) throw new Error(d.error === 'token' ? 'Server Apps Script belum diperbarui (Deploy → New version).' : d.error);
-    opsiCache = d;
-    return d;
+    try {
+      const c = JSON.parse(localStorage.getItem(OPSI_KEY) || 'null');
+      if (c && c.d && c.d.isian && Date.now() - c.waktu < 7 * 864e5) { opsiCache = c.d; ambilOpsiServer(token).catch(() => {}); return c.d; }
+    } catch (e) {}
+    return ambilOpsiServer(token);
   }
 
   function isianHtml(k, def, pilihan, nilai) {
