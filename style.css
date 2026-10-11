@@ -2395,3 +2395,35 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 /* Inisial hanya tampil bila foto gagal dimuat */
 .staff-photo:not(.photo-failed) > span, .card-photo:not(.photo-failed) > span, .bagan-foto:not(.photo-failed) > span { display: none; }
 .staff-photo img, .card-photo img { object-fit: cover; }
+
+/* Bagan: kotak lebih besar, latar biru muda khas SGH (kontras dengan baju putih) */
+.bagan-samping { align-items: center !important; }
+.bagan-vgaris-atas, .bagan-vgaris { display: none !important; }
+.bagan-kanan { align-items: center !important; }
+.bagan-kanan .bagan-hgaris { margin-top: 0 !important; width: 44px; }
+.bagan-tumpuk { gap: 14px; padding-left: 0; }
+.bagan-kotak, .bagan-kotak.utama, .bagan-cabang .bagan-kotak, .bagan-tumpuk .bagan-kotak {
+  width: 230px; min-height: 230px; padding: 18px 14px; gap: 10px;
+  background: #e4f1fa; border: 1px solid #b6d7ee; box-shadow: 0 10px 24px rgba(29, 106, 150, .10);
+}
+.bagan-kotak:hover { border-color: #1d6a96; }
+.bagan-kotak.utama { border: 2px solid #1d6a96; background: #d5e9f7; }
+.bagan-jabatan { color: #1d6a96; }
+.bagan-foto { width: 112px; height: 112px; border-radius: 18px; background: #fff; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(29, 106, 150, .18); }
+.bagan-foto img { object-position: center top; }
+.bagan-foto span { color: #1d6a96; font-size: 1.6rem; }
+.bagan-kotak strong { font-size: 1.02rem; }
+.bagan-anak { grid-template-columns: repeat(4, 230px) !important; column-gap: 26px; padding-top: 40px; }
+.bagan-garis { height: 40px; }
+@media (max-width: 1100px) { .bagan-anak { grid-template-columns: repeat(2, 230px) !important; row-gap: 40px; } }
+@media (max-width: 860px) {
+  .bagan-samping { row-gap: 40px; }
+  .bagan-tumpuk { grid-template-columns: repeat(2, minmax(0, 230px)); }
+}
+@media (max-width: 560px) {
+  .bagan-anak { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; column-gap: 10px; }
+  .bagan-kotak, .bagan-kotak.utama, .bagan-cabang .bagan-kotak, .bagan-tumpuk .bagan-kotak { width: 100%; max-width: 230px; min-height: 0; padding: 14px 8px; }
+  .bagan-foto { width: 84px; height: 84px; }
+  .bagan-kotak strong { font-size: .9rem; }
+}
+.bagan-cat { margin-top: 22px !important; }
