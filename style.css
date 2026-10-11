@@ -2277,3 +2277,13 @@ body.has-pantau .hero-copy { display: none; }
   body, .page-shell { background: #fff !important; }
   .lb-lembar { padding: 0; }
 }
+
+/* Pilihan ganda (perawat, tindakan) */
+.rf-lab { display: block; font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
+.rf-lab small { font-weight: 400; color: #64748b; }
+.rf-multi { display: flex; flex-wrap: wrap; gap: 6px; }
+.rf-multi label { cursor: pointer; }
+.rf-multi input { position: absolute; opacity: 0; pointer-events: none; }
+.rf-multi span { display: inline-block; padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 999px; background: #fff; font-size: .85rem; font-weight: 600; color: #334155; }
+.rf-multi input:checked + span { background: #0f172a; border-color: #0f172a; color: #fff; }
+.rf-multi input:focus-visible + span { outline: 2px solid #b91c1c; outline-offset: 2px; }

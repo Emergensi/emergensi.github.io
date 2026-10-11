@@ -44,9 +44,15 @@
     return ambilOpsiServer(token);
   }
 
+  const GANDA = ['perawat', 'tindakan'];
   function isianHtml(k, def, pilihan, nilai) {
     const id = 'rf-' + k + '-' + Math.random().toString(36).slice(2, 7);
     const lab = `<label for="${id}">${esc(def.label)}</label>`;
+    if (def.tipe === 'pilihan' && GANDA.includes(k)) {     // pilih lebih dari satu
+      const dipilih = String(nilai || '').split(/\s*,\s*/);
+      return `<div class="rf-f"><span class="rf-lab">${esc(def.label)} <small>(boleh lebih dari satu)</small></span><div class="rf-multi">${(pilihan || []).map((o) =>
+        `<label><input type="checkbox" name="${k}" value="${esc(o)}" data-ganda="1"${dipilih.includes(o) ? ' checked' : ''}><span>${esc(o)}</span></label>`).join('')}</div></div>`;
+    }
     if (def.tipe === 'pilihan') {
       return `<div class="rf-f">${lab}<select id="${id}" name="${k}"><option value="">Pilih…</option>${(pilihan || []).map((o) =>
         `<option${o === nilai ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select></div>`;
@@ -73,6 +79,7 @@
   function baca(form) {
     const o = {};
     form.querySelectorAll('[name]').forEach((el) => {
+      if (el.dataset.ganda) { if (el.checked) o[el.name] = (o[el.name] ? o[el.name] + ', ' : '') + el.value; return; }
       if (el.type === 'checkbox') o[el.name] = el.checked;
       else if (String(el.value).trim()) o[el.name] = el.value.trim();
     });
