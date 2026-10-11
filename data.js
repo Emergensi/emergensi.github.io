@@ -1093,22 +1093,22 @@ window.IGD_STAFF_PHOTOS = [
     "photo": "assets/staff/rusni.jpg"
   },
   {
-    "name": "dr. Nuri Anang, Sp. KLL",
-    "role": "Tim Driver / Pendukung Operasional",
+    "name": "Nuri Anang",
+    "role": "Driver / Pendukung Operasional",
     "team": "Tim Driver",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUD7QsZIOcGyrSalNL2lD852ImNcyrV633fvn4zsSqUf5blS_6wKd30EciCF65mAa6pVNoTjwlTw5RFdW1AfS5hk8Up-CZXTZH8JGQDUQzKO3WZWflZU2T3b1qP1GQoF8_Mnif6NE-sYWTEIFzYo4zZHEMLXsD0VApT7bae51cpxCu-Y1iHwPvDRJTefc-leGFEvk3EqGk4V1xO2X307sAGjCNWvDT7RrMvgcT9Z=w1280"
+    "photo": "assets/staff/nuri-anang.jpg"
   },
   {
     "name": "Arief Lailatul Khusuuf Iman",
     "role": "Driver / Pendukung Operasional",
     "team": "Tim Driver",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUBN0dTMpjtq0ZMNjK0prd2n3yFT2hjGBb5cI0135pJiUIFMai-ilBen-_gxBCY65vUDFN12k32YKrlgzFhMVk2wA3hSMY-usoTOuF_lZWM2afEa9FocLGU9owkMNJlsS19MUe5JuPNGu6uv7V66BRPeyOp_i_ZgoH5ZyHBHGXWWOU5bQlr_Du_VEfZXlRbQaWlMCXL01cN3QhjeebB0BTOeaE-OLeCzb2Fu2EJ8AMM=w1280"
+    "photo": "assets/staff/arief-lailatul-khusuuf-iman.jpg"
   },
   {
     "name": "Veri Agus Saputra",
     "role": "Driver / Pendukung Operasional",
     "team": "Tim Driver",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUDOo8MJvHR30D-wSypnP9UPKS028o2WqRgAhwo5IPzB3I6hlrvivLbZnfHN9Jmmhk711D6kBKrE_U4bH91_SsA5qONW68KcsuD0epsliqRjy3jYxBPc4Dj58oJxIXciT9HGZIO-IYys_QOC3pRf1B8vrzb58Pk5TdssbSBasYAttayhoE1sG4YaSLuah5GAGyXtsQB0jVdVonEJcwC_Odb8xHj55kXvumRcoq3K=w1280"
+    "photo": "assets/staff/veri-agus-saputra.jpg"
   }
 ];
 window.IGD_STAFF_BY_SLUG = {
