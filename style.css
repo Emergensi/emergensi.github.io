@@ -2453,3 +2453,11 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
   .staff-card { width: auto !important; min-height: 0; }
   .staff-card .staff-photo { width: 96px !important; height: 96px !important; flex-basis: 96px !important; }
 }
+/* Judul tim sebagai pembatas: ──── Tim Dokter Umum ──── */
+.team-section h3 { display: flex !important; align-items: center; gap: 16px; margin: 34px 0 20px !important;
+  font-size: 17px; font-weight: 800; color: #1d6a96; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+.team-section h3::before, .team-section h3::after { content: ""; flex: 1; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #9cc4de); }
+.team-section h3::after { background: linear-gradient(90deg, #9cc4de, transparent); }
+.team-section:first-of-type h3 { margin-top: 10px !important; }
+@media (max-width: 560px) { .team-section h3 { font-size: 14px; gap: 10px; } }
