@@ -338,7 +338,7 @@
       const gallery = (groupId === 'struktur' && !query) ? staffGallery() : '';
       const bagan = (groupId === 'struktur' && !query) ? baganStruktur(group.items) : '';
       root.innerHTML = items.length
-        ? `${bagan}<div class="card-grid">${items.map(linkCard).join('')}</div>${gallery}`
+        ? (bagan ? `${bagan}${gallery}` : `<div class="card-grid">${items.map(linkCard).join('')}</div>${gallery}`)   // Struktur: cukup bagan (kotaknya bisa diklik)
         : '<div class="empty-state">Tidak ada link yang cocok dengan pencarian.</div>';
     }
     if (input) input.addEventListener('input', render);
