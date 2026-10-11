@@ -2329,13 +2329,26 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 @media (max-width: 1000px) { .bagan-anak { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; } .bagan-anak::before { display: none; } }
 @media (max-width: 560px) { .bagan-anak { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bagan-kotak { width: 100%; } .bagan-level .bagan-kotak { width: 80%; } }
 
-/* Sekretaris & Keuangan di samping Kepala Ruang */
-.bagan-samping { align-items: center; gap: 0; }
-.bagan-hgaris { width: 40px; height: 2px; background: #94a3b8; flex: none; }
-.bagan-sisi .bagan-kotak { width: 190px; }
-@media (max-width: 760px) {
-  .bagan-samping { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; justify-items: center; }
-  .bagan-pusat { grid-column: 1 / -1; order: -1; width: 100%; display: flex; justify-content: center; }
-  .bagan-hgaris { display: none; }
-  .bagan-sisi .bagan-kotak { width: 100%; }
+/* Sekretaris & Keuangan di sebelah kanan Kepala Ruang (staf) */
+.bagan-samping { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+.bagan-pusat { display: flex; justify-content: center; }
+.bagan-kanan { display: flex; align-items: center; }
+.bagan-hgaris { width: 36px; height: 2px; background: #94a3b8; flex: none; }
+.bagan-tumpuk { display: flex; flex-direction: column; gap: 10px; padding-left: 18px; border-left: 2px solid #94a3b8; position: relative; }
+.bagan-tumpuk .bagan-kotak { position: relative; }
+.bagan-tumpuk .bagan-kotak::before { content: ""; position: absolute; left: -20px; top: 50%; width: 18px; height: 2px; background: #94a3b8; }
+.bagan-kotak.kecil { flex-direction: row; text-align: left; width: 250px; padding: 10px 12px; gap: 10px; }
+.bagan-kotak.kecil .bagan-foto { width: 44px; height: 44px; flex: none; }
+.bagan-kotak.kecil .bagan-foto span { font-size: .9rem; }
+.bagan-kotak.kecil > .bagan-jabatan, .bagan-kotak.kecil > strong { display: block; }
+.bagan-teks { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+.bagan-kotak.kecil .bagan-teks { align-items: flex-start; }
+@media (max-width: 860px) {
+  .bagan-samping { grid-template-columns: 1fr; gap: 14px; justify-items: center; }
+  .bagan-samping > div:first-child { display: none; }
+  .bagan-kanan .bagan-hgaris { display: none; }
+  .bagan-tumpuk { border-left: none; padding-left: 0; flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .bagan-tumpuk .bagan-kotak::before { display: none; }
+  .bagan-kotak.kecil { width: 160px; flex-direction: column; text-align: center; }
+  .bagan-kotak.kecil .bagan-teks { align-items: center; }
 }

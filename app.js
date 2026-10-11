@@ -131,7 +131,7 @@
       if (!it) return '';
       const nama = it.personName || '-';
       const foto = it.photo ? photoBlock({ ...it, personName: nama }, 'bagan-foto') : `<div class="bagan-foto photo-failed"><span>${initials(nama.replace(/^dr\.\s*/i, ''))}</span></div>`;
-      return `<a class="bagan-kotak ${kelas || ''}" href="${itemHref(it)}">${foto}<span class="bagan-jabatan">${jabatan}</span><strong>${nama}</strong></a>`;
+      return `<a class="bagan-kotak ${kelas || ''}" href="${itemHref(it)}">${foto}<span class="bagan-teks"><span class="bagan-jabatan">${jabatan}</span><strong>${nama}</strong></span></a>`;
     };
     const divisi = [
       ['struktur-emr-division', 'EMR (Ambulans)'],
@@ -142,10 +142,12 @@
       <h2 class="bagan-judul">Bagan Struktur Organisasi IGD</h2>
       <div class="bagan-level">${kotak('struktur-head-of-emergency-department', 'Kepala Instalasi IGD', 'utama')}</div>
       <div class="bagan-garis"></div>
-      <div class="bagan-level bagan-samping">
-        <div class="bagan-sisi">${kotak('struktur-secretary', 'Sekretaris')}</div><span class="bagan-hgaris"></span>
-        <div class="bagan-pusat">${kotak('struktur-emergency-room-manager', 'Kepala Ruang IGD')}</div><span class="bagan-hgaris"></span>
-        <div class="bagan-sisi">${kotak('struktur-finance-manager', 'Keuangan')}</div>
+      <div class="bagan-samping">
+        <div></div>
+        <div class="bagan-pusat">${kotak('struktur-emergency-room-manager', 'Kepala Ruang IGD')}</div>
+        <div class="bagan-kanan"><span class="bagan-hgaris"></span>
+          <div class="bagan-tumpuk">${kotak('struktur-secretary', 'Sekretaris', 'kecil')}${kotak('struktur-finance-manager', 'Keuangan', 'kecil')}</div>
+        </div>
       </div>
       <div class="bagan-garis"></div>
       <div class="bagan-anak">${divisi.map(([s, j]) => `<div class="bagan-cabang">${kotak(s, j)}</div>`).join('')}</div>
