@@ -237,8 +237,8 @@ window.IGD_LINK_GROUPS = [
         "personRole": "Finance Manager"
       },
       {
-        "title": "Divisi Rekam Medis Elektronik",
-        "desc": "Divisi EMR IGD.",
+        "title": "Divisi EMR (Ambulans)",
+        "desc": "Emergency Medical Response: ambulans, transfer, dan rujukan pasien.",
         "url": "link/struktur-emr-division/",
         "type": "Halaman",
         "tag": "page",
