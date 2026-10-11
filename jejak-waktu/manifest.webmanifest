@@ -1,0 +1,16 @@
+{
+  "id": "/jejak-waktu/",
+  "name": "Jejak Waktu IGD SGH",
+  "short_name": "Jejak Waktu",
+  "description": "Ketuk saat kejadian: pasien datang, dokter memeriksa, keputusan, keluar IGD.",
+  "lang": "id",
+  "start_url": "/jejak-waktu/",
+  "scope": "/jejak-waktu/",
+  "display": "standalone",
+  "theme_color": "#b91c1c",
+  "background_color": "#f8fafc",
+  "icons": [
+    {"src": "../assets/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "../assets/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}
+  ]
+}
