@@ -2370,3 +2370,8 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 .bagan-tumpuk::after { content: ""; position: absolute; left: 0; top: 79px; height: 172px; width: 2px; background: #94a3b8; }
 .bagan-anak::before { left: calc(50% - 336px); right: calc(50% - 336px); }
 @media (max-width: 860px) { .bagan-tumpuk::after, .bagan-vgaris { display: none; } .bagan-kanan .bagan-hgaris { margin-top: 0; } }
+
+/* Kepala Ruang tepat di tengah antara Sekretaris & Keuangan */
+.bagan-vgaris-atas { width: 2px; height: 85px; background: #94a3b8; flex: none; }
+.bagan-kanan .bagan-hgaris { margin-top: 164px; }
+@media (max-width: 860px) { .bagan-vgaris-atas { display: none; } .bagan-kanan .bagan-hgaris { margin-top: 0; } }
