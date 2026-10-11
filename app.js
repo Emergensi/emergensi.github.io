@@ -88,7 +88,7 @@
     const name = item.personName || item.title || item.name || '';
     if (!item.photo) return '';
     const src = isExternal(item.photo) ? item.photo : internalUrl(item.photo);
-    return `<div class="${className}"><img src="${safeAttr(src)}" alt="Foto ${safeAttr(name)}" loading="lazy" onerror="this.closest('.${className}').classList.add('photo-failed'); this.remove();"><span>${initials(name)}</span></div>`;
+    return `<div class="${className}"><img src="${safeAttr(src)}" alt="Foto ${safeAttr(name)}" loading="lazy" data-inisial="${safeAttr(initials(name))}" onerror="const w=this.closest('.${className}');w.classList.add('photo-failed');w.insertAdjacentHTML('beforeend','<span>'+this.dataset.inisial+'</span>');this.remove();"></div>`;
   }
 
   function linkCard(item) {
