@@ -35,14 +35,26 @@
     return r;
   }
 
+  // Tampilkan data terakhir yang tersimpan di perangkat lebih dulu (langsung muncul), lalu segarkan dari server
+  const kunciCache = () => 'rt_cache_' + (ambil().token ? 'p' : 's');
+  function dariCache() {
+    try {
+      const c = JSON.parse(localStorage.getItem(kunciCache()) || 'null');
+      if (c && c.d && Date.now() - c.waktu < 12 * 3600e3) { data = c.d; selisihServer = c.selisih || 0; render(); }
+    } catch (e) {}
+  }
+  function keCache(d) { try { localStorage.setItem(kunciCache(), JSON.stringify({ d, selisih: selisihServer, waktu: Date.now() })); } catch (e) {} }
+
   async function muat(paksa) {
     const t = ambil();
     if (!paksa && formTerbuka) return;
+    if (!data) dariCache();
     try {
       const d = await R().get('jejakAktif', t.token);
       if (d.error === 'token') { if (t.token) { hapus(); return login(); } throw new Error('Server Apps Script belum diperbarui: buka Apps Script → Deploy → Manage deployments → Edit → New version → Deploy.'); }
       if (d.error) throw new Error(d.error);
       data = d; selisihServer = ms(d.sekarang) - Date.now();
+      keCache(d);
       render();
     } catch (e) {
       if (!data) root().innerHTML = '<p class="pt-error">Gagal memuat: ' + esc(e.message) + '</p>';

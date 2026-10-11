@@ -60,9 +60,10 @@
         document.querySelectorAll('.jw-tab button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.panel === nama)));
         document.querySelectorAll('main .jw-panel').forEach((x) => { x.hidden = x.dataset.panel !== nama; });
         try { localStorage.setItem('jw_tab', nama); } catch (e) {}
+        if (nama === 'input' && window.IGDInput && window.IGDInput.siap) window.IGDInput.siap();
       };
       document.querySelectorAll('.jw-tab button').forEach((b) => b.addEventListener('click', () => pilih(b.dataset.panel)));
-      try { const t = localStorage.getItem('jw_tab'); if (t === 'input') pilih('input'); } catch (e) {}
+      window.addEventListener('load', () => { try { const t = localStorage.getItem('jw_tab'); if (t === 'input') pilih('input'); } catch (e) {} });
     })();
   </script>
   <script src="../register-form.js"></script>

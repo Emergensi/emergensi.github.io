@@ -48,5 +48,12 @@
   }
 
   window.IGDInput = { buka: (tab) => tampil(tab || 'lengkapi') };
-  document.addEventListener('DOMContentLoaded', () => tampil(location.hash === '#lengkapi' ? 'lengkapi' : 'baru'));
+  let dimuat = false;
+  window.IGDInput.buka = (tab) => { dimuat = true; tampil(tab || 'lengkapi'); };
+  window.IGDInput.siap = () => { if (!dimuat) { dimuat = true; tampil('baru'); } };
+  document.addEventListener('DOMContentLoaded', () => {
+    const r = root();
+    if (r && r.hidden) return;            // aplikasi Respon Time: tab Input Data dimuat saat dibuka, agar Respon Time lebih cepat
+    dimuat = true; tampil(location.hash === '#lengkapi' ? 'lengkapi' : 'baru');
+  });
 })();
