@@ -232,17 +232,29 @@
     if (totalCategories) totalCategories.textContent = GROUPS.length;
 
     const categoryRoot = $('categoryRoot');
-    // Beranda disederhanakan: kartu "Beranda Operasional" tidak ditampilkan (halamannya tetap ada di menu atas)
-    if (categoryRoot) categoryRoot.innerHTML = GROUPS.filter((g) => g.id !== 'operasional').map(categoryCard).join('');
-
-    const priorityTitles = [
-      'Registrasi Pasien', 'Billing Pasien', 'AVIAT (Jaringan RS)', 'Form Pemantauan Suhu Ruangan', 'Akreditasi'
-    ];
-    const priority = sortByTitle(priorityTitles
-      .map((title) => allItems().find((item) => item.title === title))
-      .filter(Boolean));
+    // Beranda disederhanakan: satu grid berisi halaman bagian + tautan IGD yang sering dipakai
+    const priorityTitles = ['Registrasi Pasien', 'Billing Pasien', 'AVIAT (Jaringan RS)', 'Form Pemantauan Suhu Ruangan'];
+    const ikonLink = { 'Registrasi Pasien': '📋', 'Billing Pasien': '💳', 'AVIAT (Jaringan RS)': '🖥️', 'Form Pemantauan Suhu Ruangan': '🌡️' };
+    const priority = priorityTitles.map((title) => allItems().find((item) => item.title === title)).filter(Boolean);
+    const linkKartu = (item) => {
+      const href = itemHref(item);
+      const external = isExternal(href);
+      return `
+      <a class="category-card" href="${href}"${external ? ' target="_blank" rel="noopener"' : ''}>
+        <div class="category-icon">${ikonLink[item.title] || '🔗'}</div>
+        <div>
+          <h3>${item.title}</h3>
+          <p>${item.desc || ''}</p>
+        </div>
+        <div class="category-foot">
+          <span>${item.type || 'Tautan'}</span>
+          <strong>${external ? 'Buka langsung ↗' : 'Buka halaman →'}</strong>
+        </div>
+      </a>`;
+    };
+    if (categoryRoot) categoryRoot.innerHTML = GROUPS.filter((g) => g.id !== 'operasional').map(categoryCard).join('') + priority.map(linkKartu).join('');
     const priorityRoot = $('priorityRoot');
-    if (priorityRoot) priorityRoot.innerHTML = priority.map(linkCard).join('');
+    if (priorityRoot) priorityRoot.innerHTML = '';
 
     const searchInput = $('globalSearchInput');
     const searchRoot = $('globalSearchRoot');
