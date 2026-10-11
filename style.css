@@ -2436,3 +2436,20 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 .bagan-kotak.utama .bagan-nama, .bagan-kotak.utama strong { color: #fff !important; }
 .bagan-foto { border: 3px solid #eef4f9 !important; box-shadow: 0 3px 10px rgba(16,52,82,.16) !important; }
 .bagan-kotak.utama .bagan-foto { border-color: #fff !important; }
+/* Galeri tim: kartu disamakan dengan kotak bagan (230px, foto 112px) */
+.staff-grid { display: grid !important; grid-template-columns: repeat(auto-fill, 230px) !important; justify-content: center !important; gap: 22px 26px !important; }
+.staff-card { width: 230px !important; min-height: 230px; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-start;
+  text-align: center !important; gap: 10px !important; padding: 18px 14px !important; border-radius: 18px;
+  background: #fff !important; border: 1px solid #d3e1ec !important; border-top: 5px solid #1d6a96 !important; box-shadow: 0 8px 22px rgba(16,52,82,.10) !important; }
+.staff-card .staff-photo { width: 112px !important; height: 112px !important; flex: 0 0 112px !important; border-radius: 18px !important; overflow: hidden;
+  border: 3px solid #eef4f9 !important; box-shadow: 0 3px 10px rgba(16,52,82,.16) !important; background: #cde5f5; }
+.staff-card .staff-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.staff-card .staff-text { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.staff-card .staff-text span { color: #1d6a96; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.staff-card .staff-text h4 { margin: 0; font-size: 15px; line-height: 1.3; }
+.staff-card .staff-text p { margin: 0; font-size: 12.5px; color: #64748b; }
+@media (max-width: 560px) {
+  .staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; }
+  .staff-card { width: auto !important; min-height: 0; }
+  .staff-card .staff-photo { width: 96px !important; height: 96px !important; flex-basis: 96px !important; }
+}

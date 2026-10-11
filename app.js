@@ -140,7 +140,7 @@
       ['struktur-equipment-maintenance-division', 'Pemeliharaan Alat']
     ];
     return `<section class="bagan" id="bagan" aria-label="Bagan struktur organisasi IGD">
-      <h2 class="bagan-judul">Bagan Struktur Organisasi IGD</h2>
+      <h2 class="bagan-judul">Struktur Organisasi IGD</h2>
       <div class="bagan-level">${kotak('struktur-head-of-emergency-department', 'Kepala Instalasi IGD', 'utama')}</div>
       <div class="bagan-garis"></div>
       <div class="bagan-samping">
