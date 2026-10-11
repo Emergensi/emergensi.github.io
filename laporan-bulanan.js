@@ -36,8 +36,8 @@
   function tampil(d) {
     const warna = { hijau: '#2e9e5b', kuning: '#e3b505', merah: '#c62828', hitam: '#222', 'belum diisi': '#cbd5e1' };
     const baris = d.tabel.filter((t) => t.triase !== 'belum diisi' || t.total).map((t) => `<tr><td><span class="lb-chip" style="background:${warna[t.triase]}"></span>${esc(t.triase.charAt(0).toUpperCase() + t.triase.slice(1))}</td>
-      <td>${t.total}</td><td>${t.jalan}</td><td>${t.inap}</td><td>${t.meninggal}</td></tr>`).join('');
-    const tot = d.tabel.reduce((a, t) => ({ jalan: a.jalan + t.jalan, inap: a.inap + t.inap, m: a.m + t.meninggal }), { jalan: 0, inap: 0, m: 0 });
+      <td>${t.total}</td><td>${t.pulang ?? t.jalan}</td><td>${t.aps ?? '-'}</td><td>${t.rujuk ?? '-'}</td><td>${t.inap}</td><td>${t.meninggal}</td></tr>`).join('');
+    const tot = d.tabel.reduce((a, t) => ({ pulang: a.pulang + (t.pulang ?? t.jalan), aps: a.aps + (t.aps || 0), rujuk: a.rujuk + (t.rujuk || 0), inap: a.inap + t.inap, m: a.m + t.meninggal }), { pulang: 0, aps: 0, rujuk: 0, inap: 0, m: 0 });
     const maks = Math.max(25, ...d.tren.map((t) => t.konversi || 0));
     const lebar = 100 / Math.max(d.tren.length, 1);
     const batang = d.tren.map((t, i) => {
@@ -56,12 +56,12 @@
         <p>Periode ${esc(d.periode)}<br>Sumber: Register Pasien IGD RS SGH</p></header>
       <div class="lb-grid">
         <section class="lb-kartu"><h3>Kunjungan menurut triase dan disposisi</h3>
-          <table class="lb-tabel"><tr><th>Triase</th><th>Total</th><th>Rawat jalan</th><th>Rawat inap</th><th>Meninggal / DOA</th></tr>${baris}
-          <tr class="tot"><td>Total</td><td>${d.total}</td><td>${tot.jalan}</td><td>${tot.inap}</td><td>${tot.m}</td></tr></table>
+          <table class="lb-tabel"><tr><th>Triase</th><th>Total</th><th>Pulang</th><th>APS</th><th>Rujuk</th><th>Rawat inap</th><th>Meninggal / DOA</th></tr>${baris}
+          <tr class="tot"><td>Total</td><td>${d.total}</td><td>${tot.pulang}</td><td>${tot.aps}</td><td>${tot.rujuk}</td><td>${tot.inap}</td><td>${tot.m}</td></tr></table>
           <div class="lb-besar"><div><b>${f(d.konversi)}%</b><span>Konversi IGD → rawat inap<br>${j.inap} dari ${d.total} kunjungan</span></div>
             <div class="m"><b>${f(d.kuningInap)}%</b><span>Pasien kuning dirawat inap<br>${d.kuningInapJumlah} dari ${d.kuningTotal}</span></div></div>
-          <p class="lb-cat">Disposisi: pulang ${j.pulang} · APS ${j.aps} · rujuk ${j.rujuk} · rawat inap ${j.inap} · meninggal ${j.meninggal} · DOA ${j.doa}. KLL ${d.kll} kunjungan.
-            Rawat jalan = pulang, APS, dan rujuk keluar.${catatan.length ? ' Catatan: ' + esc(catatan.join('; ')) + '.' : ''}</p>
+          <p class="lb-cat">Meninggal ${j.meninggal} · DOA ${j.doa} · KLL ${d.kll} kunjungan.
+            APS = pulang atas permintaan sendiri; rujuk = rujuk keluar ke RS lain.${catatan.length ? ' Catatan: ' + esc(catatan.join('; ')) + '.' : ''}</p>
         </section>
         <section class="lb-kartu"><h3>Konversi IGD → rawat inap, ${d.tren.length ? esc(namaPanjang(d.tren[0])) + ' – ' + esc(namaPanjang(d.tren[d.tren.length - 1])) : ''}</h3>
           <div class="lb-grafik" role="img" aria-label="Grafik batang konversi IGD ke rawat inap per bulan">${batang}</div>
