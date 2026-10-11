@@ -530,6 +530,7 @@ window.IGD_LINK_GROUPS = [
     "title": "Kebijakan & Regulasi",
     "subtitle": "Kumpulan regulasi nasional dan kebijakan terkait pelayanan kegawatdaruratan.",
     "icon": "📚",
+    "urutan": ["kebijakan-pmk-no-129-tahun-2008", "kebijakan-permenkes-no-290-tahun-2009", "kebijakan-pmk-no-308-tahun-2017", "kebijakan-permenkes-nomor-4-tahun-2018", "kebijakan-pmk-47-tahun-2018", "kebijakan-permenkes-nomor-4-tahun-2019", "kebijakan-permenkes-nomor-24-tahun-2022", "kebijakan-undang-undang-nomor-17-tahun-2023", "kebijakan-pp-nomor-28-tahun-2024", "kebijakan-kmk-no-hk-01-07-menkes-1596-2024"],
     "items": [
       {
         "title": "Kebijakan Pelayanan IGD",
