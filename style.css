@@ -2296,3 +2296,13 @@ body.has-pantau .hero-copy { display: none; }
 .beranda-besar .category-card p { font-size: 1rem; line-height: 1.5; }
 .beranda-besar .category-foot span, .beranda-besar .category-foot strong { font-size: .92rem; }
 @media (max-width: 640px) { .category-grid.beranda-besar { grid-template-columns: 1fr; } .beranda-besar .category-card { min-height: 0; } }
+
+/* Halaman kategori: tanpa judul ganda di atas kartu, kartu lebih besar */
+body[data-page="group"] .section-head > div:first-child { display: none; }
+body[data-page="group"] .section-head { justify-content: flex-end; }
+body[data-page="group"] .card-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+body[data-page="group"] .link-card { min-height: 200px; padding: 26px; }
+body[data-page="group"] .link-card h4 { font-size: 1.35rem; }
+body[data-page="group"] .link-card p { font-size: 1.02rem; }
+body[data-page="group"] .card-action { font-size: 1.02rem; }
+@media (max-width: 640px) { body[data-page="group"] .card-grid { grid-template-columns: 1fr; } body[data-page="group"] .link-card { min-height: 0; } }

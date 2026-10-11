@@ -4,7 +4,7 @@ window.IGD_LINK_GROUPS = [
   {
     "id": "operasional",
     "title": "Beranda Operasional",
-    "subtitle": "Tautan kerja harian setiap shift: register, formulir, AVIAT, logbook, dan pemantauan ruangan.",
+    "subtitle": "Tautan kerja harian setiap shift: register, formulir, AVIAT, dan folder IGD.",
     "icon": "⚡",
     "items": [
       {
@@ -57,6 +57,7 @@ window.IGD_LINK_GROUPS = [
         "type": "Sheets",
         "tag": "sheet",
         "slug": "operasional-nurse-daily-logbook",
+        "arsip": true,
         "localPath": "link/operasional-nurse-daily-logbook/",
         "externalUrl": "https://docs.google.com/spreadsheets/d/1Cwn8mRk92_I0IaQO1TpvqVAAwViry9Bc/edit?gid=537945572&pli=1"
       },
