@@ -204,6 +204,10 @@
     svg.innerHTML = '<defs><marker id="ujung" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker></defs>' + p.join('');
   }
 
+  // urutan tim di galeri foto: dokter umum, perawat, bidan, driver, lalu lainnya
+  const URUTAN_TIM = ['Tim Dokter Umum', 'Tim Perawat', 'Tim Bidan', 'Tim Driver'];
+  const urutTim = (t) => { const i = URUTAN_TIM.indexOf(t); return i < 0 ? 99 : i; };
+
   function staffGallery(filterTeam) {
     const staff = window.IGD_STAFF_PHOTOS || [];
     const people = sortStaff(filterTeam ? staff.filter((p) => p.team === filterTeam) : staff);
@@ -221,7 +225,7 @@
           <p>Daftar foto lengkap dari halaman struktur organisasi lama.</p>
         </div>
       </div>
-      ${Object.entries(grouped).map(([team, list]) => `
+      ${Object.entries(grouped).sort(([a], [b]) => urutTim(a) - urutTim(b)).map(([team, list]) => `
         <div class="team-section">
           <h3>${team}</h3>
           <div class="staff-grid">${sortStaff(list).map(staffCard).join('')}</div>

@@ -978,7 +978,7 @@ window.IGD_STAFF_PHOTOS = [
   },
   {
     "name": "dr. Mahendra DD Luhurpakarti",
-    "role": "Head of Emergency Department",
+    "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
     "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUASTCniW2kGb13SQ3jwbe8907J_oW8BSSmkEAWJvP9gqpMp4tnCJ82MjSLCaEFw8TAj5ueDXvNBs0QDKWIb0uXncqwJTGmUmsEbf2NEqiRcAyIRfb2yRFdgk5mnUJ7waZjKpO9-zOovSvoqCE7uAzaR7Qg2THodTxPhklzPRggDf4mRP8OEjf1korVFEanSui1ZqxMDHdTmj_O9akfwyKSRQjUplXjZA6Q8tt-Vlac=w1280",
     "slug": "struktur-head-of-emergency-department"
@@ -1113,10 +1113,10 @@ window.IGD_STAFF_PHOTOS = [
 ];
 window.IGD_STAFF_BY_SLUG = {
   "struktur-head-of-emergency-department": {
-    "name": "dr. Mahendra DD Luhurpakarti",
-    "role": "Head of Emergency Department",
+    "name": "dr. Nurul Khafidz Subekti, AIFO-K",
+    "role": "Kepala Instalasi IGD",
     "team": "Tim Dokter Umum",
-    "photo": "https://lh3.googleusercontent.com/sitesv/AA5AbUASTCniW2kGb13SQ3jwbe8907J_oW8BSSmkEAWJvP9gqpMp4tnCJ82MjSLCaEFw8TAj5ueDXvNBs0QDKWIb0uXncqwJTGmUmsEbf2NEqiRcAyIRfb2yRFdgk5mnUJ7waZjKpO9-zOovSvoqCE7uAzaR7Qg2THodTxPhklzPRggDf4mRP8OEjf1korVFEanSui1ZqxMDHdTmj_O9akfwyKSRQjUplXjZA6Q8tt-Vlac=w1280",
+    "photo": "",
     "slug": "struktur-head-of-emergency-department"
   },
   "struktur-emergency-room-manager": {
