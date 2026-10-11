@@ -100,6 +100,7 @@ window.IGD_LINK_GROUPS = [
     "icon": "📊",
     "akses": "pimpinan",
     "refs": [
+      "laporan-bulanan-igd",
       "manajemen-laporan-kunjungan-igd",
       "operasional-laporan-bulanan-pelayanan",
       "operasional-morning-report",
@@ -117,7 +118,20 @@ window.IGD_LINK_GROUPS = [
       "operasional-billing-pasien",
       "operasional-claim-bpjs-tk"
     ],
-    "items": []
+    "items": [
+      {
+        "title": "Laporan Bulanan IGD",
+        "desc": "Buat laporan bulanan dari register: triase, disposisi, konversi rawat inap. Kirim ke Telegram atau unduh gambar.",
+        "url": "laporan-bulanan/",
+        "type": "Halaman",
+        "tag": "page",
+        "slug": "laporan-bulanan-igd",
+        "localPath": "laporan-bulanan/",
+        "externalUrl": "",
+        "akses": "pimpinan",
+        "photo": "assets/emergency-logo.png"
+      }
+    ]
   },
   {
     "id": "jadwal",
