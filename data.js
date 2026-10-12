@@ -121,8 +121,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "laporan-bulanan-igd",
         "localPath": "laporan-bulanan/",
         "externalUrl": "",
-        "akses": "pimpinan",
-        "photo": "assets/emergency-logo.png"
+        "akses": "pimpinan"
       }
     ]
   },
@@ -190,8 +189,7 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-organizational-structure",
         "arsip": true,
         "localPath": "link/struktur-organizational-structure/",
-        "externalUrl": "",
-        "photo": "assets/emergency-logo.png"
+        "externalUrl": ""
       },
       {
         "title": "Kepala Instalasi IGD",
