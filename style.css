@@ -2474,3 +2474,6 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 .kelompok-judul::before, .kelompok-judul::after { content: ""; flex: 1; height: 3px; border-radius: 2px; background: linear-gradient(90deg, transparent, #9cc4de); }
 .kelompok-judul::after { background: linear-gradient(90deg, #9cc4de, transparent); }
 @media (max-width: 560px) { .kelompok-judul { font-size: 16px; gap: 10px; white-space: normal; text-align: center; } }
+/* Respon Time: jam tiap langkah lebih menonjol */
+.jw-step.done .jw-t { font-size: 1.05rem; color: #1d6a96; }
+.jw-step.done .jw-t small { color: #64748b; font-weight: 600; }
