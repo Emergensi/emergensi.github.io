@@ -323,8 +323,7 @@ window.IGD_LINK_GROUPS = [
         "sensitive": true,
         "slug": "manajemen-laporan-kunjungan-igd",
         "localPath": "link/manajemen-laporan-kunjungan-igd/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1Lzsf7r-Qgu0dQQ_QMq8tNiCASQX3-ocilMLSvErOP80/edit?gid=0&hl=id",
-        "akses": "pimpinan"
+        "externalUrl": "https://docs.google.com/spreadsheets/d/1Lzsf7r-Qgu0dQQ_QMq8tNiCASQX3-ocilMLSvErOP80/edit?gid=0&hl=id"
       },
       {
         "title": "SPK RKK",
@@ -399,8 +398,7 @@ window.IGD_LINK_GROUPS = [
         "tag": "drive",
         "slug": "manajemen-berita-acara-serah-terima-barang",
         "localPath": "link/manajemen-berita-acara-serah-terima-barang/",
-        "externalUrl": "https://drive.google.com/drive/folders/1naefLJjpFaEwlOZcfWsew8l6YZ6pvVBJ?usp=drive_link",
-        "akses": "pimpinan"
+        "externalUrl": "https://drive.google.com/drive/folders/1naefLJjpFaEwlOZcfWsew8l6YZ6pvVBJ?usp=drive_link"
       },
       {
         "title": "Berita Acara Perbaikan & Permintaan",
@@ -410,8 +408,7 @@ window.IGD_LINK_GROUPS = [
         "tag": "drive",
         "slug": "manajemen-berita-acara-perbaikan-and-permintaan",
         "localPath": "link/manajemen-berita-acara-perbaikan-and-permintaan/",
-        "externalUrl": "https://drive.google.com/drive/folders/1YjwgSk9B-Y7XXslVKqcdxasmhBD2o9Lr?usp=drive_link",
-        "akses": "pimpinan"
+        "externalUrl": "https://drive.google.com/drive/folders/1YjwgSk9B-Y7XXslVKqcdxasmhBD2o9Lr?usp=drive_link"
       },
       {
         "title": "Notulen Laporan Pagi",
