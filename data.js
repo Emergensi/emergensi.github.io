@@ -810,6 +810,7 @@ window.IGD_LINK_GROUPS = [
     "title": "Akreditasi",
     "subtitle": "Dashboard dokumen akreditasi, regulasi, jadwal, instrumen, dan PPS.",
     "icon": "🏥",
+    "kelompok": [{"judul": "Standar & Instrumen", "slugs": ["akreditasi-standar-akreditasi-rumah-sakit", "akreditasi-instrumen-akreditasi-rs"]}, {"judul": "Tim & Persiapan Survei", "slugs": ["akreditasi-time-line-and-tim-akreditasi", "akreditasi-pic-per-elemen", "akreditasi-jadwal-karantina", "akreditasi-daftar-pertanyaan"]}, {"judul": "Regulasi & Dokumen", "slugs": ["akreditasi-daftar-regulasi", "akreditasi-daftar-nomor-regulasi", "akreditasi-form-rm", "akreditasi-akp-akreditasi", "akreditasi-gdrive-akreditasi"]}, {"judul": "Perencanaan Perbaikan Strategis (PPS)", "slugs": ["akreditasi-pps", "akreditasi-pemenuhan-pps"]}],
     "items": [
       {
         "title": "PIC Per Elemen",
