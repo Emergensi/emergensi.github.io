@@ -397,7 +397,8 @@
       if (group.kelompok && !query) {
         const dipakai = new Set();
         isiKartu = group.kelompok.map((k) => {
-          const isi = k.slugs.map((sl) => items.find((i) => i.slug === sl)).filter(Boolean);
+          const isi = k.slugs.map((sl) => items.find((i) => i.slug === sl)
+            || (BY_SLUG[sl] && !BY_SLUG[sl].arsip && (BY_SLUG[sl].akses !== 'pimpinan' || ROLE === 'pimpinan') ? BY_SLUG[sl] : null)).filter(Boolean);   // kartu dari grup lain boleh ikut ditampilkan
           isi.forEach((i) => dipakai.add(i.slug));
           return isi.length ? `<section class="kelompok"><h3 class="kelompok-judul">${k.judul}</h3><div class="card-grid">${isi.map(linkCard).join('')}</div></section>` : '';
         }).join('');
