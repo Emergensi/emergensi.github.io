@@ -2466,3 +2466,11 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 @media (max-width: 560px) { .team-section h3 { font-size: 18px !important; gap: 12px; } }
 .bagan-judul { margin-bottom: 40px !important; }
 @media (max-width: 560px) { .bagan-judul { margin-bottom: 26px !important; } }
+/* Judul kelompok kartu (Laporan, Manajemen): ──── Judul ──── */
+.kelompok + .kelompok { margin-top: 10px; }
+.kelompok-judul { display: flex; align-items: center; gap: 22px; margin: 30px 0 18px; font-size: 22px; font-weight: 800;
+  color: #1d6a96; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap; }
+.kelompok:first-child .kelompok-judul { margin-top: 8px; }
+.kelompok-judul::before, .kelompok-judul::after { content: ""; flex: 1; height: 3px; border-radius: 2px; background: linear-gradient(90deg, transparent, #9cc4de); }
+.kelompok-judul::after { background: linear-gradient(90deg, #9cc4de, transparent); }
+@media (max-width: 560px) { .kelompok-judul { font-size: 16px; gap: 10px; white-space: normal; text-align: center; } }

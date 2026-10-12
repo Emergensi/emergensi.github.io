@@ -392,8 +392,20 @@
         : sortByTitle(semua);
       const gallery = (groupId === 'struktur' && !query) ? staffGallery() : '';
       const bagan = (groupId === 'struktur' && !query) ? baganStruktur(group.items) : '';
+      // grup dengan "kelompok" ditampilkan per kelompok dengan judul pembatas (saat tidak mencari)
+      let isiKartu = `<div class="card-grid">${items.map(linkCard).join('')}</div>`;
+      if (group.kelompok && !query) {
+        const dipakai = new Set();
+        isiKartu = group.kelompok.map((k) => {
+          const isi = k.slugs.map((sl) => items.find((i) => i.slug === sl)).filter(Boolean);
+          isi.forEach((i) => dipakai.add(i.slug));
+          return isi.length ? `<section class="kelompok"><h3 class="kelompok-judul">${k.judul}</h3><div class="card-grid">${isi.map(linkCard).join('')}</div></section>` : '';
+        }).join('');
+        const sisa = items.filter((i) => !dipakai.has(i.slug));
+        if (sisa.length) isiKartu += `<section class="kelompok"><h3 class="kelompok-judul">Lainnya</h3><div class="card-grid">${sisa.map(linkCard).join('')}</div></section>`;
+      }
       root.innerHTML = items.length
-        ? (bagan ? `${bagan}${gallery}` : `<div class="card-grid">${items.map(linkCard).join('')}</div>${gallery}`)   // Struktur: cukup bagan (kotaknya bisa diklik)
+        ? (bagan ? `${bagan}${gallery}` : `${isiKartu}${gallery}`)   // Struktur: cukup bagan (kotaknya bisa diklik)
         : '<div class="empty-state">Tidak ada link yang cocok dengan pencarian.</div>';
     }
     if (input) input.addEventListener('input', () => { render(); gambarPanah(); });
