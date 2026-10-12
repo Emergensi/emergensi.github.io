@@ -109,6 +109,29 @@
     } catch (e) { pesan(e.message, true); }
   }
 
+  // Unduh PDF: memakai PDF buatan server (sama persis dengan yang dikirim ke Telegram)
+  async function unduhPdf() {
+    if (!data) return;
+    const b = $('lbCetak'); b.disabled = true; const label = b.textContent; b.textContent = '⏳ Menyiapkan PDF…';
+    const nama = 'Laporan_Bulanan_IGD_' + data.namaBulan + '_' + data.tahun + '.pdf';
+    try {
+      const d = await bacaJson(await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ aksi: 'pdfBulanan', token: token(), tahun: data.tahun, bulan: data.bulan }) }));
+      if (cekToken(d)) return;
+      if (!d.pdf) throw new Error(d.error || 'PDF server belum tersedia');
+      const bin = atob(d.pdf); const u8 = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+      const url = URL.createObjectURL(new Blob([u8], { type: 'application/pdf' }));
+      const a = document.createElement('a'); a.href = url; a.download = d.nama || nama; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+      pesan('');
+    } catch (e) {
+      // cadangan bila server belum diperbarui: PDF dari gambar halaman
+      try { const doc = pdfDari(await gambarLaporan()); if (!doc) throw e; doc.save(nama);
+        pesan('PDF server belum tersedia (' + e.message + '); diunduh versi gambar.', true); } catch (e2) { pesan(e2.message, true); }
+    } finally { b.disabled = false; b.textContent = label; }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const now = new Date(); const lalu = new Date(now.getFullYear(), now.getMonth() - 1, 1);
     $('lbBulan').value = lalu.getFullYear() + '-' + String(lalu.getMonth() + 1).padStart(2, '0');
@@ -116,10 +139,6 @@
     $('lbBuat').addEventListener('click', buat);
     $('lbTele').addEventListener('click', kirimTele);
     $('lbGambar').addEventListener('click', unduh);
-    $('lbCetak').addEventListener('click', async () => {
-      if (!data) return;
-      try { const doc = pdfDari(await gambarLaporan()); if (!doc) throw new Error('Pembuat PDF belum termuat; muat ulang halaman.');
-        doc.save('Laporan_Bulanan_IGD_' + data.namaBulan + '_' + data.tahun + '.pdf'); } catch (e) { pesan(e.message, true); }
-    });
+    $('lbCetak').addEventListener('click', unduhPdf);
   });
 })();
