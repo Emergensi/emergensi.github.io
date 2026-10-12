@@ -650,6 +650,7 @@ window.IGD_LINK_GROUPS = [
     "title": "Pedoman, SPO & Form",
     "subtitle": "Pedoman pelayanan, pengorganisasian, triage, SPO, formulir, dan employee file.",
     "icon": "📝",
+    "kelompok": [{"judul": "Pedoman & Panduan", "slugs": ["pedoman-pedoman-pelayanan-igd", "pedoman-pedoman-pengorganisasian-igd", "pedoman-panduan-triage"]}, {"judul": "SPO", "slugs": ["pedoman-spo-igd", "pedoman-spo-ponex", "pedoman-spo-pemulasaran"]}, {"judul": "Pedoman Profesi", "slugs": ["pedoman-dokter", "pedoman-perawat", "pedoman-bidan", "pedoman-driver"]}, {"judul": "Formulir", "slugs": ["pedoman-form-igd"]}],
     "items": [
       {
         "title": "Panduan Pelayanan Gawat Darurat",
@@ -745,7 +746,7 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": ""
       },
       {
-        "title": "Form IGD (Pedoman)",
+        "title": "Formulir IGD",
         "desc": "Folder formulir IGD/UGD.",
         "url": "link/pedoman-form-igd/",
         "type": "Drive",
