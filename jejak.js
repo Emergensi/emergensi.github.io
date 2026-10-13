@@ -48,12 +48,13 @@
 
   async function muat(paksa) {
     const t = ambil();
-    if (!paksa && formTerbuka) return;
+    if (!paksa && (formTerbuka || antre > 0)) return;   // jangan timpa layar saat ada simpanan yang belum dijawab server
     if (!data) dariCache();
     try {
       const d = await R().get('jejakAktif', t.token);
       if (d.error === 'token') { if (t.token) { hapus(); return login(); } throw new Error('Server Apps Script belum diperbarui: buka Apps Script → Deploy → Manage deployments → Edit → New version → Deploy.'); }
       if (d.error) throw new Error(d.error);
+      if (antre > 0) return;                         // simpanan baru sedang berjalan: data ini mungkin sudah usang
       data = d; selisihServer = ms(d.sekarang) - Date.now();
       keCache(d);
       if (formTerbuka) { tertunda = true; return; }   // jangan tutup formulir yang sedang diisi; tampilkan setelah selesai
