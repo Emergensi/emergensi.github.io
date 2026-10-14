@@ -12,6 +12,11 @@
   const ms = (t) => (t ? new Date(String(t).replace(' ', 'T') + '+07:00').getTime() : null);
   const jam = (t) => String(t || '').slice(11, 16);
   let data = null, selisihServer = 0, formTerbuka = false, tertunda = false;
+  let tandaTampil = '', sentuhTerakhir = 0;          // isi data yang sedang tampil; waktu terakhir layar disentuh
+  const tandaData = (d) => { try { const c = Object.assign({}, d); delete c.sekarang; return JSON.stringify(c); } catch (e) { return ''; } };
+  // petugas sedang memakai layar: ada isian terbuka/diketik atau baru disentuh < 20 detik
+  const sedangDipakai = () => formTerbuka || Date.now() - sentuhTerakhir < 20000 ||
+    !!(root() && root().querySelector('details[open]')) || !!(document.activeElement && root() && root().contains(document.activeElement) && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName));
 
   const TITIK = [
     ['ditriase', '🏷️', 'Triase (ATS)', true],
@@ -60,7 +65,8 @@
       if (antre > 0) return;                         // simpanan baru sedang berjalan: data ini mungkin sudah usang
       data = d; selisihServer = ms(d.sekarang) - Date.now();
       keCache(d);
-      if (formTerbuka) { tertunda = true; return; }   // jangan tutup formulir yang sedang diisi; tampilkan setelah selesai
+      if (!paksa && tandaData(d) === tandaTampil) { perbaruiLama(); return; }   // tidak ada perubahan: layar tidak digambar ulang
+      if (!paksa && sedangDipakai()) { tertunda = true; perbaruiLama(); return; } // tampilkan setelah petugas selesai
       tertunda = false;
       render();
     } catch (e) {
@@ -96,7 +102,7 @@
     return `<div class="jw-card jw-${WARNA[o.triase] || 'kosong'}">
       <div class="jw-head"><div><b>${esc(o.penanda)}</b>${o.nama ? `<small>${esc(o.nama)}${o.rm ? ' · ' + esc(o.rm) : ''}</small>` : ''}</div>
         <span class="jw-badge">${esc(o.ats ? 'ATS ' + o.ats : (o.triase || 'belum triase'))}</span></div>
-      <p class="jw-sub">🚪 Datang ${jam(o.datang)} · <b>${lamaTeks(menit(tDatang, now))}</b> di IGD
+      <p class="jw-sub">🚪 Datang ${jam(o.datang)} · <b class="jw-lama" data-datang="${esc(o.datang)}">${lamaTeks(menit(tDatang, now))}</b> di IGD
         <button type="button" class="jw-batal" data-id="${o.id}" data-titik="datang" data-waktu="${esc(o.datang)}">hapus</button></p>
       <ul class="jw-steps">${baris}</ul>
       ${o.baris ? `<p class="jw-reg">Register baris ${esc(o.baris)} · <a href="../input/#lengkapi" class="jw-lengkapi">📝 lengkapi data</a></p>` : `<details class="jw-id"><summary>Belum masuk register · isi nama & No. RM</summary>
@@ -120,6 +126,8 @@
         <form data-id="${o.id}"><input name="nama" placeholder="Nama pasien" required><input name="rm" placeholder="No. RM / registrasi" required>
         <button class="primary-btn" type="submit">Catat ke register</button></form></details>`}</div><strong></strong></div>`;
     };
+    const gulir = window.scrollY;
+    tandaTampil = tandaData(data);
     root().innerHTML = `
       <div class="jw-top"><button type="button" class="primary-btn jw-datang">🚪 Pasien datang</button>
         <button type="button" class="jw-refresh" title="Muat ulang">↻</button></div>
@@ -129,6 +137,7 @@
       ${selesai.length ? `<h2 class="jw-h">Selesai 12 jam terakhir <span>${selesai.length}</span></h2><div class="pt-list jw-selesai">${selesai.map(ringkas).join('')}</div>` : ''}
       ${t.peran === 'pimpinan' ? '<p class="pt-sub">Akses pimpinan: nama dan No. RM tampil lengkap.</p>' : ''}`;
     pasang();
+    if (Math.abs(window.scrollY - gulir) > 2) window.scrollTo(0, gulir);   // layar tidak meloncat ke atas
   }
 
   function pesan(teks, gagal) {
@@ -279,5 +288,19 @@
     }));
   }
 
-  document.addEventListener('DOMContentLoaded', () => { muat(true); setInterval(() => muat(false), 30000); });
+  function perbaruiLama() {
+    const now = Date.now() + selisihServer;
+    document.querySelectorAll('#jejakRoot .jw-lama').forEach((b) => { b.textContent = lamaTeks(menit(ms(b.dataset.datang), now)); });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    muat(true);
+    ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach((ev) => window.addEventListener(ev, () => { sentuhTerakhir = Date.now(); }, { passive: true }));
+    setInterval(() => {
+      if (document.hidden) return;                                   // aplikasi di latar belakang: tidak perlu memuat
+      if (tertunda && !sedangDipakai() && antre === 0) { tertunda = false; render(); return; }
+      muat(false);
+    }, 30000);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) muat(false); });
+  });
 })();
