@@ -14,6 +14,7 @@
   let data = null, selisihServer = 0, formTerbuka = false, tertunda = false;
 
   const TITIK = [
+    ['ditriase', '🏷️', 'Triase (ATS)', true],
     ['dokter', '👨‍⚕️', 'Dokter mulai memeriksa', true],
     ['konsul', '📞', 'Konsul DPJP', false],
     ['advis', '✅', 'Advis DPJP', false],
@@ -21,7 +22,9 @@
     ['keputusan', '🩺', 'Keputusan (RTL)', true],
     ['keluar', '🏁', 'Keluar IGD', true]
   ];
-  const JENIS = [['RAWAT INAP', 'Rawat inap'], ['PULANG', 'Pulang'], ['RUJUK', 'Rujuk'], ['APS', 'APS'], ['MENINGGAL', 'Meninggal']];
+  const JENIS = [['RAWAT INAP', 'Rawat inap'], ['PULANG', 'Pulang'], ['RUJUK', 'Rujuk'], ['APS', 'APS'], ['MENINGGAL', 'Meninggal'], ['DOA', 'DOA']];
+  // Australasian Triage Scale: kategori, target waktu, dan warna untuk register (ATS 1–2 merah, 3 kuning, 4–5 hijau)
+  const ATS = [['1', 'segera', 'MERAH'], ['2', '≤10 mnt', 'MERAH'], ['3', '≤30 mnt', 'KUNING'], ['4', '≤60 mnt', 'HIJAU'], ['5', '≤120 mnt', 'HIJAU']];
   const WARNA = { MERAH: 'merah', KUNING: 'kuning', HIJAU: 'hijau', HITAM: 'hitam' };
 
   function menit(a, b) { if (a == null || b == null) return null; return Math.round((b - a) / 60000); }
@@ -68,17 +71,21 @@
   function kartu(o) {
     const now = Date.now() + selisihServer;
     const tDatang = ms(o.datang);
-    const berikut = !o.dokter ? 'dokter' : !o.keputusan ? 'keputusan' : !o.keluar ? 'keluar' : '';
+    const berikut = !o.ditriase ? 'ditriase' : !o.dokter ? 'dokter' : !o.keputusan ? 'keputusan' : !o.keluar ? 'keluar' : '';
     const baris = TITIK.map(([k, ikon, label, wajib]) => {
       const t = o[k];
       if (t) {
         const dari = k === 'advis' ? ms(o.konsul) : k === 'tindakan' && o.advis ? ms(o.advis) : tDatang;
         const sel = menit(dari, ms(t));
-        return `<li class="jw-step done"><span>${ikon} ${label}${k === 'keputusan' && o.jenis ? ': <b>' + esc((JENIS.find((j) => j[0] === o.jenis) || [0, o.jenis])[1]) + '</b>' : ''}</span>
+        return `<li class="jw-step done"><span>${ikon} ${k === 'ditriase' && o.ats ? 'Triase: <b>ATS ' + esc(o.ats) + '</b>' : label}${k === 'keputusan' && o.jenis ? ': <b>' + esc((JENIS.find((j) => j[0] === o.jenis) || [0, o.jenis])[1]) + '</b>' : ''}</span>
           <span class="jw-t">${jam(t)}<small>${sel != null ? (k === 'advis' ? '+' + lamaTeks(sel) + ' dari konsul' : k === 'tindakan' && o.advis ? '+' + lamaTeks(sel) + ' dari advis' : '+' + lamaTeks(sel)) : ''}</small>
           <button type="button" class="jw-batal" data-id="${o.id}" data-titik="${k}" data-waktu="${esc(t)}">batal</button></span></li>`;
       }
       if (k === 'advis' && !o.konsul) return `<li class="jw-step opsi"><span>${ikon} ${label}</span><span class="jw-t"><small>setelah konsul</small></span></li>`;
+      if (k === 'ditriase') {
+        return `<li class="jw-step ${berikut === k ? 'next' : ''}"><span>${ikon} ${label}</span>
+          <span class="jw-jenis jw-ats">${ATS.map(([v, t]) => `<button type="button" data-id="${o.id}" data-ats="${v}" title="target ${t}">ATS ${v}<small>${t}</small></button>`).join('')}</span></li>`;
+      }
       if (k === 'keputusan') {
         return `<li class="jw-step ${berikut === k ? 'next' : ''}"><span>${ikon} ${label}</span>
           <span class="jw-jenis">${JENIS.map(([v, l]) => `<button type="button" data-id="${o.id}" data-titik="keputusan" data-jenis="${v}">${l}</button>`).join('')}</span></li>`;
@@ -88,7 +95,7 @@
     }).join('');
     return `<div class="jw-card jw-${WARNA[o.triase] || 'kosong'}">
       <div class="jw-head"><div><b>${esc(o.penanda)}</b>${o.nama ? `<small>${esc(o.nama)}${o.rm ? ' · ' + esc(o.rm) : ''}</small>` : ''}</div>
-        <span class="jw-badge">${esc(o.triase || '-')}</span></div>
+        <span class="jw-badge">${esc(o.ats ? 'ATS ' + o.ats : (o.triase || 'belum triase'))}</span></div>
       <p class="jw-sub">🚪 Datang ${jam(o.datang)} · <b>${lamaTeks(menit(tDatang, now))}</b> di IGD
         <button type="button" class="jw-batal" data-id="${o.id}" data-titik="datang" data-waktu="${esc(o.datang)}">hapus</button></p>
       <ul class="jw-steps">${baris}</ul>
@@ -103,7 +110,7 @@
     const aktif = data.aktif || [], selesai = data.selesai || [];
     const ringkas = (o) => {
       const d = ms(o.datang);
-      const isi = [['Datang→dokter', menit(d, ms(o.dokter))], ['Datang→keputusan', menit(d, ms(o.keputusan))],
+      const isi = [['Datang→triase', menit(d, ms(o.ditriase))], ['Datang→dokter', menit(d, ms(o.dokter))], ['Datang→keputusan', menit(d, ms(o.keputusan))],
         ['Keputusan→keluar', menit(ms(o.keputusan), ms(o.keluar))], ['Konsul→advis', menit(ms(o.konsul), ms(o.advis))], ['Advis→tindakan', menit(ms(o.advis), ms(o.tindakan))], ['Total', menit(d, ms(o.keluar))]]
         .filter((x) => x[1] != null).map((x) => `${x[0]} <b>${lamaTeks(x[1])}</b>`).join(' · ');
       return `<div class="pt-row"><i class="pt-t-${WARNA[o.triase] || 'kosong'}"></i><div><b>${esc(o.nama || o.penanda)}</b>
@@ -147,6 +154,7 @@
       const o = (data.aktif || []).find((x) => x.id === body.id);
       if (!o) return false;
       o[body.titik] = t; if (body.titik === 'keputusan') o.jenis = body.jenis;
+      if (body.titik === 'ditriase') { o.ats = body.ats; o.triase = (ATS.find((a) => a[0] === body.ats) || [])[2] || o.triase; }
       if (body.titik === 'keluar') { data.aktif = data.aktif.filter((x) => x !== o); data.selesai = [Object.assign({}, o, { keluar: t })].concat(data.selesai || []); }
     } else if (body.sub === 'batal') {                       // hapus / batal langsung hilang dari layar
       if (body.titik === 'datang') {
@@ -155,7 +163,7 @@
       } else {
         const o = (data.aktif || []).find((x) => x.id === body.id);
         if (!o) return false;
-        o[body.titik] = ''; if (body.titik === 'keputusan') o.jenis = '';
+        o[body.titik] = ''; if (body.titik === 'keputusan') o.jenis = ''; if (body.titik === 'ditriase') o.ats = '';
       }
     } else return false;
     formTerbuka = false; render();
@@ -222,8 +230,7 @@
       formTerbuka = true; w.hidden = false;
       w.innerHTML = `<form class="pt-card jw-fd">
         <label>Penanda pasien *<input name="penanda" placeholder="contoh: Bed 2, Tn. A, kaos merah" required></label>
-        <div class="jw-triase" role="radiogroup" aria-label="Triase">${['MERAH', 'KUNING', 'HIJAU', 'HITAM'].map((v) =>
-          `<label class="jw-tr jw-${WARNA[v]}"><input type="radio" name="triase" value="${v}" required><span>${v.charAt(0) + v.slice(1).toLowerCase()}</span></label>`).join('')}</div>
+        <p class="pt-sub" style="margin:0">Kategori triase (ATS 1–5) dipilih di kartu pasien setelah tercatat.</p>
         <details><summary>Isi nama & No. RM sekarang (opsional)</summary>
           <input name="nama" placeholder="Nama pasien"><input name="rm" placeholder="No. RM / registrasi"></details>
         <button class="primary-btn" type="submit">Catat datang sekarang</button></form>`;
@@ -232,10 +239,13 @@
       f.addEventListener('submit', (ev) => {
         ev.preventDefault();
         const fd = new FormData(f);
-        aksi({ sub: 'datang', penanda: fd.get('penanda'), triase: fd.get('triase'), nama: fd.get('nama'), rm: fd.get('rm') }, f.querySelector('[type=submit]'));
+        aksi({ sub: 'datang', penanda: fd.get('penanda'), nama: fd.get('nama'), rm: fd.get('rm') }, f.querySelector('[type=submit]'));
       });
     });
     r.querySelectorAll('.jw-ketuk').forEach((b) => b.addEventListener('click', () => aksi({ sub: 'ketuk', id: b.dataset.id, titik: b.dataset.titik }, b)));
+    r.querySelectorAll('[data-ats]').forEach((b) => b.addEventListener('click', () => {
+      aksi({ sub: 'ketuk', id: b.dataset.id, titik: 'ditriase', ats: b.dataset.ats }, b);
+    }));
     r.querySelectorAll('[data-jenis]').forEach((b) => b.addEventListener('click', () => {
       if (!confirm('Catat keputusan: ' + b.textContent + '?')) return;
       aksi({ sub: 'ketuk', id: b.dataset.id, titik: 'keputusan', jenis: b.dataset.jenis }, b);
@@ -243,7 +253,7 @@
     r.querySelectorAll('.jw-batal').forEach((b) => b.addEventListener('click', () => {
       const lewat = (Date.now() + selisihServer - ms(b.dataset.waktu)) / 60000 > 2;
       const o = (data.aktif || []).concat(data.selesai || []).find((x) => x.id === b.dataset.id) || {};
-      const lanjut = o.dokter || o.konsul || o.advis || o.tindakan || o.keputusan || o.keluar;
+      const lanjut = o.ditriase || o.dokter || o.konsul || o.advis || o.tindakan || o.keputusan || o.keluar;
       const body = { sub: 'batal', id: b.dataset.id, titik: b.dataset.titik };
       if (b.dataset.titik === 'datang' && lanjut) {
         // satu kali konfirmasi ya/tidak, langsung hapus semua (tanpa bolak-balik ke server dulu)

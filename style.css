@@ -2477,3 +2477,6 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 /* Respon Time: jam tiap langkah lebih menonjol */
 .jw-step.done .jw-t { font-size: 1.05rem; color: #1d6a96; }
 .jw-step.done .jw-t small { color: #64748b; font-weight: 600; }
+/* Respon Time: tombol kategori ATS */
+.jw-ats button { display: inline-flex; flex-direction: column; align-items: center; line-height: 1.15; min-width: 64px; }
+.jw-ats button small { font-size: .7rem; font-weight: 600; opacity: .75; }
