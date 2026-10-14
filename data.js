@@ -226,9 +226,9 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-secretary",
         "localPath": "link/struktur-secretary/",
         "externalUrl": "",
-        "photo": "assets/staff/devi-rikah-anugraini.jpg?v=2",
-        "personName": "Devi Rikah Anugraini, AMK",
-        "personRole": "Emergency Department Secretary"
+        "photo": "assets/staff/irma-nafiyati.jpg?v=2",
+        "personName": "Irma Nafiyati, Amd.Kep",
+        "personRole": "Sekretaris IGD"
       },
       {
         "title": "Penanggung Jawab Keuangan",
@@ -239,9 +239,9 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-finance-manager",
         "localPath": "link/struktur-finance-manager/",
         "externalUrl": "",
-        "photo": "assets/staff/vensensia-lindani.jpg?v=2",
-        "personName": "Vensensia Lindani, Amd.Kep",
-        "personRole": "Finance Manager"
+        "photo": "assets/staff/devi-rikah-anugraini.jpg?v=2",
+        "personName": "Devi Rikah Anugraini, AMK",
+        "personRole": "Keuangan IGD"
       },
       {
         "title": "Divisi EMR (Ambulans)",
@@ -1017,10 +1017,10 @@ window.IGD_STAFF_PHOTOS = [
   },
   {
     "name": "Devi Rikah Anugraini, AMK",
-    "role": "Emergency Department Secretary",
+    "role": "Keuangan IGD",
     "team": "Tim Perawat",
     "photo": "assets/staff/devi-rikah-anugraini.jpg?v=2",
-    "slug": "struktur-secretary"
+    "slug": "struktur-finance-manager"
   },
   {
     "name": "Angelica Rendisa Putri Priyono, Amd.Kep",
@@ -1052,10 +1052,9 @@ window.IGD_STAFF_PHOTOS = [
   },
   {
     "name": "Vensensia Lindani, Amd.Kep",
-    "role": "Finance Manager",
+    "role": "Perawat IGD",
     "team": "Tim Perawat",
-    "photo": "assets/staff/vensensia-lindani.jpg?v=2",
-    "slug": "struktur-finance-manager"
+    "photo": "assets/staff/vensensia-lindani.jpg?v=2"
   },
   {
     "name": "Joko Suseno, AMK",
@@ -1071,9 +1070,10 @@ window.IGD_STAFF_PHOTOS = [
   },
   {
     "name": "Irma Nafiyati, Amd.Kep",
-    "role": "Perawat IGD",
+    "role": "Sekretaris IGD",
     "team": "Tim Perawat",
-    "photo": "assets/staff/irma-nafiyati.jpg?v=2"
+    "photo": "assets/staff/irma-nafiyati.jpg?v=2",
+    "slug": "struktur-secretary"
   },
   {
     "name": "Farel Govind Alfayed Ariyanto, S.Kep., Ners",
@@ -1128,10 +1128,10 @@ window.IGD_STAFF_BY_SLUG = {
     "slug": "struktur-emergency-room-manager"
   },
   "struktur-secretary": {
-    "name": "Devi Rikah Anugraini, AMK",
-    "role": "Emergency Department Secretary",
+    "name": "Irma Nafiyati, Amd.Kep",
+    "role": "Sekretaris IGD",
     "team": "Tim Perawat",
-    "photo": "assets/staff/devi-rikah-anugraini.jpg?v=2",
+    "photo": "assets/staff/irma-nafiyati.jpg?v=2",
     "slug": "struktur-secretary"
   },
   "struktur-training-and-development-division": {
@@ -1163,10 +1163,10 @@ window.IGD_STAFF_BY_SLUG = {
     "slug": "struktur-equipment-maintenance-division"
   },
   "struktur-finance-manager": {
-    "name": "Vensensia Lindani, Amd.Kep",
-    "role": "Finance Manager",
+    "name": "Devi Rikah Anugraini, AMK",
+    "role": "Keuangan IGD",
     "team": "Tim Perawat",
-    "photo": "assets/staff/vensensia-lindani.jpg?v=2",
+    "photo": "assets/staff/devi-rikah-anugraini.jpg?v=2",
     "slug": "struktur-finance-manager"
   }
 };
