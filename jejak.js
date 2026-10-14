@@ -183,9 +183,11 @@
         const teks = 'Pasien ini sudah punya catatan lanjutan' + (r.baris ? ' dan sudah masuk Register baris ' + r.baris : '') +
           '.\n\nHapus SEMUA catatannya' + (r.baris ? ', termasuk mengosongkan baris register tersebut' : '') + '?\nGunakan hanya untuk data uji/simulasi atau salah input.';
         if (!confirm(teks)) { if (tombol) tombol.disabled = false; return; }
-        const alasan = prompt('Alasan penghapusan (misalnya: simulasi):', 'simulasi');
-        if (!alasan) { if (tombol) tombol.disabled = false; return; }
-        return aksi(Object.assign({}, body, { semua: true, alasan }), tombol);
+        return aksi(Object.assign({}, body, { semua: true, alasan: 'dihapus lewat Respon Time (dikonfirmasi)' }), tombol);
+      }
+      if (r.perluAlasan && body.sub === 'batal' && body.titik === 'datang') {   // hapus pasien: cukup konfirmasi ya/tidak
+        if (!confirm('Hapus pasien ini dari Respon Time?')) { if (tombol) tombol.disabled = false; return; }
+        return aksi(Object.assign({}, body, { alasan: 'dihapus lewat Respon Time (dikonfirmasi)' }), tombol);
       }
       if (r.perluAlasan) {
         const alasan = prompt('Sudah lewat 2 menit. Tulis alasan koreksi:');
@@ -244,14 +246,14 @@
       const lanjut = o.dokter || o.konsul || o.advis || o.tindakan || o.keputusan || o.keluar;
       const body = { sub: 'batal', id: b.dataset.id, titik: b.dataset.titik };
       if (b.dataset.titik === 'datang' && lanjut) {
-        // satu kali konfirmasi + alasan, langsung hapus semua (tanpa bolak-balik ke server dulu)
+        // satu kali konfirmasi ya/tidak, langsung hapus semua (tanpa bolak-balik ke server dulu)
         if (!confirm('Hapus pasien ini beserta SEMUA catatannya' + (o.baris ? ', termasuk mengosongkan Register baris ' + o.baris : '') +
           '?\nGunakan hanya untuk data simulasi atau salah input.')) return;
-        const alasan = prompt('Alasan penghapusan:', 'simulasi'); if (!alasan) return;
-        Object.assign(body, { semua: true, alasan });
+        Object.assign(body, { semua: true, alasan: 'dihapus lewat Respon Time (dikonfirmasi)' });   // cukup ya/tidak
       } else {
         if (!confirm(b.dataset.titik === 'datang' ? 'Hapus pasien ini dari Respon Time?' : 'Batalkan catatan ini?')) return;
-        if (lewat) { const alasan = prompt('Sudah lewat 2 menit. Tulis alasan koreksi:'); if (!alasan) return; body.alasan = alasan; }
+        if (lewat && b.dataset.titik === 'datang') body.alasan = 'dihapus lewat Respon Time (dikonfirmasi)';
+        else if (lewat) { const alasan = prompt('Sudah lewat 2 menit. Tulis alasan koreksi:'); if (!alasan) return; body.alasan = alasan; }
       }
       aksi(body, b);
     }));
