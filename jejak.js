@@ -79,7 +79,7 @@
       data = d; selisihServer = ms(d.sekarang) - Date.now();
       keCache(d);
       if (!paksa && tandaData(d) === tandaTampil) { perbaruiLama(); return; }   // tidak ada perubahan: layar tidak digambar ulang
-      if (!paksa && sedangDipakai()) { tertunda = true; perbaruiLama(); return; } // tampilkan setelah petugas selesai
+      if (formTerbuka || (!paksa && sedangDipakai())) { tertunda = true; perbaruiLama(); return; } // form terbuka tidak pernah ditutup paksa
       tertunda = false;
       render();
     } catch (e) {
