@@ -37,6 +37,19 @@
 
   function login() { hapus(); muat(true); }   // tidak ada password: kembali ke mode tanpa login
 
+  // Server sibuk (dikunci proses lain): coba lagi otomatis, tampilan sementara tetap dipertahankan
+  async function kirimSabar(body) {
+    for (let i = 0; ; i++) {
+      const r = await kirim(body);     // galat jaringan tidak diulang otomatis agar pasien tidak tercatat ganda
+      if (r && r.error && /sedang (dipakai|diisi)/i.test(r.error) && i < 5) {
+        pesan('Server sibuk, menyimpan ulang otomatis…');
+        await new Promise((ok) => setTimeout(ok, 1500 + i * 1500));
+        continue;
+      }
+      return r;
+    }
+  }
+
   async function kirim(body) {
     const t = ambil();
     const r = await R().post(Object.assign({ aksi: 'jejak', token: t.token }, body));
@@ -194,7 +207,7 @@
     if (body.sub === 'datang') janjiDatang = new Promise((ok) => { selesaiDatang = ok; });
     antre++;
     try {
-      const r = await kirim(body).finally(() => { antre--; });
+      const r = await kirimSabar(body).finally(() => { antre--; });
       if (selesaiDatang) selesaiDatang(r && r.id ? r.id : null);
       if (r.perluSemua) {
         const teks = 'Pasien ini sudah punya catatan lanjutan' + (r.baris ? ' dan sudah masuk Register baris ' + r.baris : '') +
