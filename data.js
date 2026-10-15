@@ -302,8 +302,18 @@ window.IGD_LINK_GROUPS = [
     "title": "Manajemen Unit",
     "subtitle": "Laporan, rapat dan notulen, SDM dan pelatihan, inventaris dan stok, serta administrasi keuangan.",
     "icon": "🧭",
-    "kelompok": [{"judul": "Laporan Pelayanan", "slugs": ["laporan-bulanan-igd", "manajemen-laporan-kunjungan-igd"]}, {"judul": "SDM & Kepegawaian", "slugs": ["manajemen-sip-perawat-and-bidan", "manajemen-spk-rkk", "operasional-in-house-training"]}, {"judul": "Keuangan & Klaim", "slugs": ["operasional-billing-pasien", "operasional-claim-bpjs-tk"]}, {"judul": "Sarana, Alat & Logistik", "slugs": ["operasional-inventaris-igd", "manajemen-berita-acara-serah-terima-barang", "manajemen-berita-acara-perbaikan-and-permintaan", "operasional-room-temperature-monitoring-form", "manajemen-data-ambulance"]}],
+    "kelompok": [{"judul": "Laporan Pelayanan", "slugs": ["laporan-bulanan-igd", "manajemen-laporan-kunjungan-igd"]}, {"judul": "SDM & Kepegawaian", "slugs": ["manajemen-sip-perawat-and-bidan", "manajemen-spk-rkk", "operasional-in-house-training"]}, {"judul": "Keuangan & Klaim", "slugs": ["operasional-billing-pasien", "operasional-claim-bpjs-tk"]}, {"judul": "Sarana, Alat & Logistik", "slugs": ["operasional-inventaris-igd", "manajemen-berita-acara-serah-terima-barang", "manajemen-berita-acara-perbaikan-and-permintaan", "manajemen-input-suhu-ruangan", "operasional-room-temperature-monitoring-form", "manajemen-data-ambulance"]}],
     "items": [
+      {
+        "title": "Input Suhu Ruangan",
+        "desc": "Catat suhu & kelembapan IGD tiap shift langsung dari HP; tersimpan ke Form Monitoring Suhu.",
+        "url": "suhu/",
+        "type": "Halaman",
+        "tag": "page",
+        "slug": "manajemen-input-suhu-ruangan",
+        "localPath": "suhu/",
+        "externalUrl": ""
+      },
       {
         "title": "Form Pemantauan Suhu Ruangan",
         "desc": "Form monitoring suhu ruangan IGD.",

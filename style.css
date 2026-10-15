@@ -2498,3 +2498,31 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 .hero-qr[hidden] { display: none; }
 .hero-qr img { border-radius: 10px; background: #fff; }
 .hero-qr ol { margin: 0; padding-left: 20px; line-height: 1.7; color: #334155; max-width: 420px; }
+
+/* Input suhu ruangan */
+.sh-form { display: grid; gap: 14px; max-width: 560px; }
+.sh-form h2, .sh-tabel-wadah h2 { margin: 0; }
+.sh-form label { display: grid; gap: 6px; font-weight: 800; color: #334155; }
+.sh-form input[type=date], .sh-form input[name=suhu], .sh-form input[name=kelembapan] { font: inherit; font-size: 1.15rem; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.sh-dua { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sh-shift { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.sh-pil { display: block !important; }
+.sh-pil input { position: absolute; opacity: 0; pointer-events: none; }
+.sh-pil span { display: grid; place-items: center; gap: 2px; padding: 10px 6px; border: 1px solid var(--line); border-radius: 14px; background: #fff; cursor: pointer; font-weight: 800; }
+.sh-pil small { font-weight: 600; color: var(--muted); font-size: .8rem; }
+.sh-pil input:checked + span { background: #0f172a; color: #fff; border-color: #0f172a; }
+.sh-pil input:checked + span small { color: #cbd5e1; }
+.sh-pil input:focus-visible + span { outline: 3px solid #93c5fd; }
+.sh-tabel-wadah { margin-top: 18px; }
+.sh-judul-bulan { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.sh-nav { border: 1px solid var(--line); background: #fff; border-radius: 999px; width: 36px; height: 36px; font-size: 1.3rem; cursor: pointer; }
+.sh-scroll { overflow-x: auto; }
+.sh-tabel { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.sh-tabel th, .sh-tabel td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: center; }
+.sh-tabel thead th { font-size: .85rem; color: var(--muted); }
+.sh-tabel td small { display: block; color: var(--muted); font-size: .8rem; }
+.sh-tabel td.sh-kosong { color: #b91c1c; background: #fef2f2; }
+.sh-tabel td.sh-kini { color: #92400e; background: #fffbeb; font-weight: 700; font-size: .85rem; }
+.sh-merah { color: #b91c1c; }
+.sh-form > *, .sh-dua > *, .sh-shift > * { min-width: 0; }
+.sh-form input[type=date], .sh-form input[name=suhu], .sh-form input[name=kelembapan] { width: 100%; box-sizing: border-box; min-width: 0; }
