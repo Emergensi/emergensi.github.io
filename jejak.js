@@ -148,7 +148,8 @@
       <h2 class="jw-h">Pasien di IGD <span>${aktif.length}</span></h2>
       ${aktif.length ? `<div class="jw-grid">${aktif.map(kartu).join('')}</div>` : '<p class="pt-sub">Belum ada pasien aktif. Ketuk "Pasien datang" saat pasien tiba.</p>'}
       ${selesai.length ? `<h2 class="jw-h">Selesai 12 jam terakhir <span>${selesai.length}</span></h2><div class="pt-list jw-selesai">${selesai.map(ringkas).join('')}</div>` : ''}
-      ${t.peran === 'pimpinan' ? '<p class="pt-sub">Akses pimpinan: nama dan No. RM tampil lengkap.</p>' : ''}`;
+      ${t.peran === 'pimpinan' ? '<p class="pt-sub">Akses pimpinan: nama dan No. RM tampil lengkap.</p>' : ''}
+      <p class="pt-sub" style="font-size:12px;opacity:.7">Server: ${data.versi ? esc(data.versi) : 'versi lama — mohon deploy Apps Script terbaru'}</p>`;
     pasang();
     if (Math.abs(window.scrollY - gulir) > 2) window.scrollTo(0, gulir);   // layar tidak meloncat ke atas
   }
