@@ -104,15 +104,20 @@
       const isian = baca(form);
       const err = form.querySelector('.rf-err');
       if (!Object.keys(isian).length) { err.textContent = 'Isi minimal satu kolom.'; return; }
-      const btn = form.querySelector('[type=submit]');
-      btn.disabled = true; btn.textContent = 'Menyimpan…'; err.textContent = '';
+      // Form langsung ditutup; penyimpanan berjalan di belakang sehingga petugas bisa lanjut ke pasien lain
+      err.textContent = '';
+      form.style.display = 'none';
+      const status = document.createElement('p'); status.className = 'rf-info';
+      status.textContent = '⏳ Menyimpan di latar belakang… silakan lanjut ke pasien lain.';
+      wadah.appendChild(status);
       try {
         const r = await post({ aksi: 'lengkapi', token, baris: item.baris, isian });
         if (r.error) throw new Error(r.error === 'token' ? 'Muat ulang halaman lalu coba lagi.' : r.error);
-        wadah.innerHTML = `<p class="rf-ok">Tersimpan di baris ${r.baris}: ${esc(r.terisi.join(', ') || '-')}${r.dilewati.length ? '. Sudah terisi sebelumnya (tidak ditimpa): ' + esc(r.dilewati.join(', ')) : ''}.</p>`;
+        wadah.innerHTML = `<p class="rf-ok">✓ Tersimpan di baris ${r.baris}: ${esc(r.terisi.join(', ') || '-')}${r.dilewati.length ? '. Sudah terisi sebelumnya (tidak ditimpa): ' + esc(r.dilewati.join(', ')) : ''}.</p>`;
         if (selesai) selesai(r);
       } catch (e) {
-        err.textContent = e.message; btn.disabled = false; btn.textContent = 'Simpan ke register';
+        status.remove(); form.style.display = '';        // gagal: form dan isiannya muncul lagi
+        err.textContent = 'Belum tersimpan: ' + e.message;
       }
     });
   }
@@ -139,19 +144,28 @@
       const data = baca(form);
       const err = form.querySelector('.rf-err');
       if (!data.rm || !data.nama) { err.textContent = 'No. RM dan nama wajib diisi.'; return; }
-      const btn = form.querySelector('[type=submit]');
-      btn.disabled = true; btn.textContent = 'Menyimpan…'; err.textContent = '';
+      // Isian disalin, form langsung dikosongkan untuk pasien berikutnya; bila gagal isian dikembalikan
+      const salinan = Array.from(form.elements).filter((x) => x.name).map((x) => [x, x.value, x.checked, x.multiple ? Array.from(x.options).map((o) => o.selected) : null]);
+      form.reset();
+      form.querySelector('[name=jamDatang]').value = jamSekarang();
+      let antrean = wadah.querySelector('.rf-antre');
+      if (!antrean) { antrean = document.createElement('div'); antrean.className = 'rf-antre'; form.after(antrean); }
+      const st = document.createElement('p'); st.className = 'rf-info';
+      st.textContent = '⏳ Menyimpan ' + data.nama + '… form sudah bisa diisi pasien berikutnya.';
+      antrean.prepend(st); err.textContent = '';
       try {
         const r = await post({ aksi: 'pasienBaru', token, data });
         if (r.error) throw new Error(r.error === 'token' ? 'Muat ulang halaman lalu coba lagi.' : r.error);
-        form.reset();
-        form.querySelector('[name=jamDatang]').value = jamSekarang();
-        err.innerHTML = `<span class="rf-ok">Tersimpan di register baris ${r.baris} (No. ${r.no}).</span>`;
+        st.className = 'rf-ok'; st.textContent = '✓ ' + data.nama + ' tersimpan di register baris ' + r.baris + ' (No. ' + r.no + ').';
         if (selesai) selesai(r);
       } catch (e) {
-        err.textContent = e.message;
-      } finally {
-        btn.disabled = false; btn.textContent = 'Simpan pasien baru';
+        st.className = 'rf-err'; st.textContent = '✗ ' + data.nama + ' belum tersimpan: ' + e.message + ' ';
+        const ulang = document.createElement('button'); ulang.type = 'button'; ulang.className = 'rf-batal'; ulang.textContent = 'Kembalikan isian';
+        ulang.addEventListener('click', () => {
+          salinan.forEach(([x, v, c, sel]) => { if (x.type === 'checkbox' || x.type === 'radio') x.checked = c; else if (sel) Array.from(x.options).forEach((o, i) => { o.selected = sel[i]; }); else x.value = v; });
+          st.remove(); form.scrollIntoView({ block: 'start' });
+        });
+        st.appendChild(ulang);
       }
     });
   }
