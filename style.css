@@ -2526,3 +2526,12 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 .sh-merah { color: #b91c1c; }
 .sh-form > *, .sh-dua > *, .sh-shift > * { min-width: 0; }
 .sh-form input[type=date], .sh-form input[name=suhu], .sh-form input[name=kelembapan] { width: 100%; box-sizing: border-box; min-width: 0; }
+
+/* Kartu dengan dua tombol */
+.link-card-ganda { cursor: default; }
+.card-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; position: relative; z-index: 1; }
+.card-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; font-weight: 850; font-size: .92rem;
+  text-decoration: none; border: 1px solid var(--line); background: #fff; color: #0f172a; }
+.card-btn:hover { background: #f8fafc; }
+.card-btn-utama { background: #b91c1c; border-color: #b91c1c; color: #fff; }
+.card-btn-utama:hover { background: #991b1b; }

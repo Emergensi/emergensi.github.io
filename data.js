@@ -103,14 +103,14 @@ window.IGD_LINK_GROUPS = [
       "manajemen-data-ambulance",
       "manajemen-stok-obat",
       "operasional-inventaris-igd",
-      "operasional-room-temperature-monitoring-form",
+      "manajemen-input-suhu-ruangan",
       "manajemen-iht",
       "manajemen-berita-acara-serah-terima-barang",
       "manajemen-berita-acara-perbaikan-and-permintaan",
       "operasional-billing-pasien",
       "operasional-claim-bpjs-tk"
     ],
-    "kelompok": [{"judul": "Laporan Pelayanan", "slugs": ["laporan-bulanan-igd", "manajemen-laporan-kunjungan-igd"]}, {"judul": "Keuangan & Klaim", "slugs": ["operasional-billing-pasien", "operasional-claim-bpjs-tk"]}, {"judul": "Sarana, Alat & Logistik", "slugs": ["operasional-inventaris-igd", "manajemen-berita-acara-serah-terima-barang", "manajemen-berita-acara-perbaikan-and-permintaan", "operasional-room-temperature-monitoring-form", "manajemen-data-ambulance"]}],
+    "kelompok": [{"judul": "Laporan Pelayanan", "slugs": ["laporan-bulanan-igd", "manajemen-laporan-kunjungan-igd"]}, {"judul": "Keuangan & Klaim", "slugs": ["operasional-billing-pasien", "operasional-claim-bpjs-tk"]}, {"judul": "Sarana, Alat & Logistik", "slugs": ["operasional-inventaris-igd", "manajemen-berita-acara-serah-terima-barang", "manajemen-berita-acara-perbaikan-and-permintaan", "manajemen-input-suhu-ruangan", "manajemen-data-ambulance"]}],
     "items": [
       {
         "title": "Laporan Bulanan IGD",
@@ -302,27 +302,21 @@ window.IGD_LINK_GROUPS = [
     "title": "Manajemen Unit",
     "subtitle": "Laporan, rapat dan notulen, SDM dan pelatihan, inventaris dan stok, serta administrasi keuangan.",
     "icon": "🧭",
-    "kelompok": [{"judul": "Laporan Pelayanan", "slugs": ["laporan-bulanan-igd", "manajemen-laporan-kunjungan-igd"]}, {"judul": "SDM & Kepegawaian", "slugs": ["manajemen-sip-perawat-and-bidan", "manajemen-spk-rkk", "operasional-in-house-training"]}, {"judul": "Keuangan & Klaim", "slugs": ["operasional-billing-pasien", "operasional-claim-bpjs-tk"]}, {"judul": "Sarana, Alat & Logistik", "slugs": ["operasional-inventaris-igd", "manajemen-berita-acara-serah-terima-barang", "manajemen-berita-acara-perbaikan-and-permintaan", "manajemen-input-suhu-ruangan", "operasional-room-temperature-monitoring-form", "manajemen-data-ambulance"]}],
+    "kelompok": [{"judul": "Laporan Pelayanan", "slugs": ["laporan-bulanan-igd", "manajemen-laporan-kunjungan-igd"]}, {"judul": "SDM & Kepegawaian", "slugs": ["manajemen-sip-perawat-and-bidan", "manajemen-spk-rkk", "operasional-in-house-training"]}, {"judul": "Keuangan & Klaim", "slugs": ["operasional-billing-pasien", "operasional-claim-bpjs-tk"]}, {"judul": "Sarana, Alat & Logistik", "slugs": ["operasional-inventaris-igd", "manajemen-berita-acara-serah-terima-barang", "manajemen-berita-acara-perbaikan-and-permintaan", "manajemen-input-suhu-ruangan", "manajemen-data-ambulance"]}],
     "items": [
       {
-        "title": "Input Suhu Ruangan",
-        "desc": "Catat suhu & kelembapan IGD tiap shift langsung dari HP; tersimpan ke Form Monitoring Suhu.",
+        "title": "Suhu Ruangan",
+        "desc": "Monitoring suhu & kelembapan IGD tiap shift: isi langsung dari HP, tersimpan ke Google Sheet.",
         "url": "suhu/",
         "type": "Halaman",
         "tag": "page",
         "slug": "manajemen-input-suhu-ruangan",
         "localPath": "suhu/",
-        "externalUrl": ""
-      },
-      {
-        "title": "Form Pemantauan Suhu Ruangan",
-        "desc": "Form monitoring suhu ruangan IGD.",
-        "url": "link/operasional-room-temperature-monitoring-form/",
-        "type": "Sheets",
-        "tag": "sheet",
-        "slug": "operasional-room-temperature-monitoring-form",
-        "localPath": "link/operasional-room-temperature-monitoring-form/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1ZsYjDGx_zfm6hKRXqO7IiR7qO1vcbfWp-2cwR0QeGOY/edit?gid=2055685808"
+        "externalUrl": "",
+        "aksi": [
+          {"label": "Input suhu", "url": "suhu/"},
+          {"label": "Lihat Sheet", "url": "https://docs.google.com/spreadsheets/d/1ZsYjDGx_zfm6hKRXqO7IiR7qO1vcbfWp-2cwR0QeGOY/edit"}
+        ]
       },
       {
         "title": "Laporan Kunjungan IGD",

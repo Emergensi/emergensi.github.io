@@ -92,6 +92,23 @@
   }
 
   function linkCard(item) {
+    // Kartu dengan dua tombol (mis. Suhu Ruangan: input & lihat sheet): <div>, karena tautan tidak boleh bersarang
+    if (Array.isArray(item.aksi) && item.aksi.length) {
+      const tombol = item.aksi.map((x, i) => {
+        const h = isExternal(x.url) ? x.url : internalUrl(x.url);
+        const luar = isExternal(h);
+        return `<a class="card-btn ${i === 0 ? 'card-btn-utama' : ''}" href="${h}"${luar ? ' target="_blank" rel="noopener"' : ''}>${x.label} <span>${luar ? '↗' : '→'}</span></a>`;
+      }).join('');
+      return `
+      <div class="link-card link-card-ganda" data-title="${safeAttr(item.title)}">
+        <div class="card-top">
+          ${tagHtml(item)}
+          <h4>${item.title}</h4>
+          <p>${item.desc}</p>
+        </div>
+        <div class="card-btns">${tombol}</div>
+      </div>`;
+    }
     const href = itemHref(item);
     const external = isExternal(href);
     const target = external ? ' target="_blank" rel="noopener"' : '';
