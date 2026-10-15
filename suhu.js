@@ -69,7 +69,9 @@
   async function muat() {
     const judul = document.getElementById('shJudul'); if (judul) judul.textContent = namaBulan(bulanTampil);
     const wadah = document.getElementById('shTabel');
-    try { const c = JSON.parse(localStorage.getItem(KEY_CACHE) || 'null'); if (c && c.bulan === bulanTampil) tabel(c.d); } catch (e) {}
+    let dariCache = false;
+    try { const c = JSON.parse(localStorage.getItem(KEY_CACHE + '_' + bulanTampil) || 'null'); if (c && c.bulan === bulanTampil) { tabel(c.d); dariCache = true; } } catch (e) {}
+    if (!dariCache) wadah.innerHTML = '<p class="pt-sub">Memuat ' + namaBulan(bulanTampil) + '…</p>';   // jangan tampilkan tabel bulan lain
     const minta = bulanTampil;
     let d;
     try {
@@ -78,11 +80,12 @@
     } catch (e) { d = { error: 'Gagal memuat: ' + e.message }; }
     if (minta !== bulanTampil) return;
     if (d.error) { wadah.innerHTML = '<p class="pt-error">' + esc(d.error === 'aksi tidak dikenal' ? 'Server Apps Script belum diperbarui: Deploy → Manage deployments → Edit → New version → Deploy.' : d.error) + '</p>'; return; }
-    try { localStorage.setItem(KEY_CACHE, JSON.stringify({ bulan: minta, d })); } catch (e) {}
+    try { localStorage.setItem(KEY_CACHE + '_' + minta, JSON.stringify({ bulan: minta, d })); } catch (e) {}
     tabel(d);
   }
 
   function tabel(d) {
+    if (d.tahun && d.bulan && d.tahun + '-' + String(d.bulan).padStart(2, '0') !== bulanTampil) return;
     dataBulan = d;
     const wadah = document.getElementById('shTabel');
     if (!d.tab) { wadah.innerHTML = '<p class="pt-sub">Tab bulan ini belum ada di sheet. Tab akan dibuat otomatis saat data pertama disimpan.</p>'; return; }
@@ -100,8 +103,8 @@
       const lewat = tglStr < s.tgl || (tglStr === s.tgl && ['pagi', 'siang', 'malam'].indexOf(sh) < ['pagi', 'siang', 'malam'].indexOf(s.shift));
       return lewat && h[sh][0] === '' && h[sh][1] === '';
     }).length, 0);
-    const tampilHari = d.hari.filter((h) => bulanTampil + '-' + String(h.tgl).padStart(2, '0') <= hariIni).reverse();
-    wadah.innerHTML = `<p class="pt-sub">Tab: ${esc(d.tab)} · ${kosong ? '<b class="sh-merah">' + kosong + ' isian terlewat</b>' : 'tidak ada yang terlewat'} · terbaru di atas</p>
+    const tampilHari = d.hari.filter((h) => bulanTampil + '-' + String(h.tgl).padStart(2, '0') <= hariIni);
+    wadah.innerHTML = `<p class="pt-sub">Tab: ${esc(d.tab)} · ${kosong ? '<b class="sh-merah">' + kosong + ' isian terlewat</b>' : 'tidak ada yang terlewat'}</p>
       <div class="sh-scroll"><table class="sh-tabel"><thead><tr><th>Tgl</th><th>Pagi</th><th>Siang</th><th>Malam</th></tr></thead>
       <tbody>${tampilHari.map((h) => `<tr><th>${h.tgl}</th>${sel(h.pagi, h.tgl, 'pagi')}${sel(h.siang, h.tgl, 'siang')}${sel(h.malam, h.tgl, 'malam')}</tr>`).join('')}</tbody></table></div>`;
   }
