@@ -2480,3 +2480,21 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 /* Respon Time: tombol kategori ATS */
 .jw-ats button { display: inline-flex; flex-direction: column; align-items: center; line-height: 1.15; min-width: 64px; }
 .jw-ats button small { font-size: .7rem; font-weight: 600; opacity: .75; }
+
+/* Tombol kecil di hero (Respon Time: aplikasi & QR) */
+.page-hero-meta { align-items: center; }
+.page-hero-meta .hero-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid var(--line); background: rgba(255,255,255,0.72);
+  padding: 8px 14px; border-radius: 999px; font: inherit; font-weight: 850; font-size: 1rem; line-height: 1.2;
+  color: #0f172a; text-decoration: none; cursor: pointer;
+}
+.page-hero-meta .hero-pill:hover { background: #fff; }
+.page-hero-meta .hero-pill-utama { background: #0f172a; color: #fff; border-color: #0f172a; }
+.page-hero-meta .hero-pill-utama:hover { background: #1e293b; }
+.page-hero-meta span { line-height: 1.2; font-size: 1rem; }
+.hero-qr { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-top: 14px; position: relative; z-index: 1;
+  background: rgba(255,255,255,0.8); border: 1px solid var(--line); border-radius: 18px; padding: 14px; width: fit-content; }
+.hero-qr[hidden] { display: none; }
+.hero-qr img { border-radius: 10px; background: #fff; }
+.hero-qr ol { margin: 0; padding-left: 20px; line-height: 1.7; color: #334155; max-width: 420px; }
