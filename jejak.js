@@ -193,6 +193,24 @@
     return true;
   }
 
+  // Pilihan hapus pasien yang sudah masuk register: 'app' | 'semua' | null (batal)
+  function pilihHapus(baris, nama) {
+    return new Promise((selesai) => {
+      const bg = document.createElement('div');
+      bg.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px';
+      const btn = 'display:block;width:100%;border:0;border-radius:14px;padding:13px 14px;font:inherit;font-weight:800;font-size:1rem;cursor:pointer;margin-top:10px;text-align:left';
+      bg.innerHTML = `<div role="dialog" aria-modal="true" style="background:#fff;border-radius:20px;max-width:420px;width:100%;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.3);font-family:inherit">
+        <h3 style="margin:0 0 6px;font-size:1.15rem">Hapus ${esc(nama || 'pasien ini')}?</h3>
+        <p style="margin:0;color:#475569;font-size:.95rem">Pasien ini sudah masuk Google Sheet register <b>baris ${esc(baris)}</b>.</p>
+        <button type="button" data-p="app" style="${btn};background:#0f172a;color:#fff">🗑️ Hapus di aplikasi saja<br><small style="font-weight:600;opacity:.8">Register tetap utuh (untuk catatan dobel / salah catat di app)</small></button>
+        <button type="button" data-p="semua" style="${btn};background:#fee2e2;color:#991b1b">⚠️ Hapus di aplikasi + kosongkan register<br><small style="font-weight:600">Baris ${esc(baris)} dikosongkan (hanya untuk data uji / salah input)</small></button>
+        <button type="button" data-p="" style="${btn};background:#f1f5f9;color:#334155;text-align:center">Batal</button></div>`;
+      const tutup = (v) => { bg.remove(); selesai(v || null); };
+      bg.addEventListener('click', (e) => { const b = e.target.closest('[data-p]'); if (b) tutup(b.dataset.p); else if (e.target === bg) tutup(null); });
+      document.body.appendChild(bg);
+    });
+  }
+
   let antre = 0, janjiDatang = null;      // jumlah simpanan yang belum dijawab server; id pasien baru yang masih disimpan
 
   async function aksi(body, tombol) {
@@ -211,9 +229,12 @@
       const r = await kirimSabar(body).finally(() => { antre--; });
       if (selesaiDatang) selesaiDatang(r && r.id ? r.id : null);
       if (r.perluSemua) {
-        const teks = 'Pasien ini sudah punya catatan lanjutan.\n\nHapus dari aplikasi Respon Time?' + (r.baris ? '\nData di Google Sheet register (baris ' + r.baris + ') TETAP ada.' : '');
-        if (!confirm(teks)) { if (tombol) tombol.disabled = false; return; }
-        const kosongkan = !!r.baris && confirm('Kosongkan JUGA baris ' + r.baris + ' di Google Sheet register?\n\nOK = ikut dikosongkan (hanya untuk data uji)\nBatal = register tetap (disarankan)');
+        let kosongkan = false;
+        if (r.baris) {
+          const p = await pilihHapus(r.baris);
+          if (!p) { if (tombol) tombol.disabled = false; return; }
+          kosongkan = p === 'semua';
+        } else if (!confirm('Pasien ini sudah punya catatan lanjutan. Hapus dari aplikasi Respon Time?')) { if (tombol) tombol.disabled = false; return; }
         return aksi(Object.assign({}, body, { semua: true, kosongkanRegister: kosongkan, alasan: 'dihapus lewat Respon Time (dikonfirmasi)' }), tombol);
       }
       if (r.perluAlasan && body.sub === 'batal' && body.titik === 'datang') {   // hapus pasien: cukup konfirmasi ya/tidak
@@ -273,17 +294,19 @@
       if (!confirm('Catat keputusan: ' + b.textContent + '?')) return;
       aksi({ sub: 'ketuk', id: b.dataset.id, titik: 'keputusan', jenis: b.dataset.jenis }, b);
     }));
-    r.querySelectorAll('.jw-batal').forEach((b) => b.addEventListener('click', () => {
+    r.querySelectorAll('.jw-batal').forEach((b) => b.addEventListener('click', async () => {
       const lewat = (Date.now() + selisihServer - ms(b.dataset.waktu)) / 60000 > 2;
       const o = (data.aktif || []).concat(data.selesai || []).find((x) => x.id === b.dataset.id) || {};
       const lanjut = o.ditriase || o.dokter || o.konsul || o.advis || o.tindakan || o.keputusan || o.keluar;
       const body = { sub: 'batal', id: b.dataset.id, titik: b.dataset.titik };
       if (b.dataset.titik === 'datang' && lanjut) {
         // satu kali konfirmasi ya/tidak, langsung hapus semua (tanpa bolak-balik ke server dulu)
-        if (!confirm('Hapus pasien ini dari aplikasi Respon Time?' + (o.baris ? '\nData di Google Sheet register (baris ' + o.baris + ') TETAP ada.' : '') +
-          '\nGunakan untuk data uji/simulasi atau salah input.')) return;
-        // register hanya dikosongkan bila dipilih khusus (pertanyaan kedua, jawaban bawaan: tidak)
-        const kosongkan = !!o.baris && confirm('Kosongkan JUGA baris ' + o.baris + ' di Google Sheet register?\n\nOK = ikut dikosongkan (hanya untuk data uji)\nBatal = register tetap (disarankan)');
+        let kosongkan = false;
+        if (o.baris) {
+          const p = await pilihHapus(o.baris, o.nama || o.penanda);
+          if (!p) return;
+          kosongkan = p === 'semua';
+        } else if (!confirm('Hapus ' + (o.penanda || 'pasien ini') + ' dari aplikasi Respon Time?\n(Belum masuk register, Google Sheet tidak berubah.)')) return;
         Object.assign(body, { semua: true, kosongkanRegister: kosongkan, alasan: 'dihapus lewat Respon Time (dikonfirmasi)' });
       } else {
         if (!confirm(b.dataset.titik === 'datang' ? 'Hapus pasien ini dari Respon Time?' : 'Batalkan catatan ini?')) return;
