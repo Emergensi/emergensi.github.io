@@ -211,10 +211,10 @@
       const r = await kirimSabar(body).finally(() => { antre--; });
       if (selesaiDatang) selesaiDatang(r && r.id ? r.id : null);
       if (r.perluSemua) {
-        const teks = 'Pasien ini sudah punya catatan lanjutan' + (r.baris ? ' dan sudah masuk Register baris ' + r.baris : '') +
-          '.\n\nHapus SEMUA catatannya' + (r.baris ? ', termasuk mengosongkan baris register tersebut' : '') + '?\nGunakan hanya untuk data uji/simulasi atau salah input.';
+        const teks = 'Pasien ini sudah punya catatan lanjutan.\n\nHapus dari aplikasi Respon Time?' + (r.baris ? '\nData di Google Sheet register (baris ' + r.baris + ') TETAP ada.' : '');
         if (!confirm(teks)) { if (tombol) tombol.disabled = false; return; }
-        return aksi(Object.assign({}, body, { semua: true, alasan: 'dihapus lewat Respon Time (dikonfirmasi)' }), tombol);
+        const kosongkan = !!r.baris && confirm('Kosongkan JUGA baris ' + r.baris + ' di Google Sheet register?\n\nOK = ikut dikosongkan (hanya untuk data uji)\nBatal = register tetap (disarankan)');
+        return aksi(Object.assign({}, body, { semua: true, kosongkanRegister: kosongkan, alasan: 'dihapus lewat Respon Time (dikonfirmasi)' }), tombol);
       }
       if (r.perluAlasan && body.sub === 'batal' && body.titik === 'datang') {   // hapus pasien: cukup konfirmasi ya/tidak
         if (!confirm('Hapus pasien ini dari Respon Time?')) { if (tombol) tombol.disabled = false; return; }
@@ -280,9 +280,11 @@
       const body = { sub: 'batal', id: b.dataset.id, titik: b.dataset.titik };
       if (b.dataset.titik === 'datang' && lanjut) {
         // satu kali konfirmasi ya/tidak, langsung hapus semua (tanpa bolak-balik ke server dulu)
-        if (!confirm('Hapus pasien ini beserta SEMUA catatannya' + (o.baris ? ', termasuk mengosongkan Register baris ' + o.baris : '') +
-          '?\nGunakan hanya untuk data simulasi atau salah input.')) return;
-        Object.assign(body, { semua: true, alasan: 'dihapus lewat Respon Time (dikonfirmasi)' });   // cukup ya/tidak
+        if (!confirm('Hapus pasien ini dari aplikasi Respon Time?' + (o.baris ? '\nData di Google Sheet register (baris ' + o.baris + ') TETAP ada.' : '') +
+          '\nGunakan untuk data uji/simulasi atau salah input.')) return;
+        // register hanya dikosongkan bila dipilih khusus (pertanyaan kedua, jawaban bawaan: tidak)
+        const kosongkan = !!o.baris && confirm('Kosongkan JUGA baris ' + o.baris + ' di Google Sheet register?\n\nOK = ikut dikosongkan (hanya untuk data uji)\nBatal = register tetap (disarankan)');
+        Object.assign(body, { semua: true, kosongkanRegister: kosongkan, alasan: 'dihapus lewat Respon Time (dikonfirmasi)' });
       } else {
         if (!confirm(b.dataset.titik === 'datang' ? 'Hapus pasien ini dari Respon Time?' : 'Batalkan catatan ini?')) return;
         if (lewat && b.dataset.titik === 'datang') body.alasan = 'dihapus lewat Respon Time (dikonfirmasi)';
