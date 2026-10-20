@@ -70,7 +70,7 @@
           <p class="pt-sub">Pulang termasuk APS: ${o.aps} pasien.</p></section>
         <section class="lb-kartu"><h3>Indikasi rujuk eksternal &amp; cara masuk</h3>
           ${tabel(['Fasilitas', 'Kompetensi', 'Jaminan', 'APS'], [tr([I.FASILITAS, I.KOMPETENSI, I.JAMINAN, o.aps])], 'ck-rata')}${daftarKet(o.ketRujuk)}
-          ${tabel(['Rujukan', 'Ambulans swasta', 'Diantar polisi'], [tr([o.rujukan, o.ambulans, '<small>manual</small>'])], 'ck-rata')}${daftarKet(o.ketMasuk)}</section>
+          ${tabel(['Rujukan', 'Ambulans swasta', 'Diantar polisi'], [tr([o.rujukan, o.ambulans, o.polisi == null ? '<small>-</small>' : o.polisi])], 'ck-rata')}${daftarKet(o.ketMasuk)}</section>
         ${top('10 diagnosis terbanyak', o.dx)}
         ${top('10 tindakan terbanyak', o.tindakan)}
         ${top('Tindakan elektromedis', o.elektro)}
@@ -79,7 +79,7 @@
             .concat(tr(['Total', totRekap.j, totRekap.l, totRekap.b, totRekap.ri, totRekap.ru, totRekap.p, totRekap.aps, totRekap.m], true)))}</section>
       </div>
       ${r.catatan && r.catatan.length ? `<p class="pt-sub">Catatan: ${esc(r.catatan.join(' | '))}</p>` : ''}
-      <p class="pt-sub">Insiden keselamatan pasien dan pasien diantar polisi diisi manual di tab Google Sheet (sel kuning).</p>
+      <p class="pt-sub">Insiden keselamatan pasien diisi manual di tab Google Sheet (sel kuning).</p>
     </article>`;
   }
 
