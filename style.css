@@ -2535,3 +2535,17 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 .card-btn:hover { background: #f8fafc; }
 .card-btn-utama { background: #b91c1c; border-color: #b91c1c; color: #fff; }
 .card-btn-utama:hover { background: #991b1b; }
+
+/* Cakupan Layanan IGD */
+.ck-angka { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0 0 16px; }
+.ck-angka div { background: #fbfaf7; border: 1px solid #ddd8ce; border-radius: 16px; padding: 14px 16px; min-width: 0; }
+.ck-angka b { display: block; font-size: 1.6rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.ck-angka span { color: #5f6b75; font-size: .85rem; }
+.lb-tabel.ck-rata th, .lb-tabel.ck-rata td { text-align: center; }
+.lb-tabel.ck-rata th:first-child, .lb-tabel.ck-rata td:first-child { text-align: center; }
+.lb-tabel.ck-top td:nth-child(2), .lb-tabel.ck-top th:nth-child(2) { text-align: left; font-weight: 600; }
+.lb-kartu.ck-lebar { overflow-x: auto; } .ck-lebar .lb-tabel { font-size: .88rem; } .ck-lebar .lb-tabel th, .ck-lebar .lb-tabel td { padding-left: 5px; padding-right: 5px; }
+.lb-tabel.ck-top td:first-child { width: 2.2em; color: #5f6b75; font-weight: 600; }
+.ck-ket { margin: 6px 0 12px; padding-left: 18px; font-size: .85rem; color: #475569; }
+.lb-kartu .lb-tabel + .lb-tabel { margin-top: 10px; }
+@media (max-width: 640px) { .ck-angka { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lb-kartu { overflow-x: auto; } }
