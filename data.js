@@ -125,15 +125,14 @@ window.IGD_LINK_GROUPS = [
         "akses": "pimpinan"
       },
       {
-        "title": "Cakupan Layanan IGD",
-        "desc": "Klik untuk mengisi otomatis tab Cakupan IGD dari register: kunjungan, jaminan, lama/baru, kegawatan, tindak lanjut, 10 diagnosis & tindakan terbanyak.",
+        "title": "Laporan Kunjungan & Cakupan IGD 2026",
+        "desc": "Klik untuk mengisi otomatis dari register: kunjungan, jaminan, lama/baru, kegawatan, tindak lanjut, 10 diagnosis & tindakan terbanyak.",
         "url": "cakupan/",
         "type": "Halaman",
         "tag": "page",
         "slug": "laporan-cakupan-igd",
         "localPath": "cakupan/",
-        "externalUrl": "",
-        "akses": "pimpinan"
+        "externalUrl": ""
       }
     ]
   },
@@ -339,7 +338,8 @@ window.IGD_LINK_GROUPS = [
         "sensitive": true,
         "slug": "manajemen-laporan-kunjungan-igd",
         "localPath": "link/manajemen-laporan-kunjungan-igd/",
-        "externalUrl": "https://docs.google.com/spreadsheets/d/1Lzsf7r-Qgu0dQQ_QMq8tNiCASQX3-ocilMLSvErOP80/edit?gid=0&hl=id"
+        "externalUrl": "https://docs.google.com/spreadsheets/d/1Lzsf7r-Qgu0dQQ_QMq8tNiCASQX3-ocilMLSvErOP80/edit?gid=0&hl=id",
+        "arsip": true
       },
       {
         "title": "SPK RKK",

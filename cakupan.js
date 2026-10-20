@@ -1,4 +1,4 @@
-// Cakupan Layanan IGD (Akses Pimpinan): perbarui tab "Cakupan IGD <tahun>" di register lalu tampilkan ringkasan bulan terpilih.
+// Laporan Kunjungan & Cakupan IGD (staf & pimpinan): perbarui tab "Cakupan IGD <tahun>" di register lalu tampilkan ringkasan bulan terpilih.
 (function () {
   const API_URL = 'https://script.google.com/macros/s/AKfycbzdXDcOLMnBj5kuhINSpVRKpQ1RWwdOhXuPfEOxd11b7s9yRWVjU3f8T744OyaQgxtJUw/exec';
   const $ = (id) => document.getElementById(id);
@@ -31,6 +31,7 @@
       cekToken(d);
       hasil = d; tampil(d);
       $('ckSheet').href = d.url; $('ckAksi').hidden = false;
+      $('ckTele').style.display = window.IGDAuth && window.IGDAuth.isPimpinan && window.IGDAuth.isPimpinan() ? '' : 'none';   // kirim Telegram khusus pimpinan
       pesan('Tab "' + d.tab + '" diperbarui pukul ' + d.dibuat.slice(11) + '.');
     } catch (e) { pesan(e.message, true); }
     $('ckBuat').disabled = false;
