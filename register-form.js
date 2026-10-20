@@ -66,7 +66,9 @@
     }
     const panjang = k === 'diagnosis' || k === 'alamat';
     return `<div class="rf-f">${lab}${panjang ? `<textarea id="${id}" name="${k}" rows="2">${esc(nilai || '')}</textarea>`
-      : `<input id="${id}" name="${k}" type="text" value="${esc(nilai || '')}">`}</div>`;
+      : (pilihan && pilihan.length   // ada daftar saran (mis. Rujukan dari): pilih dari daftar atau ketik sendiri
+        ? `<input id="${id}" name="${k}" type="text" list="${id}-l" value="${esc(nilai || '')}" placeholder="Pilih atau ketik…"><datalist id="${id}-l">${pilihan.map((o) => `<option value="${esc(o)}">`).join('')}</datalist>`
+        : `<input id="${id}" name="${k}" type="text" value="${esc(nilai || '')}">`)}</div>`;
   }
 
   function pasangTombolSekarang(root) {
