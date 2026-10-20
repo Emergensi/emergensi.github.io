@@ -69,13 +69,15 @@
 
   async function muat(paksa) {
     const t = ambil();
-    if (!paksa && (formTerbuka || antre > 0)) return;   // jangan timpa layar saat ada simpanan yang belum dijawab server
+    if (!paksa && (formTerbuka || sibuk())) return;   // jangan timpa layar saat ada simpanan yang belum dijawab server
     if (!data) dariCache();
+    const g = generasi;                              // perubahan lokal sejak permintaan ini dikirim → jawabannya sudah usang
     try {
       const d = await R().get('jejakAktif', t.token);
+      if (g !== generasi) return;                    // ada ketukan baru selama menunggu: jangan kembalikan layar ke data lama
       if (d.error === 'token') { if (t.token) { hapus(); return login(); } throw new Error('Server Apps Script belum diperbarui: buka Apps Script → Deploy → Manage deployments → Edit → New version → Deploy.'); }
       if (d.error) throw new Error(d.error);
-      if (antre > 0) return;                         // simpanan baru sedang berjalan: data ini mungkin sudah usang
+      if (sibuk()) return;                           // simpanan baru sedang berjalan: data ini mungkin sudah usang
       data = d; selisihServer = ms(d.sekarang) - Date.now();
       keCache(d);
       if (!paksa && tandaData(d) === tandaTampil) { perbaruiLama(); return; }   // tidak ada perubahan: layar tidak digambar ulang
@@ -212,13 +214,18 @@
   }
 
   let antre = 0, janjiDatang = null;      // jumlah simpanan yang belum dijawab server; id pasien baru yang masih disimpan
+  let menunggu = 0, generasi = 0;         // ketukan yang menunggu id pasien baru; nomor urut perubahan lokal
+  const sibuk = () => antre + menunggu > 0;
 
   async function aksi(body, tombol) {
     if (tombol) tombol.disabled = true;
+    generasi++;
     const cepat = tampilSementara(body);
     if (cepat) pesan('Menyimpan…');
     if (body.id === 'sementara') {                  // diketuk sebelum pasien baru selesai disimpan: tunggu id aslinya
-      const id = janjiDatang ? await janjiDatang : null;
+      menunggu++;                                   // selama menunggu, layar tidak boleh ditimpa jawaban 'pasien datang'
+      let id = null;
+      try { id = janjiDatang ? await janjiDatang : null; } finally { menunggu--; }
       if (!id) { pesan('Pasien belum tersimpan, coba ketuk lagi.', true); muat(true); return; }
       body = Object.assign({}, body, { id });
     }
@@ -249,7 +256,7 @@
       if (r.error) throw new Error(r.error);
       pesan(r.peringatan || (r.dihapus ? 'Pasien dihapus' + (r.register ? ' · ' + r.register : '') : body.sub === 'batal' ? 'Dibatalkan' : r.waktu ? 'Tercatat pukul ' + jam(r.waktu) : 'Tersimpan'), !!r.peringatan);
       formTerbuka = false;
-      if (antre > 0) return;                         // masih ada ketukan lain yang disimpan: tunggu jawaban terakhir
+      if (sibuk()) return;                           // masih ada ketukan lain yang disimpan: tunggu jawaban terakhir
       if (r.daftar && r.daftar.aktif) { data = r.daftar; selisihServer = ms(r.daftar.sekarang) - Date.now(); keCache(data); tertunda = false; render(); }
       else muat(true);
     } catch (e) {
@@ -337,7 +344,7 @@
     ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach((ev) => window.addEventListener(ev, () => { sentuhTerakhir = Date.now(); }, { passive: true }));
     setInterval(() => {
       if (document.hidden) return;                                   // aplikasi di latar belakang: tidak perlu memuat
-      if (tertunda && !sedangDipakai() && antre === 0) { tertunda = false; render(); return; }
+      if (tertunda && !sedangDipakai() && !sibuk()) { tertunda = false; render(); return; }
       muat(false);
     }, 30000);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) muat(false); });
