@@ -2560,21 +2560,53 @@ button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: no
 .proses-pil .proses-putar { color: #fca5a5; }
 
 /* Jadwal jaga hari ini */
-.jd-kartu { margin-bottom: 8px; }
-.jd-kepala { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 12px; }
-.jd-kepala h2 { margin: 4px 0 0; font-size: 1.35rem; }
-.jd-nav { display: flex; gap: 6px; }
-.jd-nav .ghost-btn { min-width: 44px; justify-content: center; }
-.jd-kini { display: flex; flex-wrap: wrap; gap: 6px 16px; background: #fef2f2; border: 1px solid #fecaca; color: #7f1d1d; border-radius: 14px; padding: 10px 14px; margin-bottom: 12px; }
-.jd-kini b { width: 100%; }
-.jd-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.jd-kol { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 12px 14px; }
-.jd-kol h3 { margin: 0 0 8px; font-size: 1.05rem; }
-.jd-kol h3 small { font-weight: 600; color: #64748b; font-size: .8rem; }
-.jd-sub { font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #1d4e89; margin-top: 8px; }
-.jd-kol ul, .jd-lain ul { margin: 4px 0 0; padding-left: 18px; }
-.jd-kol li { margin: 2px 0; font-weight: 600; }
-.jd-nihil { color: #94a3b8; list-style: none; margin-left: -18px; }
-.jd-lain { margin-top: 12px; }
-.jd-sumber { margin-top: 10px; font-size: .8rem; }
-@media (max-width: 720px) { .jd-grid { grid-template-columns: 1fr; } }
+.jd-kartu { margin-bottom: 8px; padding: 24px; }
+.jd-kepala { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 18px; }
+.jd-kepala h2 { margin: 6px 0 0; font-size: 1.45rem; letter-spacing: -.01em; }
+.jd-nav { display: inline-flex; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: #fff; }
+.jd-nav button { border: 0; background: transparent; font: inherit; font-weight: 700; padding: 9px 14px; cursor: pointer; color: #0f172a; }
+.jd-nav button + button { border-left: 1px solid #e2e8f0; }
+.jd-nav button:hover { background: #f1f5f9; }
+.jd-nav #jdHari.aktif { background: #0f172a; color: #fff; }
+.jd-kosong { color: #64748b; padding: 18px 0; }
+.jd-kini { border: 1px solid #e2e8f0; border-radius: 18px; background: linear-gradient(180deg, #fff, #f8fafc); padding: 16px 18px; margin-bottom: 16px; }
+.jd-kini-kepala { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 12px; }
+.jd-kini-kepala b { font-size: 1rem; }
+.jd-kini-kepala small { color: #64748b; }
+.jd-live { width: 9px; height: 9px; border-radius: 50%; background: #16a34a; box-shadow: 0 0 0 4px rgba(22,163,74,.18); }
+.jd-badge { font-size: .78rem; font-weight: 800; padding: 4px 10px; border-radius: 999px; }
+.jd-sisa { margin-left: auto; font-size: .8rem; color: #64748b; font-weight: 600; }
+.jd-prog { width: 140px; height: 6px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+.jd-prog i { display: block; height: 100%; background: #b91c1c; border-radius: 999px; }
+.jd-kini-isi { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; }
+.jd-kini-isi .jd-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; }
+.jd-kartu h4 { margin: 0 0 8px; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #64748b; display: flex; align-items: center; gap: 6px; }
+.jd-kartu h4 small { background: #f1f5f9; color: #475569; border-radius: 999px; padding: 1px 7px; font-size: .7rem; letter-spacing: 0; }
+.jd-list { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 6px; }
+.jd-org { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #eef2f6; border-radius: 12px; padding: 7px 10px; }
+.jd-av { flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; overflow: hidden; background: #e0e7ef; display: grid; place-items: center; font-size: .75rem; font-weight: 800; color: #1e3a5f; }
+.jd-av img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.jd-nm { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
+.jd-nm b { font-size: .93rem; font-weight: 700; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.jd-nm small { font-size: .74rem; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.jd-nihil { color: #94a3b8; font-size: .85rem; margin: 0 0 14px; }
+.jd-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.jd-kol { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 16px; border-top: 4px solid var(--jd-c); transition: opacity .2s; }
+.jd-kol header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 14px; }
+.jd-kol header h3 { margin: 0; font-size: 1.1rem; }
+.jd-kol header span { color: #64748b; font-size: .82rem; font-weight: 600; }
+.jd-kol header em { margin-left: auto; font-style: normal; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: #fff; background: var(--jd-c); padding: 3px 8px; border-radius: 999px; }
+.jd-kol header em.sel { background: #cbd5e1; color: #475569; }
+.jd-kol.aktif { background: #fff; box-shadow: 0 10px 28px rgba(15,23,42,.08); }
+.jd-kol.lewat { opacity: .62; }
+.jd-pagi { --jd-c: #d97706; } .jd-siang { --jd-c: #0e7490; } .jd-malam { --jd-c: #4338ca; }
+.jd-badge.jd-pagi { background: #fef3c7; color: #92400e; } .jd-badge.jd-siang { background: #cffafe; color: #155e75; } .jd-badge.jd-malam { background: #e0e7ff; color: #3730a3; }
+.jd-bawah { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #eef2f6; }
+.jd-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.jd-chip { display: inline-flex; align-items: center; gap: 6px; background: #f1f5f9; border-radius: 10px; padding: 6px 10px; font-size: .85rem; color: #0f172a; }
+.jd-chip b { font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; color: #1d4e89; }
+.jd-chip small { color: #64748b; }
+.jd-chip.redup { color: #64748b; }
+.jd-sumber { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; margin-top: 16px; font-size: .78rem; color: #94a3b8; }
+.jd-sumber a { color: #64748b; }
+@media (max-width: 900px) { .jd-grid, .jd-bawah, .jd-kini-isi { grid-template-columns: 1fr; } .jd-prog { width: 100%; } .jd-sisa { margin-left: 0; } }
