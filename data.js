@@ -994,13 +994,6 @@ window.IGD_STAFF_PHOTOS = [
     "photo": "assets/staff/dr-muhammad-nugraha-putra-mars.jpg?v=2"
   },
   {
-    "name": "dr. Mahendra DD Luhurpakarti",
-    "role": "Dokter Umum IGD",
-    "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-mahendra-dd-luhurpakarti.jpg?v=2",
-    "slug": "struktur-head-of-emergency-department"
-  },
-  {
     "name": "dr. Dyah Chandra",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",

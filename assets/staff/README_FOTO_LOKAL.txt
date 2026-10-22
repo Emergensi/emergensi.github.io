@@ -12,7 +12,6 @@ Daftar nama file yang disarankan:
 - dr-nurul-khafidz-subekti.jpg  |  dr. Nurul Khafidz Subekti  |  Tim Dokter Umum - Dokter Umum IGD
 - dr-muhammad-adib-ridhani.jpg  |  dr. Muhammad Adib Ridhani  |  Tim Dokter Umum - Dokter Umum IGD
 - dr-muhammad-nugraha-putra-mars.jpg  |  dr. Muhammad Nugraha Putra, MARS  |  Tim Dokter Umum - Dokter Umum IGD
-- dr-mahendra-dd-luhurpakarti.jpg  |  dr. Mahendra DD Luhurpakarti  |  Tim Dokter Umum - Head of Emergency Department
 - dr-dyah-chandra.jpg  |  dr. Dyah Chandra  |  Tim Dokter Umum - Dokter Umum IGD
 - dr-rahma-arsyta-sulchaini.jpg  |  dr. Rahma Arsyta Sulchaini  |  Tim Dokter Umum - Dokter Umum IGD
 - dr-wahyu-tri-atmojo.jpg  |  dr. Wahyu Tri Atmojo  |  Tim Dokter Umum - Dokter Umum IGD
