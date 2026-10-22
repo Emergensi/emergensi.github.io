@@ -27,4 +27,4 @@ Daftar nama file yang disarankan:
 - rusni.jpg  |  Rusni  |  Tim Bidan - Bidan IGD
 - dr-nuri-anang-sp-kll.jpg  |  dr. Nuri Anang, Sp. KLL  |  Tim Driver - Tim Driver / Pendukung Operasional
 - arief-lailatul-khusuuf-iman.jpg  |  Arief Lailatul Khusuuf Iman  |  Tim Driver - Driver / Pendukung Operasional
-- veri-agus-saputra.jpg  |  Veri Agus Saputra  |  Tim Driver - Driver / Pendukung Operasional
+- veri-agus-saputra.jpg  |  Veri Agus Saputra  |  Tim Driver - Driver / Pendukung Operasional- nurilita-rizkiana.jpg  |  Nurilita Rizkiana, S.Kep., Ns  |  Tim Perawat - Perawat IGD

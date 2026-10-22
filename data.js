@@ -1060,6 +1060,12 @@ window.IGD_STAFF_PHOTOS = [
     "photo": "assets/staff/vensensia-lindani.jpg?v=2"
   },
   {
+    "name": "Nurilita Rizkiana, S.Kep., Ns",
+    "role": "Perawat IGD",
+    "team": "Tim Perawat",
+    "photo": "assets/staff/nurilita-rizkiana.jpg?v=2"
+  },
+  {
     "name": "Joko Suseno, AMK",
     "role": "Perawat IGD",
     "team": "Tim Perawat",
