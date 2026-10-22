@@ -1007,12 +1007,6 @@ window.IGD_STAFF_PHOTOS = [
     "photo": "assets/staff/dr-dyah-chandra.jpg?v=2"
   },
   {
-    "name": "dr. Ika Irmawati Susanto",
-    "role": "Dokter Umum IGD",
-    "team": "Tim Dokter Umum",
-    "photo": "assets/staff/dr-ika-irmawati-susanto.jpg?v=2"
-  },
-  {
     "name": "dr. Rahma Arsyta Sulchaini",
     "role": "Dokter Umum IGD",
     "team": "Tim Dokter Umum",
@@ -1079,23 +1073,11 @@ window.IGD_STAFF_PHOTOS = [
     "photo": "assets/staff/joko-suseno.jpg?v=2"
   },
   {
-    "name": "Cahya Tri Kuncoro, S.Kep., Ners",
-    "role": "Perawat IGD",
-    "team": "Tim Perawat",
-    "photo": "assets/staff/cahya-tri-kuncoro.jpg?v=2"
-  },
-  {
     "name": "Irma Nafiyati, Amd.Kep",
     "role": "Sekretaris IGD",
     "team": "Tim Perawat",
     "photo": "assets/staff/irma-nafiyati.jpg?v=2",
     "slug": "struktur-secretary"
-  },
-  {
-    "name": "Arum Karunia Sari",
-    "role": "Bidan IGD",
-    "team": "Tim Bidan",
-    "photo": "assets/staff/arum-karunia-sari.jpg?v=2"
   },
   {
     "name": "Rusni",

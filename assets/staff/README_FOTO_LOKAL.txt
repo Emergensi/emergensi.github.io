@@ -14,7 +14,6 @@ Daftar nama file yang disarankan:
 - dr-muhammad-nugraha-putra-mars.jpg  |  dr. Muhammad Nugraha Putra, MARS  |  Tim Dokter Umum - Dokter Umum IGD
 - dr-mahendra-dd-luhurpakarti.jpg  |  dr. Mahendra DD Luhurpakarti  |  Tim Dokter Umum - Head of Emergency Department
 - dr-dyah-chandra.jpg  |  dr. Dyah Chandra  |  Tim Dokter Umum - Dokter Umum IGD
-- dr-ika-irmawati-susanto.jpg  |  dr. Ika Irmawati Susanto  |  Tim Dokter Umum - Dokter Umum IGD
 - dr-rahma-arsyta-sulchaini.jpg  |  dr. Rahma Arsyta Sulchaini  |  Tim Dokter Umum - Dokter Umum IGD
 - dr-wahyu-tri-atmojo.jpg  |  dr. Wahyu Tri Atmojo  |  Tim Dokter Umum - Dokter Umum IGD
 - linggar-dwi-cahyo-s-kep-ners.jpg  |  Linggar Dwi Cahyo, S.Kep., Ners  |  Tim Perawat - Emergency Room Manager
@@ -24,10 +23,8 @@ Daftar nama file yang disarankan:
 - triosep-satrio-wijaya-amd-kep.jpg  |  Triosep Satrio Wijaya, Amd.Kep  |  Tim Perawat - Equipment Maintenance Division
 - vensensia-lindani-amd-kep.jpg  |  Vensensia Lindani, Amd.Kep  |  Tim Perawat - Finance Manager
 - joko-suseno-amk.jpg  |  Joko Suseno, AMK  |  Tim Perawat - Perawat IGD
-- cahya-tri-kuncoro-s-kep-ners.jpg  |  Cahya Tri Kuncoro, S.Kep., Ners  |  Tim Perawat - Perawat IGD
 - irma-nafiyati-amd-kep.jpg  |  Irma Nafiyati, Amd.Kep  |  Tim Perawat - Perawat IGD
 - farel-govind-alfayed-ariyanto-s-kep-ners.jpg  |  Farel Govind Alfayed Ariyanto, S.Kep., Ners  |  Tim Perawat - Perawat IGD
-- arum-karunia-sari.jpg  |  Arum Karunia Sari  |  Tim Bidan - Bidan IGD
 - rusni.jpg  |  Rusni  |  Tim Bidan - Bidan IGD
 - dr-nuri-anang-sp-kll.jpg  |  dr. Nuri Anang, Sp. KLL  |  Tim Driver - Tim Driver / Pendukung Operasional
 - arief-lailatul-khusuuf-iman.jpg  |  Arief Lailatul Khusuuf Iman  |  Tim Driver - Driver / Pendukung Operasional
