@@ -2558,3 +2558,23 @@ button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: no
   transition: transform .2s ease, opacity .2s ease; opacity: 0; pointer-events: none; max-width: calc(100vw - 32px); }
 .proses-pil.tampil { transform: translate(-50%, 0); opacity: 1; }
 .proses-pil .proses-putar { color: #fca5a5; }
+
+/* Jadwal jaga hari ini */
+.jd-kartu { margin-bottom: 8px; }
+.jd-kepala { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 12px; }
+.jd-kepala h2 { margin: 4px 0 0; font-size: 1.35rem; }
+.jd-nav { display: flex; gap: 6px; }
+.jd-nav .ghost-btn { min-width: 44px; justify-content: center; }
+.jd-kini { display: flex; flex-wrap: wrap; gap: 6px 16px; background: #fef2f2; border: 1px solid #fecaca; color: #7f1d1d; border-radius: 14px; padding: 10px 14px; margin-bottom: 12px; }
+.jd-kini b { width: 100%; }
+.jd-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.jd-kol { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 12px 14px; }
+.jd-kol h3 { margin: 0 0 8px; font-size: 1.05rem; }
+.jd-kol h3 small { font-weight: 600; color: #64748b; font-size: .8rem; }
+.jd-sub { font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #1d4e89; margin-top: 8px; }
+.jd-kol ul, .jd-lain ul { margin: 4px 0 0; padding-left: 18px; }
+.jd-kol li { margin: 2px 0; font-weight: 600; }
+.jd-nihil { color: #94a3b8; list-style: none; margin-left: -18px; }
+.jd-lain { margin-top: 12px; }
+.jd-sumber { margin-top: 10px; font-size: .8rem; }
+@media (max-width: 720px) { .jd-grid { grid-template-columns: 1fr; } }
