@@ -20,7 +20,6 @@ Daftar nama file yang disarankan:
 - linggar-dwi-cahyo-s-kep-ners.jpg  |  Linggar Dwi Cahyo, S.Kep., Ners  |  Tim Perawat - Emergency Room Manager
 - devi-rikah-anugraini-amk.jpg  |  Devi Rikah Anugraini, AMK  |  Tim Perawat - Emergency Department Secretary
 - angelica-rendisa-putri-priyono-amd-kep.jpg  |  Angelica Rendisa Putri Priyono, Amd.Kep  |  Tim Perawat - Training and Development Division
-- aditya-kurniawan-amd-kep.jpg  |  Aditya Kurniawan, Amd.Kep  |  Tim Perawat - EMR Division
 - rio-agil-nurhendratno-amd-kep.jpg  |  Rio Agil Nurhendratno, Amd.Kep  |  Tim Perawat - Inventory Division
 - triosep-satrio-wijaya-amd-kep.jpg  |  Triosep Satrio Wijaya, Amd.Kep  |  Tim Perawat - Equipment Maintenance Division
 - vensensia-lindani-amd-kep.jpg  |  Vensensia Lindani, Amd.Kep  |  Tim Perawat - Finance Manager

@@ -263,8 +263,8 @@ window.IGD_LINK_GROUPS = [
         "slug": "struktur-emr-division",
         "localPath": "link/struktur-emr-division/",
         "externalUrl": "",
-        "photo": "assets/staff/aditya-kurniawan.jpg?v=2",
-        "personName": "Aditya Kurniawan, Amd.Kep",
+        "photo": "assets/staff/farel-govind-alfayed-ariyanto.jpg?v=2",
+        "personName": "Farel Govind Alfayed Ariyanto, S.Kep., Ners",
         "personRole": "EMR Division"
       },
       {
@@ -1046,10 +1046,10 @@ window.IGD_STAFF_PHOTOS = [
     "slug": "struktur-training-and-development-division"
   },
   {
-    "name": "Aditya Kurniawan, Amd.Kep",
+    "name": "Farel Govind Alfayed Ariyanto, S.Kep., Ners",
     "role": "EMR Division",
     "team": "Tim Perawat",
-    "photo": "assets/staff/aditya-kurniawan.jpg?v=2",
+    "photo": "assets/staff/farel-govind-alfayed-ariyanto.jpg?v=2",
     "slug": "struktur-emr-division"
   },
   {
@@ -1090,12 +1090,6 @@ window.IGD_STAFF_PHOTOS = [
     "team": "Tim Perawat",
     "photo": "assets/staff/irma-nafiyati.jpg?v=2",
     "slug": "struktur-secretary"
-  },
-  {
-    "name": "Farel Govind Alfayed Ariyanto, S.Kep., Ners",
-    "role": "Perawat IGD",
-    "team": "Tim Perawat",
-    "photo": "assets/staff/farel-govind-alfayed-ariyanto.jpg?v=2"
   },
   {
     "name": "Arum Karunia Sari",
@@ -1158,10 +1152,10 @@ window.IGD_STAFF_BY_SLUG = {
     "slug": "struktur-training-and-development-division"
   },
   "struktur-emr-division": {
-    "name": "Aditya Kurniawan, Amd.Kep",
+    "name": "Farel Govind Alfayed Ariyanto, S.Kep., Ners",
     "role": "EMR Division",
     "team": "Tim Perawat",
-    "photo": "assets/staff/aditya-kurniawan.jpg?v=2",
+    "photo": "assets/staff/farel-govind-alfayed-ariyanto.jpg?v=2",
     "slug": "struktur-emr-division"
   },
   "struktur-inventory-division": {
