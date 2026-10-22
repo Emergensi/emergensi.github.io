@@ -2549,3 +2549,12 @@ body[data-page="group"] .card-action { font-size: 1.02rem; }
 .ck-ket { margin: 6px 0 12px; padding-left: 18px; font-size: .85rem; color: #475569; }
 .lb-kartu .lb-tabel + .lb-tabel { margin-top: 10px; }
 @media (max-width: 640px) { .ck-angka { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lb-kartu { overflow-x: auto; } }
+
+/* Tanda sedang diproses (tombol + penanda melayang) */
+.proses-putar { display: inline-block; width: 1em; height: 1em; margin-right: .45em; vertical-align: -.15em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: jw-putar .7s linear infinite; }
+button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: none; }
+.proses-pil { position: fixed; left: 50%; top: 14px; transform: translate(-50%, -160%); z-index: 10000; display: flex; align-items: center; gap: 4px;
+  background: #0f172a; color: #fff; padding: 11px 18px; border-radius: 999px; font-weight: 700; font-size: .95rem; box-shadow: 0 10px 30px rgba(15,23,42,.35);
+  transition: transform .2s ease, opacity .2s ease; opacity: 0; pointer-events: none; max-width: calc(100vw - 32px); }
+.proses-pil.tampil { transform: translate(-50%, 0); opacity: 1; }
+.proses-pil .proses-putar { color: #fca5a5; }

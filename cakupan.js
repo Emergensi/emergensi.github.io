@@ -24,7 +24,8 @@
   async function perbarui() {
     const [th, bl] = $('ckBulan').value.split('-').map(Number);
     if (!th || !bl) return pesan('Pilih bulan dulu.', true);
-    $('ckBuat').disabled = true; $('ckAksi').hidden = true;
+    const tb = $('ckBuat'); if (tb.disabled) return;
+    tb.disabled = true; tb.dataset.asli = tb.innerHTML; tb.innerHTML = '<span class="proses-putar"></span>Memproses…'; $('ckAksi').hidden = true;
     pesan('Memperbarui tab Cakupan IGD ' + th + ' dari register… (± 10–30 detik)');
     try {
       const d = await bacaJson(await fetch(API_URL + '?aksi=cakupan&tahun=' + th + '&bulan=' + bl + '&token=' + encodeURIComponent(token()) + '&_=' + Date.now()));
@@ -34,7 +35,7 @@
       $('ckTele').style.display = window.IGDAuth && window.IGDAuth.isPimpinan && window.IGDAuth.isPimpinan() ? '' : 'none';   // kirim Telegram khusus pimpinan
       pesan('Tab "' + d.tab + '" diperbarui pukul ' + d.dibuat.slice(11) + '.');
     } catch (e) { pesan(e.message, true); }
-    $('ckBuat').disabled = false;
+    tb.disabled = false; tb.innerHTML = tb.dataset.asli;
   }
 
   const tabel = (kepala, baris, kelas) => `<table class="lb-tabel ${kelas || ''}"><tr>${kepala.map((k) => `<th>${esc(k)}</th>`).join('')}</tr>${baris.join('')}</table>`;
@@ -85,14 +86,15 @@
 
   async function kirimTele() {
     if (!hasil) return;
-    const b = $('ckTele'); b.disabled = true; pesan('Mengirim ringkasan ke Telegram…');
+    const b = $('ckTele'); if (b.disabled) return;
+    b.disabled = true; b.dataset.asli = b.innerHTML; b.innerHTML = '<span class="proses-putar"></span>Mengirim…'; pesan('Mengirim ringkasan ke Telegram…');
     try {
       const d = await bacaJson(await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ aksi: 'kirimCakupan', token: token(), tahun: hasil.tahun, bulan: hasil.bulan }) }));
       cekToken(d);
       pesan('Ringkasan ' + hasil.namaBulan + ' terkirim ke ' + d.terkirim + ' penerima Telegram.');
     } catch (e) { pesan(e.message, true); }
-    b.disabled = false;
+    b.disabled = false; b.innerHTML = b.dataset.asli;
   }
 
   document.addEventListener('DOMContentLoaded', () => {

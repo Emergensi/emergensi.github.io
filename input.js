@@ -18,7 +18,7 @@
         <button role="tab" data-tab="lengkapi" aria-selected="${tab === 'lengkapi'}">Lengkapi data</button></div>
       <div class="pt-card" id="rfIsi"></div>
       ${t.peran === 'pimpinan' ? '<p class="pt-sub">Akses pimpinan: nama dan No. RM tampil lengkap.</p>' : ''}`;
-    root().querySelectorAll('[data-tab]').forEach((b) => b.addEventListener('click', () => tampil(b.dataset.tab)));
+    root().querySelectorAll('[data-tab]').forEach((b) => b.addEventListener('click', () => { if (b.getAttribute('aria-selected') !== 'true') tampil(b.dataset.tab); }));
     const isi = root().querySelector('#rfIsi');
     if (tab === 'baru') {
       isi.innerHTML = '<h2>Pasien baru</h2><div id="rfBaru"></div>';
@@ -36,9 +36,10 @@
       const c = JSON.parse(localStorage.getItem(kunciDaftar(t)) || 'null');
       if (c && c.d && Date.now() - c.waktu < 6 * 3600e3) { tulisDaftar(isi, t, c.d, true); tampilCache = true; }
     } catch (e) {}
-    if (!tampilCache) isi.innerHTML = '<h2>Lengkapi data</h2><p class="pt-sub">Memuat pasien yang datanya belum lengkap…</p>';
+    if (!tampilCache) isi.innerHTML = '<h2>Lengkapi data</h2><p class="pt-sub"><span class="proses-putar"></span>Memuat pasien yang datanya belum lengkap…</p>';
     let d;
-    try { d = await window.RegForm.get('perluLengkapi', t.token); } catch (e) { d = { error: e.message }; }
+    window.Proses.latar(1);
+    try { d = await window.RegForm.get('perluLengkapi', t.token); } catch (e) { d = { error: e.message }; } finally { window.Proses.latar(-1); }
     if (!d.error) { try { localStorage.setItem(kunciDaftar(t), JSON.stringify({ d, waktu: Date.now() })); } catch (e) {} }
     if (isi.querySelector('.rf-form')) return;          // sedang mengisi formulir: jangan ditimpa
     tulisDaftar(isi, t, d, false);
@@ -54,9 +55,12 @@
         <b>${esc(x.nama)}</b> <small>RM ${esc(x.rm)} · ${+x.tanggal.slice(8)}/${+x.tanggal.slice(5, 7)} · baris ${x.baris}</small>
         <span>Belum diisi: ${x.kosong.map((k) => label[k] || k).join(', ')}</span>
         <button type="button" class="rf-tombol" data-baris="${x.baris}">Lengkapi</button><div class="rf-wadah"></div></div><strong></strong></div>`).join('')}</div>`;
-    isi.querySelectorAll('[data-baris]').forEach((b) => b.addEventListener('click', () => {
+    isi.querySelectorAll('[data-baris]').forEach((b) => b.addEventListener('click', async () => {
       const item = d.temuan.find((x) => x.baris === +b.dataset.baris);
-      window.RegForm.bukaLengkapi(b.nextElementSibling, item, t.token, () => setTimeout(() => daftar(isi, t), 2500));
+      if (b.nextElementSibling.querySelector('.rf-form')) return;          // form sudah terbuka
+      if (!window.Proses.mulai(b, 'Membuka…')) return;
+      try { await window.RegForm.bukaLengkapi(b.nextElementSibling, item, t.token, () => setTimeout(() => daftar(isi, t), 2500)); }
+      finally { window.Proses.selesai(b); }
     }));
   }
 

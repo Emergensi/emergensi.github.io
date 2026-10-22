@@ -217,8 +217,13 @@
   let menunggu = 0, generasi = 0;         // ketukan yang menunggu id pasien baru; nomor urut perubahan lokal
   const sibuk = () => antre + menunggu > 0;
 
+  // Tombol terkunci dan berputar sampai server menjawab; klik ulang selama proses diabaikan
   async function aksi(body, tombol) {
-    if (tombol) tombol.disabled = true;
+    if (!window.Proses.mulai(tombol, 'Menyimpan…')) return;
+    try { return await aksiInti(body, tombol); } finally { window.Proses.selesai(tombol); }
+  }
+
+  async function aksiInti(body, tombol) {
     generasi++;
     const cepat = tampilSementara(body);
     if (cepat) pesan('Menyimpan…');
@@ -239,19 +244,19 @@
         let kosongkan = false;
         if (r.baris) {
           const p = await pilihHapus(r.baris);
-          if (!p) { if (tombol) tombol.disabled = false; return; }
+          if (!p) { return; }
           kosongkan = p === 'semua';
-        } else if (!confirm('Pasien ini sudah punya catatan lanjutan. Hapus dari aplikasi Respon Time?')) { if (tombol) tombol.disabled = false; return; }
-        return aksi(Object.assign({}, body, { semua: true, kosongkanRegister: kosongkan, alasan: 'dihapus lewat Respon Time (dikonfirmasi)' }), tombol);
+        } else if (!confirm('Pasien ini sudah punya catatan lanjutan. Hapus dari aplikasi Respon Time?')) { return; }
+        return aksiInti(Object.assign({}, body, { semua: true, kosongkanRegister: kosongkan, alasan: 'dihapus lewat Respon Time (dikonfirmasi)' }), tombol);
       }
       if (r.perluAlasan && body.sub === 'batal' && body.titik === 'datang') {   // hapus pasien: cukup konfirmasi ya/tidak
-        if (!confirm('Hapus pasien ini dari Respon Time?')) { if (tombol) tombol.disabled = false; return; }
-        return aksi(Object.assign({}, body, { alasan: 'dihapus lewat Respon Time (dikonfirmasi)' }), tombol);
+        if (!confirm('Hapus pasien ini dari Respon Time?')) { return; }
+        return aksiInti(Object.assign({}, body, { alasan: 'dihapus lewat Respon Time (dikonfirmasi)' }), tombol);
       }
       if (r.perluAlasan) {
         const alasan = prompt('Sudah lewat 2 menit. Tulis alasan koreksi:');
-        if (!alasan) { if (tombol) tombol.disabled = false; return; }
-        return aksi(Object.assign({}, body, { alasan }), tombol);
+        if (!alasan) { return; }
+        return aksiInti(Object.assign({}, body, { alasan }), tombol);
       }
       if (r.error) throw new Error(r.error);
       pesan(r.peringatan || (r.dihapus ? 'Pasien dihapus' + (r.register ? ' · ' + r.register : '') : body.sub === 'batal' ? 'Dibatalkan' : r.waktu ? 'Tercatat pukul ' + jam(r.waktu) : 'Tersimpan'), !!r.peringatan);
@@ -262,7 +267,6 @@
     } catch (e) {
       if (selesaiDatang) selesaiDatang(null);
       pesan(e.message, true);
-      if (tombol) tombol.disabled = false;
       if (cepat) muat(true);       // kembalikan tampilan sesuai server
     }
   }
@@ -271,7 +275,8 @@
     const r = root();
     r.querySelector('.jw-refresh').addEventListener('click', async (ev) => {
       const t = ev.currentTarget; t.disabled = true; t.classList.add('berputar'); formTerbuka = false;
-      await muat(true);
+      window.Proses.latar(1);
+      try { await muat(true); } finally { window.Proses.latar(-1); }
       t.disabled = false; t.classList.remove('berputar');
       pesan('Diperbarui pukul ' + new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date()));
     });

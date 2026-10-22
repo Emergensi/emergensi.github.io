@@ -112,8 +112,9 @@
       const status = document.createElement('p'); status.className = 'rf-info';
       status.textContent = '⏳ Menyimpan di latar belakang… silakan lanjut ke pasien lain.';
       wadah.appendChild(status);
+      window.Proses.latar(1);
       try {
-        const r = await post({ aksi: 'lengkapi', token, baris: item.baris, isian });
+        const r = await post({ aksi: 'lengkapi', token, baris: item.baris, isian }).finally(() => window.Proses.latar(-1));
         if (r.error) throw new Error(r.error === 'token' ? 'Muat ulang halaman lalu coba lagi.' : r.error);
         wadah.innerHTML = `<p class="rf-ok">✓ Tersimpan di baris ${r.baris}: ${esc(r.terisi.join(', ') || '-')}${r.dilewati.length ? '. Sudah terisi sebelumnya (tidak ditimpa): ' + esc(r.dilewati.join(', ')) : ''}.</p>`;
         if (selesai) selesai(r);
@@ -155,8 +156,9 @@
       const st = document.createElement('p'); st.className = 'rf-info';
       st.textContent = '⏳ Menyimpan ' + data.nama + '… form sudah bisa diisi pasien berikutnya.';
       antrean.prepend(st); err.textContent = '';
+      window.Proses.latar(1);
       try {
-        const r = await post({ aksi: 'pasienBaru', token, data });
+        const r = await post({ aksi: 'pasienBaru', token, data }).finally(() => window.Proses.latar(-1));
         if (r.error) throw new Error(r.error === 'token' ? 'Muat ulang halaman lalu coba lagi.' : r.error);
         st.className = 'rf-ok'; st.textContent = '✓ ' + data.nama + ' tersimpan di register baris ' + r.baris + ' (No. ' + r.no + ').';
         if (selesai) selesai(r);
@@ -195,11 +197,47 @@
     b.addEventListener('click', async () => {
       const nama = prompt('Nama perangkat ini (misalnya: Komputer meja perawat):', 'Komputer IGD');
       if (!nama) return;
-      b.disabled = true;
-      try { await daftarPerangkat(tokenPimpinan, nama); alert('Perangkat terdaftar. Staf kini bisa memakai halaman ini tanpa password.'); if (selesai) selesai(); }
-      catch (e) { alert('Gagal: ' + e.message); b.disabled = false; }
+      if (!window.Proses.mulai(b, 'Mendaftarkan…')) return;
+      try { await daftarPerangkat(tokenPimpinan, nama); window.Proses.selesai(b); alert('Perangkat terdaftar. Staf kini bisa memakai halaman ini tanpa password.'); if (selesai) selesai(); }
+      catch (e) { window.Proses.selesai(b); alert('Gagal: ' + e.message); }
     });
   }
 
   window.RegForm = { API_URL, get, post, opsi, bukaLengkapi, formPasienBaru, esc, perangkat, lupakanPerangkat, htmlPerangkat, pasangDaftar };
+})();
+
+// Tanda "sedang diproses": tombol terkunci + putaran, dan penanda melayang selama masih ada yang dikirim ke server
+(function () {
+  let jalan = 0;
+  function penanda() {
+    let el = document.querySelector('.proses-pil');
+    if (!el) {
+      el = document.createElement('div'); el.className = 'proses-pil'; el.setAttribute('role', 'status'); el.setAttribute('aria-live', 'polite');
+      el.innerHTML = '<span class="proses-putar"></span><span class="proses-teks">Sedang diproses ke server… mohon tunggu</span>';
+      document.body.appendChild(el);
+    }
+    return el;
+  }
+  function hitung(n) {
+    jalan = Math.max(0, jalan + n);
+    const el = penanda(); el.classList.toggle('tampil', jalan > 0);
+  }
+  // mulai(tombol, teks): false bila tombol masih diproses (klik ganda diabaikan)
+  function mulai(b, teks) {
+    hitung(1);
+    if (!b) return true;
+    if (b.dataset.proses === '1') { hitung(-1); return false; }
+    b.dataset.proses = '1'; b.dataset.prosesAsli = b.innerHTML;
+    b.disabled = true; b.setAttribute('aria-busy', 'true'); b.classList.add('sedang-proses');
+    const kecil = b.offsetWidth && b.offsetWidth < 90;      // tombol kecil (jam, ATS): cukup putaran, teks tetap
+    b.innerHTML = '<span class="proses-putar"></span>' + (kecil ? b.dataset.prosesAsli : (teks || 'Memproses…'));
+    return true;
+  }
+  function selesai(b) {
+    hitung(-1);
+    if (!b || b.dataset.proses !== '1') return;
+    b.innerHTML = b.dataset.prosesAsli || b.innerHTML; delete b.dataset.proses; delete b.dataset.prosesAsli;
+    b.disabled = false; b.removeAttribute('aria-busy'); b.classList.remove('sedang-proses');
+  }
+  window.Proses = { mulai, selesai, latar: hitung };
 })();
