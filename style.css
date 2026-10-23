@@ -2610,3 +2610,15 @@ button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: no
 .jd-sumber { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; margin-top: 16px; font-size: .78rem; color: #94a3b8; }
 .jd-sumber a { color: #64748b; }
 @media (max-width: 900px) { .jd-grid, .jd-bawah, .jd-kini-isi { grid-template-columns: 1fr; } .jd-prog { width: 100%; } .jd-sisa { margin-left: 0; } }
+/* Konsulen DPJP */
+.ks-sub { margin: 4px 0 0; color: #64748b; font-size: .88rem; }
+.ks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.ks-item { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #1F4E79; border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ks-sp { font-size: .7rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: #1F4E79; }
+.ks-item b { font-size: .98rem; color: #0f172a; }
+.ks-item small { color: #64748b; font-size: .8rem; }
+.ks-item details { margin-top: 6px; font-size: .8rem; color: #334155; }
+.ks-item summary { cursor: pointer; color: #1F4E79; font-weight: 700; }
+.ks-item ul { margin: 6px 0 0; padding-left: 18px; }
+.ks-tidak { margin: 14px 0 0; color: #475569; font-size: .88rem; }
+.ks-nb { margin: 6px 0 0; color: #94a3b8; font-size: .78rem; }

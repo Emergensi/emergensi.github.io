@@ -96,6 +96,7 @@
   async function muat() {
     $('jdTgl').textContent = teksTgl(tanggal);
     $('jdHari').classList.toggle('aktif', tanggal === hariIni());
+    if (window.KonsulDPJP) window.KonsulDPJP.tampil(tanggal);
     const kunci = 'jadwal_' + tanggal;
     let ada = null;
     try { ada = JSON.parse(localStorage.getItem(kunci) || 'null'); } catch (e) {}

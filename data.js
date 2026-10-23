@@ -154,8 +154,8 @@ window.IGD_LINK_GROUPS = [
         "externalUrl": ""
       },
       {
-        "title": "Jadwal On Call DPJP IGD",
-        "desc": "File jadwal on-call DPJP IGD.",
+        "title": "Jadwal Konsul DPJP",
+        "desc": "File jadwal konsul DPJP SGH (versi cetak dengan nomor HP).",
         "url": "link/jadwal-jadwal-on-call-dpjp-igd/",
         "type": "Drive",
         "tag": "drive",
