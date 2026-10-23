@@ -21,7 +21,7 @@
     { sp: 'Saraf', siapa: () => 'dr. Sofia Fitri Iswari, Sp.N' },
     { sp: 'Mata', siapa: () => 'dr. Sekar Kumalasari, Sp.M', ket: 'SIP dalam proses' },
     { sp: 'Urologi', siapa: () => 'dr. Dwi Prayogo, Sp.U, M.H.' },
-    { sp: 'Orthopaedi', siapa: () => '' },
+    { sp: 'Orthopaedi', siapa: () => 'dr. Arie, Sp.OT' },
     { sp: 'BTKV', siapa: () => '' },
     { sp: 'Kedokteran Jiwa', siapa: () => '' }
   ];
