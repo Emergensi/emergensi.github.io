@@ -2633,3 +2633,8 @@ button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: no
 .jd-bawah + .ks-wrap, .jd-grid + .ks-wrap { margin: 16px 0 0; }
 .ks-wrap .ks-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .ks-wrap .ks-item { flex: 1 1 200px; }
+/* hover kartu jadwal & konsulen, seperti kartu link */
+.ks-wrap .ks-item, .jd-org { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.ks-wrap .ks-item:hover { transform: translateY(-4px); border-color: rgba(31, 78, 121, .35); box-shadow: 0 18px 40px rgba(15, 23, 42, .12); }
+.jd-org:hover { transform: translateY(-3px); border-color: rgba(193, 18, 31, .26); box-shadow: 0 14px 32px rgba(15, 23, 42, .10); }
+@media (prefers-reduced-motion: reduce) { .ks-wrap .ks-item:hover, .jd-org:hover { transform: none; } }
