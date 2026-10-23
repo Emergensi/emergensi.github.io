@@ -155,13 +155,13 @@ window.IGD_LINK_GROUPS = [
       },
       {
         "title": "Jadwal Konsul DPJP",
-        "desc": "File jadwal konsul DPJP SGH (versi cetak dengan nomor HP).",
+        "desc": "File jadwal konsul DPJP SGH terbaru (Okt 2026).",
         "url": "link/jadwal-jadwal-on-call-dpjp-igd/",
         "type": "Drive",
         "tag": "drive",
         "slug": "jadwal-jadwal-on-call-dpjp-igd",
         "localPath": "link/jadwal-jadwal-on-call-dpjp-igd/",
-        "externalUrl": "https://drive.google.com/file/d/1l_Q2ezeL6LaJtFBoKh46Qdtuuz_tanzC/view?usp=drive_link"
+        "externalUrl": "https://drive.google.com/file/d/1kkbCpCsebqDlnueyORO6UsW-2Ok48DGW/view?usp=drive_link"
       },
       {
         "title": "Jadwal Dokter Umum",
