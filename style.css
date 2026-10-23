@@ -2654,3 +2654,20 @@ button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: no
 .jd-av-kecil { flex: 0 0 30px; width: 30px; height: 30px; font-size: .68rem; }
 .jd-chip { transition: transform .18s ease, box-shadow .18s ease; }
 .jd-chip:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(15, 23, 42, .10); }
+/* Tugas di luar IGD & libur: kartu seragam dalam grid */
+.jd-tl { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 8px; }
+.jd-tl-libur { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+.jd-tl-item { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #eef2f6; border-radius: 12px; padding: 7px 12px 7px 8px; min-width: 0;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.jd-tl-item:hover { transform: translateY(-3px); border-color: rgba(31, 78, 121, .3); box-shadow: 0 12px 26px rgba(15, 23, 42, .10); }
+.jd-tl-teks { display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.25; }
+.jd-tl-teks b { font-size: .66rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #1F4E79; }
+.jd-tl-teks span { font-size: .9rem; font-weight: 600; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.jd-tl-item > small { font-size: .74rem; color: #64748b; white-space: nowrap; background: #f1f5f9; border-radius: 8px; padding: 2px 7px; }
+.jd-tl-item.redup .jd-tl-teks span { color: #475569; font-weight: 500; }
+.jd-tl-item .jd-av-kecil { flex: 0 0 34px; width: 34px; height: 34px; }
+.jd-bawah { grid-template-columns: 3fr 2fr; }
+.jd-tl { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+.jd-tl-libur { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+.jd-tl-teks span { white-space: normal; overflow: visible; }
+@media (max-width: 900px) { .jd-bawah { grid-template-columns: 1fr; } }

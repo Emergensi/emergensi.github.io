@@ -89,8 +89,8 @@
       }).join('')}</div>`;
       if (p.lain.length || p.libur.length) {
         html += `<div class="jd-bawah">`;
-        if (p.lain.length) html += `<div><h4>Tugas di luar IGD</h4><div class="jd-chips">${p.lain.map((x) => `<span class="jd-chip">${avKecil(x.nama)}<b>${esc(x.label)}</b>${esc(namaTampil(x.nama))}${x.jam ? `<small>${esc(x.jam)}</small>` : ''}</span>`).join('')}</div></div>`;
-        if (p.libur.length) html += `<div><h4>Libur / cuti</h4><div class="jd-chips">${p.libur.map((x) => `<span class="jd-chip redup">${avKecil(x.nama)}${esc(pisahGelar(x.nama)[0])}${x.cuti ? '<small>cuti</small>' : ''}</span>`).join('')}</div></div>`;
+        if (p.lain.length) html += `<div><h4>Tugas di luar IGD <small>${p.lain.length}</small></h4><div class="jd-tl">${p.lain.map((x) => `<span class="jd-tl-item">${avKecil(x.nama)}<span class="jd-tl-teks"><b>${esc(x.label)}</b><span>${esc(namaTampil(x.nama))}</span></span>${x.jam ? `<small>${esc(x.jam)}</small>` : ''}</span>`).join('')}</div></div>`;
+        if (p.libur.length) html += `<div><h4>Libur / cuti <small>${p.libur.length}</small></h4><div class="jd-tl jd-tl-libur">${p.libur.map((x) => `<span class="jd-tl-item redup">${avKecil(x.nama)}<span class="jd-tl-teks"><span>${esc(pisahGelar(x.nama)[0])}</span>${x.cuti ? '<b>Cuti</b>' : ''}</span></span>`).join('')}</div></div>`;
         html += `</div>`;
       }
       html += KONSUL_SLOT;
