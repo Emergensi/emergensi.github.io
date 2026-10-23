@@ -2643,3 +2643,10 @@ button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: no
 .ks-wrap .ks-item:hover { transform: translateY(-5px); box-shadow: 0 22px 50px rgba(15, 23, 42, .14); }
 .jd-org:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(15, 23, 42, .13); }
 @media (prefers-reduced-motion: reduce) { .jd-kol:hover { transform: none; } }
+/* foto konsulen */
+.ks-wrap .ks-item { flex-direction: row; align-items: flex-start; gap: 12px; }
+.ks-teks { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.ks-av { position: relative; flex: 0 0 52px; width: 52px; height: 52px; border-radius: 50%; overflow: hidden; background: #dbe7f3; display: grid; place-items: center; border: 2px solid #fff; box-shadow: 0 0 0 1px #dbe5f0; }
+.ks-av i { font-style: normal; font-weight: 800; font-size: .85rem; color: #1F4E79; }
+.ks-av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; background: #eef4fa; }
+.ks-wrap .ks-item { flex-basis: 240px; }
