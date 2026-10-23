@@ -26,6 +26,11 @@
     return i < 0 ? [n.trim(), ''] : [n.slice(0, i).trim(), n.slice(i + 1).trim()];
   }
   const inisial = (n) => bersih(n).split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('') || '?';
+  const avKecil = (nama) => {
+    const st = cariStaf(nama);
+    return `<span class="jd-av jd-av-kecil">${st && st.foto ? `<img src="${esc(root + st.foto)}" alt="" loading="lazy">` : `<span>${esc(inisial(nama))}</span>`}</span>`;
+  };
+  const namaTampil = (nama) => { const st = cariStaf(nama); return pisahGelar(st && /^dr\b/i.test(nama) && !nama.includes(',') ? st.nama : nama)[0]; };
   function orang(nama, ket) {
     const st = cariStaf(nama);
     const [utama, gelar] = pisahGelar(st && !nama.includes(',') && /^dr\b/i.test(nama) ? st.nama : nama);   // dokter: tampilkan nama lengkap
@@ -84,8 +89,8 @@
       }).join('')}</div>`;
       if (p.lain.length || p.libur.length) {
         html += `<div class="jd-bawah">`;
-        if (p.lain.length) html += `<div><h4>Tugas di luar IGD</h4><div class="jd-chips">${p.lain.map((x) => `<span class="jd-chip"><b>${esc(x.label)}</b>${esc(pisahGelar(x.nama)[0])}${x.jam ? `<small>${esc(x.jam)}</small>` : ''}</span>`).join('')}</div></div>`;
-        if (p.libur.length) html += `<div><h4>Libur / cuti</h4><div class="jd-chips">${p.libur.map((x) => `<span class="jd-chip redup">${esc(pisahGelar(x.nama)[0])}${x.cuti ? '<small>cuti</small>' : ''}</span>`).join('')}</div></div>`;
+        if (p.lain.length) html += `<div><h4>Tugas di luar IGD</h4><div class="jd-chips">${p.lain.map((x) => `<span class="jd-chip">${avKecil(x.nama)}<b>${esc(x.label)}</b>${esc(namaTampil(x.nama))}${x.jam ? `<small>${esc(x.jam)}</small>` : ''}</span>`).join('')}</div></div>`;
+        if (p.libur.length) html += `<div><h4>Libur / cuti</h4><div class="jd-chips">${p.libur.map((x) => `<span class="jd-chip redup">${avKecil(x.nama)}${esc(pisahGelar(x.nama)[0])}${x.cuti ? '<small>cuti</small>' : ''}</span>`).join('')}</div></div>`;
         html += `</div>`;
       }
       html += KONSUL_SLOT;
