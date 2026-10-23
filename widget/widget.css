@@ -1,0 +1,32 @@
+:root { --biru: #1F4E79; --teks: #0f172a; --redup: #64748b; --garis: #dbe5f0; --latar: #f5f9fd; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Segoe UI", Inter, system-ui, sans-serif; background: var(--latar); color: var(--teks); font-size: 14px; }
+.w { max-width: 460px; margin: 0 auto; padding: 14px; display: grid; gap: 10px; }
+.w-kepala { display: flex; justify-content: space-between; align-items: center; background: var(--biru); color: #fff; border-radius: 16px; padding: 12px 16px; }
+.w-kepala b { display: block; font-size: 1.9rem; line-height: 1; letter-spacing: -.02em; }
+.w-kepala span { font-size: .85rem; opacity: .85; }
+.w-kepala img { width: 42px; height: 42px; border-radius: 10px; background: #fff; padding: 3px; }
+.w-kini, .w-blok { background: #fff; border: 1px solid var(--garis); border-radius: 16px; padding: 12px 14px; }
+.w-kini-kepala { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.w-live { width: 9px; height: 9px; border-radius: 50%; background: #16a34a; box-shadow: 0 0 0 4px rgba(22,163,74,.18); }
+.w-badge { font-size: .72rem; font-weight: 800; padding: 3px 9px; border-radius: 999px; }
+.w-pagi { background: #fef3c7; color: #92400e; } .w-siang { background: #cffafe; color: #155e75; } .w-malam { background: #e0e7ff; color: #3730a3; }
+.w-prog { height: 5px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin: 10px 0 4px; }
+.w-prog i { display: block; height: 100%; background: var(--biru); }
+.w-sisa { margin: 0 0 6px; font-size: .75rem; color: var(--redup); }
+h2, h3 { margin: 8px 0 6px; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--redup); display: flex; align-items: center; gap: 6px; }
+h2 { margin-top: 0; } h2 small { letter-spacing: 0; text-transform: none; font-weight: 600; }
+.w-org { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.w-org li { display: flex; align-items: center; gap: 9px; font-weight: 600; font-size: .92rem; }
+.w-av { flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%; overflow: hidden; background: #dbe7f3; display: grid; place-items: center; }
+.w-av img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.w-av i { font-style: normal; font-size: .7rem; font-weight: 800; color: var(--biru); }
+.w-ringkas { margin: 0; font-size: .85rem; line-height: 1.5; }
+.w-konsul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; }
+.w-konsul li { display: flex; flex-direction: column; padding: 5px 0; border-bottom: 1px dashed #eef2f6; min-width: 0; }
+.w-konsul b { font-size: .64rem; text-transform: uppercase; letter-spacing: .05em; color: var(--biru); }
+.w-konsul span { font-size: .86rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.w h2 .w-badge { text-transform: none; letter-spacing: 0; }
+.w-redup { color: var(--redup); margin: 4px 0; font-size: .85rem; }
+.w-kaki { display: flex; justify-content: space-between; font-size: .72rem; color: var(--redup); padding: 0 4px; }
+.w-kaki a { color: var(--biru); text-decoration: none; font-weight: 600; }

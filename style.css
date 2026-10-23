@@ -2674,3 +2674,5 @@ button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: no
 .jd-bawah { grid-template-columns: 1fr; }
 .jd-tl { display: flex; flex-wrap: wrap; }
 .jd-tl-item { flex: 1 1 280px; }
+.jd-widget { margin-left: 8px; font-weight: 700; font-size: .85rem; color: #1F4E79; text-decoration: none; border: 1px solid #dbe5f0; border-radius: 12px; padding: 9px 12px; background: #fff; } .jd-widget:hover { background: #f5f9fd; }
+.w h2 .w-badge { text-transform: none; letter-spacing: 0; }

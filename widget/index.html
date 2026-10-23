@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1F4E79" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png" />
+  <link rel="manifest" href="widget.webmanifest" />
+  <title>Jaga IGD SGH</title>
+  <link rel="stylesheet" href="widget.css?v=20261023190058" />
+  <script src="../auth.js"></script>
+  <script>window.IGDAuth.requireAuth();</script>
+</head>
+<body data-root="../">
+  <main class="w">
+    <header class="w-kepala">
+      <div><b id="wJam">--.--</b><span id="wTgl"></span></div>
+      <img src="../assets/emergency-logo.png" alt="IGD SGH" />
+    </header>
+    <section class="w-kini" id="wKini"><p class="w-redup">Memuat jadwal…</p></section>
+    <section class="w-blok" id="wBerikut"></section>
+    <section class="w-blok">
+      <h2>Konsulen DPJP hari ini <small id="wPekan"></small></h2>
+      <ul class="w-konsul" id="wKonsul"></ul>
+    </section>
+    <footer class="w-kaki"><span id="wStatus"></span><a href="../jadwal/" target="_blank" rel="noopener">Buka jadwal lengkap ↗</a></footer>
+  </main>
+  <script src="../data.js?v=20261023190058"></script>
+  <script src="../konsul.js?v=20261023190058"></script>
+  <script src="widget.js?v=20261023190058"></script>
+</body>
+</html>
