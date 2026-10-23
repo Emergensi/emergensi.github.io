@@ -1,6 +1,6 @@
 // Jadwal konsul DPJP RS Sedayu General Hospital (versi terbaru, Okt 2026).
 // Nomor HP sengaja tidak dimuat di situs publik; lihat dokumen cetak di IGD.
-// "Minggu ke-n" dihitung dari tanggal: tgl 1–7 = ke-1, 8–14 = ke-2, 15–21 = ke-3, 22–28 = ke-4, 29–31 = ke-5.
+// Hari Minggu ke-n = Minggu ke-n dalam bulan; pekan ke-n (Bedah Umum) dihitung dari tanggal: tgl 1–7 = ke-1, 8–14 = ke-2, 15–21 = ke-3, 22–28 = ke-4, 29–31 = ke-5.
 (function () {
   const PD_W = 'dr. Wulan, Sp.PD', PD_B = 'dr. Bambang, Sp.PD';
   const AN_A = 'dr. Arif, Sp.An', AN_H = 'dr. Hasyim, Sp.An', AN_E = 'dr. Estu, Sp.An';
@@ -12,7 +12,7 @@
     { sp: 'Obstetri & Ginekologi', siapa: () => 'dr. Nungky Nugroho Wibisono, Sp.OG',
       catatan: ['Untuk pasien baru (belum pernah ANC di SGH)', 'Pasien lama kembali ke DPJP sebelumnya'] },
     { sp: 'Bedah Umum', siapa: (h, n) => n % 2 ? 'dr. Nuryasin Kurniawan, Sp.B, FICS, AIFO-K' : 'dr. Ivan Hugo Hadi Saputra, Sp.B',
-      catatan: ['Minggu ke-1, 3, 5: dr. Nuryasin · Minggu ke-2, 4: dr. Ivan'] },
+      catatan: ['Pekan ke-1, 3, 5 (tgl 1–7, 15–21, 29–31): dr. Nuryasin', 'Pekan ke-2, 4 (tgl 8–14, 22–28): dr. Ivan'] },
     { sp: 'Anak', siapa: () => 'dr. Rista, Sp.A',
       catatan: ['Konsultasi rawat inap dan resusitasi bayi SC', 'Pasien lama kembali ke DPJP sebelumnya'] },
     { sp: 'Anestesi', siapa: (h, n) => [n % 2 ? AN_E : AN_A, AN_A, AN_H, AN_H, AN_A, AN_E, AN_E][h] },
@@ -38,7 +38,7 @@
     const r = untuk(tgl);
     const ada = r.daftar.filter((x) => x.nama), tidak = r.daftar.filter((x) => !x.nama);
     const sub = document.getElementById('ksSub');
-    if (sub) sub.textContent = `${r.hari}, minggu ke-${r.n} bulan ini`;
+    if (sub) sub.textContent = r.hari === 'Minggu' ? `Hari Minggu ke-${r.n} bulan ini` : `${r.hari}, pekan ke-${r.n} bulan ini`;
     el.innerHTML = `<div class="ks-grid">${ada.map((x) => {
       const [nm, gelar] = [x.nama.split(',')[0], x.nama.split(',').slice(1).join(',').trim()];
       return `<article class="ks-item"><span class="ks-sp">${esc(x.sp)}</span><b>${esc(nm)}</b><small>${esc(gelar)}${x.ket ? ' · ' + esc(x.ket) : ''}</small>
