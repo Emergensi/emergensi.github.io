@@ -139,7 +139,7 @@ window.IGD_LINK_GROUPS = [
   {
     "id": "jadwal",
     "title": "Jadwal Medis",
-    "subtitle": "Jadwal dokter, perawat, dan on-call DPJP IGD.",
+    "subtitle": "Jadwal dokter, perawat, dan konsulen DPJP IGD.",
     "icon": "📅",
     "items": [
       {

@@ -38,10 +38,10 @@
     const r = untuk(tgl);
     const ada = r.daftar.filter((x) => x.nama), tidak = r.daftar.filter((x) => !x.nama);
     const sub = document.getElementById('ksSub');
-    if (sub) sub.textContent = r.hari === 'Minggu' ? `Hari Minggu ke-${r.n} bulan ini` : `${r.hari}, pekan ke-${r.n} bulan ini`;
+    if (sub) sub.textContent = '· ' + (r.hari === 'Minggu' ? `Hari Minggu ke-${r.n} bulan ini` : `${r.hari}, pekan ke-${r.n} bulan ini`);
     el.innerHTML = `<div class="ks-grid">${ada.map((x) => {
       const [nm, gelar] = [x.nama.split(',')[0], x.nama.split(',').slice(1).join(',').trim()];
-      return `<article class="ks-item"><span class="ks-sp">${esc(x.sp)}</span><b>${esc(nm)}</b><small>${esc(gelar)}${x.ket ? ' · ' + esc(x.ket) : ''}</small>
+      return `<article class="ks-item"${x.catatan.length ? ` title="${esc(x.catatan.join(' • '))}"` : ''}><span class="ks-sp">${esc(x.sp)}</span><b>${esc(nm)}</b><small>${esc(gelar)}${x.ket ? ' · ' + esc(x.ket) : ''}</small>
         ${x.catatan.length ? `<details><summary>Catatan</summary><ul>${x.catatan.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></details>` : ''}</article>`;
     }).join('')}</div>
     ${tidak.length ? `<p class="ks-tidak">Belum ada konsulen: ${tidak.map((x) => esc(x.sp)).join(', ')}. Konsultasi/rujuk sesuai SPO Rujukan.</p>` : ''}

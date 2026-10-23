@@ -2622,3 +2622,11 @@ button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: no
 .ks-item ul { margin: 6px 0 0; padding-left: 18px; }
 .ks-tidak { margin: 14px 0 0; color: #475569; font-size: .88rem; }
 .ks-nb { margin: 6px 0 0; color: #94a3b8; font-size: .78rem; }
+.ks-wrap { border: 1px solid #dbe5f0; border-radius: 18px; background: #f5f9fd; padding: 14px 16px; margin-bottom: 16px; }
+.ks-kepala { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+.ks-kepala b { font-size: 1rem; color: #1F4E79; }
+.ks-kepala small { color: #64748b; font-size: .82rem; }
+.ks-wrap .ks-grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+.ks-wrap .ks-item { background: #fff; padding: 9px 12px; border-radius: 12px; }
+.ks-wrap .ks-item b { font-size: .92rem; }
+.ks-wrap .ks-tidak, .ks-wrap .ks-nb { font-size: .78rem; }

@@ -10,6 +10,7 @@
   const teksTgl = (tgl) => new Intl.DateTimeFormat('id-ID', { timeZone: tz, weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(tgl + 'T12:00:00+07:00'));
   const SHIFT = [['Pagi', '07.00–14.00', 7, 14], ['Siang', '14.00–21.00', 14, 21], ['Malam', '21.00–07.00', 21, 31]];
   let tanggal = hariIni();
+  const KONSUL_SLOT = `<div class="ks-wrap" id="konsul"><div class="ks-kepala"><b>Konsulen DPJP</b><small id="ksSub"></small></div><div id="ksIsi"></div></div>`;
 
   // Foto & nama lengkap dari daftar staf situs (data.js); jadwal kadang hanya menulis nama panggilan
   const root = document.body.dataset.root || '../';
@@ -62,7 +63,7 @@
     const kosong = (!d.dokter || d.dokter.kosong) && (!d.perawat || d.perawat.kosong);
     const daftar = (arr, jenis) => arr.length ? `<ul class="jd-list">${arr.map((n) => orang(n)).join('')}</ul>` : `<p class="jd-nihil">Tidak ada ${jenis} terjadwal</p>`;
     let html = '';
-    if (kosong) html = '<p class="jd-kosong">Jadwal untuk tanggal ini belum tersedia di spreadsheet.</p>';
+    if (kosong) html = '<p class="jd-kosong">Jadwal untuk tanggal ini belum tersedia di spreadsheet.</p>' + KONSUL_SLOT;
     else {
       if (kini) {
         const g = kini.kemarin ? pilah({ dokter: d.dokterKemarin, perawat: d.perawatKemarin }).grid.Malam : p.grid[kini.nama];
@@ -72,6 +73,7 @@
             <span class="jd-sisa">${kini.sisa}</span><span class="jd-prog" title="${kini.persen}% shift berjalan"><i style="width:${kini.persen}%"></i></span></div>
           <div class="jd-kini-isi"><div><h4>Dokter jaga</h4>${daftar(g.dokter, 'dokter')}</div><div><h4>Perawat / bidan</h4>${daftar(g.perawat, 'perawat')}</div></div></div>`;
       }
+      html += KONSUL_SLOT;
       html += `<div class="jd-grid">${SHIFT.map(([s, jam, mulai, akhir]) => {
         let status = '';
         if (kini && !kini.kemarin) status = s === kini.nama ? 'aktif' : (SHIFT.findIndex((x) => x[0] === s) < SHIFT.findIndex((x) => x[0] === kini.nama) ? 'lewat' : '');
@@ -91,12 +93,12 @@
     html += `<footer class="jd-sumber"><span>Sumber: ${d.dokterUrl ? `<a href="${esc(d.dokterUrl)}" target="_blank" rel="noopener">Jadwal Dokter</a>` : 'Jadwal Dokter'} (tab ${esc((d.dokter && d.dokter.tab) || '-')}) · ${d.perawatUrl ? `<a href="${esc(d.perawatUrl)}" target="_blank" rel="noopener">Jadwal Perawat</a>` : 'Jadwal Perawat'} (tab ${esc((d.perawat && d.perawat.tab) || '-')})</span><span>Diperbarui ${esc((d.dibuat || '').slice(11))} WIB</span></footer>`;
     if ((d.catatan || []).length) html += `<p class="pt-error">${esc(d.catatan.join(' '))}</p>`;
     $('jdIsi').innerHTML = html;
+    if (window.KonsulDPJP) window.KonsulDPJP.tampil(tanggal);
   }
 
   async function muat() {
     $('jdTgl').textContent = teksTgl(tanggal);
     $('jdHari').classList.toggle('aktif', tanggal === hariIni());
-    if (window.KonsulDPJP) window.KonsulDPJP.tampil(tanggal);
     const kunci = 'jadwal_' + tanggal;
     let ada = null;
     try { ada = JSON.parse(localStorage.getItem(kunci) || 'null'); } catch (e) {}
@@ -108,7 +110,7 @@
       try { localStorage.setItem(kunci, JSON.stringify(d)); } catch (e) {}
       if (d.tanggal === tanggal) tampil(d);
     } catch (e) {
-      if (!ada) $('jdIsi').innerHTML = '<p class="pt-error">' + esc(e.message) + '</p>';
+      if (!ada) { $('jdIsi').innerHTML = '<p class="pt-error">Jadwal jaga belum terbaca: ' + esc(e.message) + '</p>' + KONSUL_SLOT; if (window.KonsulDPJP) window.KonsulDPJP.tampil(tanggal); }
     }
   }
 
