@@ -2638,3 +2638,8 @@ button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: no
 .ks-wrap .ks-item:hover { transform: translateY(-4px); border-color: rgba(31, 78, 121, .35); box-shadow: 0 18px 40px rgba(15, 23, 42, .12); }
 .jd-org:hover { transform: translateY(-3px); border-color: rgba(193, 18, 31, .26); box-shadow: 0 14px 32px rgba(15, 23, 42, .10); }
 @media (prefers-reduced-motion: reduce) { .ks-wrap .ks-item:hover, .jd-org:hover { transform: none; } }
+.jd-kol { transition: transform .2s ease, box-shadow .2s ease, opacity .2s; }
+.jd-kol:hover { transform: translateY(-5px); box-shadow: 0 22px 50px rgba(15, 23, 42, .13); opacity: 1; }
+.ks-wrap .ks-item:hover { transform: translateY(-5px); box-shadow: 0 22px 50px rgba(15, 23, 42, .14); }
+.jd-org:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(15, 23, 42, .13); }
+@media (prefers-reduced-motion: reduce) { .jd-kol:hover { transform: none; } }
