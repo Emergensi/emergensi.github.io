@@ -2671,3 +2671,4 @@ button.sedang-proses { cursor: wait !important; opacity: .75; pointer-events: no
 .jd-tl-libur { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
 .jd-tl-teks span { white-space: normal; overflow: visible; }
 @media (max-width: 900px) { .jd-bawah { grid-template-columns: 1fr; } }
+.jd-bawah { grid-template-columns: 1fr; }
