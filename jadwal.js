@@ -73,7 +73,6 @@
             <span class="jd-sisa">${kini.sisa}</span><span class="jd-prog" title="${kini.persen}% shift berjalan"><i style="width:${kini.persen}%"></i></span></div>
           <div class="jd-kini-isi"><div><h4>Dokter jaga</h4>${daftar(g.dokter, 'dokter')}</div><div><h4>Perawat / bidan</h4>${daftar(g.perawat, 'perawat')}</div></div></div>`;
       }
-      html += KONSUL_SLOT;
       html += `<div class="jd-grid">${SHIFT.map(([s, jam, mulai, akhir]) => {
         let status = '';
         if (kini && !kini.kemarin) status = s === kini.nama ? 'aktif' : (SHIFT.findIndex((x) => x[0] === s) < SHIFT.findIndex((x) => x[0] === kini.nama) ? 'lewat' : '');
@@ -89,6 +88,7 @@
         if (p.libur.length) html += `<div><h4>Libur / cuti</h4><div class="jd-chips">${p.libur.map((x) => `<span class="jd-chip redup">${esc(pisahGelar(x.nama)[0])}${x.cuti ? '<small>cuti</small>' : ''}</span>`).join('')}</div></div>`;
         html += `</div>`;
       }
+      html += KONSUL_SLOT;
     }
     html += `<footer class="jd-sumber"><span>Sumber: ${d.dokterUrl ? `<a href="${esc(d.dokterUrl)}" target="_blank" rel="noopener">Jadwal Dokter</a>` : 'Jadwal Dokter'} (tab ${esc((d.dokter && d.dokter.tab) || '-')}) · ${d.perawatUrl ? `<a href="${esc(d.perawatUrl)}" target="_blank" rel="noopener">Jadwal Perawat</a>` : 'Jadwal Perawat'} (tab ${esc((d.perawat && d.perawat.tab) || '-')})</span><span>Diperbarui ${esc((d.dibuat || '').slice(11))} WIB</span></footer>`;
     if ((d.catatan || []).length) html += `<p class="pt-error">${esc(d.catatan.join(' '))}</p>`;
