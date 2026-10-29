@@ -2231,6 +2231,9 @@ body.has-pantau .hero-copy { display: none; }
 .lb-alat { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 8px; }
 .lb-alat label { font-weight: 700; display: flex; gap: 8px; align-items: center; }
 .lb-alat input[type=month] { padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 12px; font: inherit; background: #fff; }
+.lb-alat.lb-periode { padding-top: 10px; border-top: 1px dashed #e2e8f0; margin-top: 4px; }
+.lb-alat.lb-periode label { font-weight: 600; font-size: .92rem; }
+.lb-periode-label { font-weight: 800; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: #64748b; }
 .lb-aksi { display: flex; flex-wrap: wrap; gap: 8px; }
 .lb-lembar { background: #f5f3ee; color: #15212b; border-radius: 20px; padding: 28px; margin-top: 12px; }
 .lb-kop { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; border-bottom: 3px solid #15212b; padding-bottom: 12px; margin-bottom: 20px; flex-wrap: wrap; }

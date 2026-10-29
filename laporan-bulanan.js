@@ -132,6 +132,45 @@
     } finally { b.disabled = false; b.textContent = label; }
   }
 
+  // PDF periode: PDF server tiap bulan (sama dengan Unduh PDF / Telegram) digabung jadi satu file, satu halaman per bulan
+  const NAMA_BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+  function daftarBulan(dari, sampai) {
+    const [t1, b1] = dari.split('-').map(Number), [t2, b2] = sampai.split('-').map(Number);
+    if (!t1 || !t2) throw new Error('Pilih bulan awal dan akhir periode.');
+    const out = []; let t = t1, b = b1;
+    while (t * 12 + b <= t2 * 12 + b2) { out.push([t, b]); if (++b > 12) { b = 1; t++; } }
+    if (!out.length) throw new Error('Bulan akhir harus sama atau sesudah bulan awal.');
+    if (out.length > 24) throw new Error('Periode paling panjang 24 bulan.');
+    return out;
+  }
+  async function unduhPeriode() {
+    if (!window.PDFLib) return pesan('Penggabung PDF belum termuat; muat ulang halaman.', true);
+    const b = $('lbPeriodeBtn'); if (b.disabled) return;
+    let bulan; try { bulan = daftarBulan($('lbDari').value, $('lbSampai').value); } catch (e) { return pesan(e.message, true); }
+    b.disabled = true; const label0 = b.textContent; b.textContent = '⏳ Memproses…';
+    try {
+      const gabung = await window.PDFLib.PDFDocument.create();
+      for (let i = 0; i < bulan.length; i++) {
+        const [th, bl] = bulan[i];
+        pesan('Menyiapkan ' + NAMA_BULAN[bl - 1] + ' ' + th + ' (' + (i + 1) + '/' + bulan.length + ')…');
+        const d = await bacaJson(await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ aksi: 'pdfBulanan', token: token(), tahun: th, bulan: bl }) }));
+        cekToken(d);
+        if (!d.pdf) throw new Error(NAMA_BULAN[bl - 1] + ' ' + th + ': ' + (d.error || 'PDF server belum tersedia'));
+        const satu = await window.PDFLib.PDFDocument.load(Uint8Array.from(atob(d.pdf), (c) => c.charCodeAt(0)));
+        (await gabung.copyPages(satu, satu.getPageIndices())).forEach((h) => gabung.addPage(h));
+      }
+      const [ta, ba] = bulan[0], [tz, bz] = bulan[bulan.length - 1];
+      const label = NAMA_BULAN[ba - 1] + (ta !== tz ? ' ' + ta : '') + '–' + NAMA_BULAN[bz - 1] + ' ' + tz;
+      gabung.setTitle('Laporan Bulanan IGD ' + label); gabung.setCreator('Emergency Unit SGH');
+      const url = URL.createObjectURL(new Blob([await gabung.save()], { type: 'application/pdf' }));
+      const a = document.createElement('a'); a.href = url; a.download = 'Laporan_Bulanan_IGD_' + label.replace(/[ –]/g, '_') + '.pdf';
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 5000);
+      pesan('PDF periode ' + label + ' diunduh (' + gabung.getPageCount() + ' halaman).');
+    } catch (e) { pesan('Gagal membuat PDF periode: ' + e.message, true); }
+    b.disabled = false; b.textContent = label0;
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const now = new Date(); const lalu = new Date(now.getFullYear(), now.getMonth() - 1, 1);
     $('lbBulan').value = lalu.getFullYear() + '-' + String(lalu.getMonth() + 1).padStart(2, '0');
@@ -140,5 +179,8 @@
     $('lbTele').addEventListener('click', kirimTele);
     $('lbGambar').addEventListener('click', unduh);
     $('lbCetak').addEventListener('click', unduhPdf);
+    $('lbDari').value = lalu.getFullYear() + '-01'; $('lbSampai').value = $('lbBulan').value;
+    $('lbDari').max = $('lbSampai').max = $('lbBulan').max;
+    $('lbPeriodeBtn').addEventListener('click', unduhPeriode);
   });
 })();

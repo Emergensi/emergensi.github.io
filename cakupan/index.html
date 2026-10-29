@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
   <link rel="manifest" href="../assets/site.webmanifest" />
   <title>Laporan Kunjungan &amp; Cakupan IGD — Emergency Unit SGH</title>
-  <link rel="stylesheet" href="../style.css?v=20261022220015" />
+  <link rel="stylesheet" href="../style.css?v=20261029140000" />
   <script src="../auth.js"></script>
   <script>window.IGDAuth.requireAuth();</script>
 </head>
@@ -32,7 +32,7 @@
           <span class="page-big-icon">📈</span>
           <div><span class="eyebrow"><span></span> STAF &amp; PIMPINAN</span><h1>Laporan Kunjungan &amp; Cakupan IGD</h1></div>
         </div>
-        <p>Isi otomatis tab <b>Cakupan IGD</b> di register dari data Register IGD (format Laporan Cakupan Layanan Medis). Pilih bulan, klik <b>Perbarui</b>: tab di Google Sheet ikut terisi dan ringkasannya tampil di sini.</p>
+        <p>Isi otomatis tab <b>Cakupan IGD</b> di register dari data Register IGD (format Laporan Cakupan Layanan Medis). Pilih bulan, klik <b>Perbarui</b>: tab di Google Sheet ikut terisi dan ringkasannya tampil di sini. Untuk beberapa bulan sekaligus, pakai <b>PDF periode</b> (satu halaman per bulan).</p>
       </section>
     </header>
     <main>
@@ -46,6 +46,12 @@
             <button type="button" class="ghost-btn" id="ckTele">📨 Kirim ringkasan ke Telegram</button>
           </span>
         </div>
+        <div class="lb-alat lb-periode">
+          <span class="lb-periode-label">PDF periode</span>
+          <label>Dari <input type="month" id="ckDari" /></label>
+          <label>Sampai <input type="month" id="ckSampai" /></label>
+          <button type="button" class="ghost-btn" id="ckPeriodeBtn">⬇ Unduh PDF periode</button>
+        </div>
         <p class="pt-sub" id="ckPesan" role="status"></p>
         <div id="ckHasil"></div>
       </section>
@@ -55,6 +61,7 @@
   <script src="../app.js?v=20261022220015"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
-  <script src="../cakupan.js?v=20261029120000"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="../cakupan.js?v=20261029140000"></script>
 </body>
 </html>

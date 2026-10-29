@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
   <link rel="manifest" href="../assets/site.webmanifest" />
   <title>Laporan Bulanan IGD — Emergency Unit SGH</title>
-  <link rel="stylesheet" href="../style.css?v=20261022220015" />
+  <link rel="stylesheet" href="../style.css?v=20261029140000" />
   <script src="../auth.js"></script>
   <script>window.IGDAuth.requirePimpinan();</script>
 </head>
@@ -32,7 +32,7 @@
           <span class="page-big-icon">🗓️</span>
           <div><span class="eyebrow"><span></span> AKSES PIMPINAN</span><h1>Laporan Bulanan IGD</h1></div>
         </div>
-        <p>Dibuat otomatis dari Register IGD. Pilih bulan, klik buat, lalu kirim ke Telegram atau unduh sebagai gambar. Batas pelaporan ke manajemen: tanggal 20 bulan berikutnya.</p>
+        <p>Dibuat otomatis dari Register IGD. Pilih bulan, klik buat, lalu kirim ke Telegram atau unduh sebagai gambar/PDF. Untuk beberapa bulan sekaligus, pakai <b>PDF periode</b>. Batas pelaporan ke manajemen: tanggal 20 bulan berikutnya.</p>
       </section>
     </header>
     <main>
@@ -46,6 +46,12 @@
             <button type="button" class="ghost-btn" id="lbCetak">⬇ Unduh PDF</button>
           </span>
         </div>
+        <div class="lb-alat lb-periode">
+          <span class="lb-periode-label">PDF periode</span>
+          <label>Dari <input type="month" id="lbDari" /></label>
+          <label>Sampai <input type="month" id="lbSampai" /></label>
+          <button type="button" class="ghost-btn" id="lbPeriodeBtn">⬇ Unduh PDF periode</button>
+        </div>
         <p class="pt-sub" id="lbPesan" role="status"></p>
         <div id="lbHasil"></div>
       </section>
@@ -55,6 +61,7 @@
   <script src="../app.js?v=20261022220015"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="../laporan-bulanan.js?v=20261022220015"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="../laporan-bulanan.js?v=20261029140000"></script>
 </body>
 </html>

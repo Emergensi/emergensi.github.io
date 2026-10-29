@@ -87,12 +87,10 @@
 
   // Unduh PDF A4 tegak berbasis teks (jsPDF + autoTable), tata letak meniru tampilan layar:
   // latar krem, kartu membulat dua kolom. Teks bisa diblok, disalin, dan dicari.
-  function unduhPdf() {
-    if (!hasil || !hasil.data || !hasil.data.jumlah) return;
-    const PDF = window.jspdf && window.jspdf.jsPDF;
-    if (!PDF || !PDF.API.autoTable) return pesan('Pembuat PDF belum termuat; muat ulang halaman.', true);
-    try {
-      const r = hasil, o = r.data, j = o.jaminan, T = o.triase, L = o.lanjut, I = o.indikasi;
+  // Satu laporan bulan -> dokumen jsPDF 1 halaman. hal = [nomor, total] untuk kaki halaman PDF periode.
+  function pdfCakupan(r, hal) {
+    const PDF = window.jspdf.jsPDF;
+      const o = r.data, j = o.jaminan, T = o.triase, L = o.lanjut, I = o.indikasi;
       const W = 210, H = 297, M = 10, KAKI = 8, JARAK = 5, PAD = 4;
       const KOL = (W - 2 * M - JARAK) / 2;
       const KREM = [245, 243, 238], KARTU = [251, 250, 247], GARIS = [221, 216, 206], BARIS = [228, 223, 213];
@@ -234,18 +232,76 @@
         for (let i = 1; i <= n; i++) {
           doc.setPage(i); doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5); doc.setTextColor(...ABU);
           doc.text('Cakupan Layanan IGD · ' + r.namaBulan + ' ' + r.tahun + ' · RS SGH', M, H - 5);
-          doc.text('Hal. ' + i + ' / ' + n, W - M, H - 5, { align: 'right' });
+          doc.text('Hal. ' + (hal ? hal[0] + i - 1 : i) + ' / ' + (hal ? hal[1] : n), W - M, H - 5, { align: 'right' });
         }
         return doc;
       };
       let doc;
       for (const rapat of [1.6, 1.3, 1.05, 0.8, 0.6]) { doc = bangun(rapat); if (doc.getNumberOfPages() === 1) break; }
-      const n = doc.getNumberOfPages();
-      const nama = 'Cakupan_IGD_' + r.namaBulan + '_' + r.tahun;
       doc.setProperties({ title: 'Cakupan Layanan IGD ' + r.namaBulan + ' ' + r.tahun, subject: 'Laporan Kunjungan & Cakupan IGD', creator: 'Emergency Unit SGH' });
-      doc.save(nama + '.pdf');
-      pesan('PDF ' + r.namaBulan + ' ' + r.tahun + ' diunduh (' + n + ' halaman).');
+      return doc;
+  }
+
+  const siapPdf = () => !!(window.jspdf && window.jspdf.jsPDF && window.jspdf.jsPDF.API.autoTable);
+
+  // Unduh PDF bulan yang sedang tampil
+  function unduhPdf() {
+    if (!hasil || !hasil.data || !hasil.data.jumlah) return;
+    if (!siapPdf()) return pesan('Pembuat PDF belum termuat; muat ulang halaman.', true);
+    try {
+      const doc = pdfCakupan(hasil);
+      doc.save('Cakupan_IGD_' + hasil.namaBulan + '_' + hasil.tahun + '.pdf');
+      pesan('PDF ' + hasil.namaBulan + ' ' + hasil.tahun + ' diunduh (' + doc.getNumberOfPages() + ' halaman).');
     } catch (e) { pesan('Gagal membuat PDF: ' + e.message, true); }
+  }
+
+  // Daftar bulan dari..sampai (boleh lintas tahun), maks 24 bulan
+  function daftarBulan(dari, sampai) {
+    const [t1, b1] = dari.split('-').map(Number), [t2, b2] = sampai.split('-').map(Number);
+    if (!t1 || !t2) throw new Error('Pilih bulan awal dan akhir periode.');
+    const out = []; let t = t1, b = b1;
+    while (t * 12 + b <= t2 * 12 + b2) { out.push([t, b]); if (++b > 12) { b = 1; t++; } }
+    if (!out.length) throw new Error('Bulan akhir harus sama atau sesudah bulan awal.');
+    if (out.length > 24) throw new Error('Periode paling panjang 24 bulan.');
+    return out;
+  }
+
+  // PDF periode: satu halaman per bulan, digabung jadi satu file (pdf-lib)
+  async function unduhPeriode() {
+    if (!siapPdf() || !window.PDFLib) return pesan('Pembuat PDF belum termuat; muat ulang halaman.', true);
+    const b = $('ckPeriodeBtn'); if (b.disabled) return;
+    let bulan; try { bulan = daftarBulan($('ckDari').value, $('ckSampai').value); } catch (e) { return pesan(e.message, true); }
+    b.disabled = true; b.dataset.asli = b.innerHTML; b.innerHTML = '<span class="proses-putar"></span>Memproses…';
+    try {
+      const data = [];
+      for (let i = 0; i < bulan.length; i++) {
+        const [th, bl] = bulan[i];
+        pesan('Mengambil ' + BULAN[bl - 1] + ' ' + th + ' (' + (i + 1) + '/' + bulan.length + ')… ± 10–30 detik per bulan');
+        const d = await bacaJson(await fetch(API_URL + '?aksi=cakupan&tahun=' + th + '&bulan=' + bl + '&token=' + encodeURIComponent(token()) + '&_=' + Date.now()));
+        cekToken(d);
+        if (d.data && d.data.aktif && d.data.jumlah) data.push(d);
+      }
+      if (!data.length) throw new Error('Tidak ada kunjungan pada periode itu.');
+      pesan('Menyusun PDF ' + data.length + ' halaman…');
+      const gabung = await window.PDFLib.PDFDocument.create();
+      for (let i = 0; i < data.length; i++) {
+        const satu = await window.PDFLib.PDFDocument.load(pdfCakupan(data[i], [i + 1, data.length]).output('arraybuffer'));
+        (await gabung.copyPages(satu, satu.getPageIndices())).forEach((h) => gabung.addPage(h));
+      }
+      const awal = data[0], akhir = data[data.length - 1];
+      const label = awal.namaBulan + (awal.tahun !== akhir.tahun ? ' ' + awal.tahun : '') + '–' + akhir.namaBulan + ' ' + akhir.tahun;
+      gabung.setTitle('Cakupan Layanan IGD ' + label); gabung.setCreator('Emergency Unit SGH');
+      simpan(await gabung.save(), 'Cakupan_IGD_' + label.replace(/[ –]/g, '_') + '.pdf');
+      const kosong = bulan.length - data.length;
+      pesan('PDF periode ' + label + ' diunduh (' + data.length + ' halaman' + (kosong ? '; ' + kosong + ' bulan tanpa kunjungan dilewati' : '') + ').');
+    } catch (e) { pesan('Gagal membuat PDF periode: ' + e.message, true); }
+    b.disabled = false; b.innerHTML = b.dataset.asli;
+  }
+
+  function simpan(bytes, nama) {
+    const url = URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }));
+    const a = document.createElement('a'); a.href = url; a.download = nama; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
   }
 
   async function kirimTele() {
@@ -268,5 +324,8 @@
     $('ckBuat').addEventListener('click', perbarui);
     $('ckTele').addEventListener('click', kirimTele);
     $('ckPdf').addEventListener('click', unduhPdf);
+    $('ckDari').value = now.getFullYear() + '-01'; $('ckSampai').value = $('ckBulan').value;
+    $('ckDari').max = $('ckSampai').max = $('ckBulan').value;
+    $('ckPeriodeBtn').addEventListener('click', unduhPeriode);
   });
 })();
