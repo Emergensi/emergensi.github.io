@@ -2273,7 +2273,8 @@ body.has-pantau .hero-copy { display: none; }
   .lb-bar b { font-size: .62rem; }
 }
 @media print {
-  .topbar, .page-hero-card, .lb-alat, #lbPesan { display: none !important; }
+  .topbar, .page-hero-card, .lb-alat, #lbPesan, #ckPesan { display: none !important; }
+  .lb-kartu, .ck-angka { break-inside: avoid; }
   body, .page-shell { background: #fff !important; }
   .lb-lembar { padding: 0; }
 }

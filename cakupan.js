@@ -55,7 +55,7 @@
     const rekap = r.rekap.filter((x) => x.aktif);
     const totRekap = rekap.reduce((a, x) => ({ j: a.j + x.jumlah, l: a.l + x.lama, b: a.b + x.baru, ri: a.ri + x.ranap, ru: a.ru + x.rujuk, p: a.p + x.pulang, aps: a.aps + x.aps, m: a.m + x.meninggal }),
       { j: 0, l: 0, b: 0, ri: 0, ru: 0, p: 0, aps: 0, m: 0 });
-    $('ckHasil').innerHTML = `<article class="lb-lembar">
+    $('ckHasil').innerHTML = `<article class="lb-lembar" id="ckLembar">
       <header class="lb-kop"><div><small>INSTALASI GAWAT DARURAT · SEDAYU GENERAL HOSPITAL</small><h2>Cakupan Layanan IGD · ${esc(r.namaBulan)} ${r.tahun}</h2></div>
         <p>Sumber: Register Pasien IGD RS SGH<br>Diperbarui ${esc(r.dibuat)}</p></header>
       <div class="ck-angka">
@@ -84,6 +84,170 @@
     </article>`;
   }
 
+
+  // Unduh PDF A4 tegak berbasis teks (jsPDF + autoTable), tata letak meniru tampilan layar:
+  // latar krem, kartu membulat dua kolom. Teks bisa diblok, disalin, dan dicari.
+  function unduhPdf() {
+    if (!hasil || !hasil.data || !hasil.data.jumlah) return;
+    const PDF = window.jspdf && window.jspdf.jsPDF;
+    if (!PDF || !PDF.API.autoTable) return pesan('Pembuat PDF belum termuat; muat ulang halaman.', true);
+    try {
+      const r = hasil, o = r.data, j = o.jaminan, T = o.triase, L = o.lanjut, I = o.indikasi;
+      const W = 210, H = 297, M = 10, KAKI = 8, JARAK = 5, PAD = 4;
+      const KOL = (W - 2 * M - JARAK) / 2;
+      const KREM = [245, 243, 238], KARTU = [251, 250, 247], GARIS = [221, 216, 206], BARIS = [228, 223, 213];
+      const MERAH = [180, 35, 48], GELAP = [21, 33, 43], ABU = [95, 107, 117], TANDA = [253, 236, 236];
+      const angka = (v) => (v == null ? '-' : v);
+
+      // jarak baris tabel dirapatkan bertahap sampai laporan muat 1 halaman A4
+      const bangun = (rapat) => {
+        const gaya = { font: 'helvetica', fontSize: 7.6, cellPadding: { top: rapat, bottom: rapat, left: 1.6, right: 1.6 }, textColor: GELAP, lineColor: BARIS, lineWidth: { bottom: 0.2 }, valign: 'middle' };
+        const kepala = { fillColor: false, textColor: ABU, fontStyle: 'bold', fontSize: 6.5, lineWidth: { bottom: 0.5 }, lineColor: GELAP };
+        const kaki = { fillColor: false, textColor: GELAP, fontStyle: 'bold', lineWidth: { top: 0.5, bottom: 0 }, lineColor: GELAP };
+        const tengah = (n) => { const c = {}; for (let i = 0; i < n; i++) c[i] = { halign: 'center' }; return c; };
+
+        // tabel di dalam kartu; judul kolom & total ikut perataan kolomnya
+        const tabel = (d, x, y, w, head, body, opsi) => {
+          opsi = opsi || {};
+          const lain = opsi.didParseCell;
+          d.autoTable(Object.assign({ startY: y, head: [head], body, theme: 'plain', margin: { left: x, right: 0, top: 0, bottom: 0 }, tableWidth: w,
+            styles: gaya, headStyles: kepala, footStyles: kaki, showFoot: 'lastPage', pageBreak: 'avoid', rowPageBreak: 'avoid' }, opsi, {
+            didParseCell: (c) => {
+              const cs = (opsi.columnStyles || {})[c.column.index] || {};
+              if (c.section !== 'body' && cs.halign) c.cell.styles.halign = cs.halign;
+              if (lain) lain(c);
+            } }));
+          return d.lastAutoTable.finalY;
+        };
+        const butir = (d, x, y, w, arr) => {
+          d.setFont('helvetica', 'normal'); d.setFontSize(7); d.setTextColor(71, 85, 105);
+          (arr || []).forEach((t) => { const b = d.splitTextToSize(t, w - 4); d.text('•', x + 1, y + 2.6); d.text(b, x + 4, y + 2.6); y += b.length * 3.2 + 0.8; });
+          return y + 1;
+        };
+        const catatan = (d, x, y, w, t, warna) => {
+          d.setFont('helvetica', 'normal'); d.setFontSize(7); d.setTextColor(...(warna || ABU));
+          const b = d.splitTextToSize(t, w); d.text(b, x, y + 3); return y + b.length * 3.2 + 1.5;
+        };
+        const tebalBaris0 = (c) => { if (c.section === 'body' && c.row.index === 0) c.cell.styles.fontStyle = 'bold'; };
+        const top10 = (data) => (d, x, y, w) => {
+          if (!data.daftar.length) return catatan(d, x, y, w, 'Belum ada data.');
+          return tabel(d, x, y, w, ['No', 'Nama', 'Jumlah', '%'], data.daftar.map((v, i) => [i + 1, v[0], v[1], pct(v[1], data.total)]), {
+            columnStyles: { 0: { cellWidth: 7, textColor: ABU }, 1: { fontStyle: 'bold' }, 2: { halign: 'right', cellWidth: 14 }, 3: { halign: 'right', cellWidth: 13 } },
+            foot: [['', 'Total', data.total, '']] });
+        };
+
+        const rekap = r.rekap.filter((x) => x.aktif);
+        const tot = rekap.reduce((a, x) => [a[0] + x.jumlah, a[1] + x.lama, a[2] + x.baru, a[3] + x.ranap, a[4] + x.rujuk, a[5] + x.pulang, a[6] + x.aps, a[7] + x.meninggal], [0, 0, 0, 0, 0, 0, 0, 0]);
+        const kanan = {}; for (let i = 1; i < 9; i++) kanan[i] = { halign: 'right' };
+        kanan[0] = { fontStyle: 'bold', cellWidth: 11 };
+
+        // isi tiap kartu: fungsi (doc, x, y, lebar) -> y akhir
+        const kartu = [
+          ['Proporsi jaminan', (d, x, y, w) => tabel(d, x, y, w, ['Umum', 'BPJS', 'Asuransi lain', 'JR'],
+            [[j.UMUM, j.BPJS, j.ASURANSI, j.JR], [pct(j.UMUM, o.jumlah), pct(j.BPJS, o.jumlah), pct(j.ASURANSI, o.jumlah), pct(j.JR, o.jumlah)]],
+            { columnStyles: tengah(4), didParseCell: tebalBaris0 })],
+          ['Tingkat kegawatan', (d, x, y, w) => o.triaseTercatat
+            ? tabel(d, x, y, w, ['Merah', 'Kuning', 'Hijau', 'Hitam', 'Belum ditriase'], [[T.MERAH, T.KUNING, T.HIJAU, T.HITAM, o.belumTriase]], { columnStyles: tengah(5), didParseCell: tebalBaris0 })
+            : catatan(d, x, y, w, 'Belum tercatat (kolom triase diisi sejak ' + r.triaseMulai + ').')],
+          ['Tindak lanjut pasien', (d, x, y, w) => {
+            y = tabel(d, x, y, w, ['Rawat inap', 'Rujuk', 'Pulang', 'DOA', 'Meninggal'], [[L.RANAP, L.RUJUK, L.PULANG, L.DOA, L.MENINGGAL]], { columnStyles: tengah(5), didParseCell: tebalBaris0 });
+            return catatan(d, x, y + 1, w, 'Pulang termasuk APS: ' + o.aps + ' pasien.'); }],
+          ['Indikasi rujuk eksternal & cara masuk', (d, x, y, w) => {
+            y = tabel(d, x, y, w, ['Fasilitas', 'Kompetensi', 'Jaminan', 'APS'], [[I.FASILITAS, I.KOMPETENSI, I.JAMINAN, o.aps]], { columnStyles: tengah(4), didParseCell: tebalBaris0 });
+            y = butir(d, x, y + 1, w, o.ketRujuk) + 1;
+            y = tabel(d, x, y, w, ['Rujukan', 'Ambulans swasta', 'Diantar polisi'], [[o.rujukan, o.ambulans, angka(o.polisi)]], { columnStyles: tengah(3), didParseCell: tebalBaris0 });
+            return butir(d, x, y + 1, w, o.ketMasuk); }],
+          ['10 diagnosis terbanyak', top10(o.dx)],
+          ['10 tindakan terbanyak', top10(o.tindakan)],
+          ['Tindakan elektromedis', top10(o.elektro)],
+          ['Rekap ' + r.tahun + ' per bulan', (d, x, y, w) => tabel(d, x, y, w, ['Bulan', 'Kunjungan', 'Lama', 'Baru', 'Ranap', 'Rujuk', 'Pulang', 'APS', 'Mati/DOA'],
+            rekap.map((v) => [BULAN[v.bulan - 1], v.jumlah, v.lama, v.baru, v.ranap, v.rujuk, v.pulang, v.aps, v.meninggal]), {
+              styles: Object.assign({}, gaya, { fontSize: 7, cellPadding: { top: rapat, bottom: rapat, left: 0.8, right: 0.8 } }),
+              headStyles: Object.assign({}, kepala, { fontSize: 5.8 }),
+              columnStyles: kanan, foot: [['Total'].concat(tot)],
+              didParseCell: (c) => {
+                if (c.section === 'body' && rekap[c.row.index].bulan === r.bulan) c.cell.styles.fillColor = TANDA;
+                if (c.section === 'foot' && c.column.index === 0) c.cell.styles.halign = 'left';
+              },
+              didDrawCell: (c) => {   // penanda segitiga di bulan laporan (pengganti ◂ di layar)
+                if (c.section === 'body' && c.column.index === 0 && rekap[c.row.index].bulan === r.bulan) {
+                  const tx = c.cell.x + 1.6 + c.doc.getTextWidth(String(c.cell.raw)) + 1.2, ty = c.cell.y + c.cell.height / 2;
+                  c.doc.setFillColor(...GELAP); c.doc.triangle(tx, ty, tx + 1.6, ty - 0.9, tx + 1.6, ty + 0.9, 'F');
+                }
+              } })],
+        ];
+
+        // ukur tinggi isi tiap kartu di dokumen sementara (font sama), supaya latar kartu bisa digambar lebih dulu
+        const ukur = new PDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const lebarIsi = KOL - 2 * PAD, JUDUL = 9;
+        const tinggi = kartu.map((k) => k[1](ukur, M + PAD, 20, lebarIsi) - 20);
+
+        const doc = new PDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const latar = () => { doc.setFillColor(...KREM); doc.rect(0, 0, W, H, 'F'); };
+        latar();
+        let y = M + 2;
+
+        // kop
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(6.5); doc.setTextColor(...MERAH); doc.setCharSpace(0.6);
+        doc.text('INSTALASI GAWAT DARURAT · SEDAYU GENERAL HOSPITAL', M, y + 2.5); doc.setCharSpace(0);
+        doc.setFontSize(15); doc.setTextColor(...GELAP);
+        doc.text('Cakupan Layanan IGD · ' + r.namaBulan + ' ' + r.tahun, M, y + 9);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(...ABU);
+        doc.text(['Sumber: Register Pasien IGD RS SGH', 'Diperbarui ' + r.dibuat], W - M, y + 4.5, { align: 'right', lineHeightFactor: 1.6 });
+        y += 12; doc.setDrawColor(...GELAP); doc.setLineWidth(0.7); doc.line(M, y, W - M, y); y += 4;
+
+        // kotak angka utama
+        const kotak = [[String(o.jumlah), 'kunjungan'], [String(o.perHari.toFixed(2)).replace('.', ','), 'rata-rata / hari'],
+          [pct(o.baru, o.jumlah), 'pasien baru (' + o.baru + ')'], [pct(o.lama, o.jumlah), 'pasien lama (' + o.lama + ')']];
+        const lk = (W - 2 * M - 3 * 3.5) / 4;
+        kotak.forEach((k, i) => {
+          const x = M + i * (lk + 3.5);
+          doc.setDrawColor(...GARIS); doc.setLineWidth(0.3); doc.setFillColor(...KARTU); doc.roundedRect(x, y, lk, 14, 2.5, 2.5, 'FD');
+          doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(...GELAP); doc.text(k[0], x + 3.5, y + 6.6);
+          doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(...ABU); doc.text(k[1], x + 3.5, y + 11);
+        });
+        y += 14 + JARAK;
+
+        // kartu berpasangan dua kolom; satu baris kartu tidak pernah dipotong antarhalaman
+        for (let i = 0; i < kartu.length; i += 2) {
+          const tb = Math.max(tinggi[i], tinggi[i + 1] || 0) + JUDUL + PAD;
+          if (y + tb > H - M - KAKI) { doc.addPage(); latar(); y = M; }
+          [i, i + 1].forEach((k, kol) => {
+            if (!kartu[k]) return;
+            const x = M + kol * (KOL + JARAK);
+            doc.setDrawColor(...GARIS); doc.setLineWidth(0.3); doc.setFillColor(...KARTU); doc.roundedRect(x, y, KOL, tb, 3, 3, 'FD');
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); doc.setTextColor(...GELAP); doc.text(kartu[k][0], x + PAD, y + 6);
+            kartu[k][1](doc, x + PAD, y + JUDUL, lebarIsi);
+          });
+          y += tb + JARAK;
+        }
+
+        // catatan akhir
+        const akhir = [];
+        if (r.catatan && r.catatan.length) akhir.push('Catatan: ' + r.catatan.join(' | '));
+        akhir.push('Insiden keselamatan pasien diisi manual di tab Google Sheet (sel kuning).');
+        if (y + 10 > H - M - KAKI) { doc.addPage(); latar(); y = M; }
+        akhir.forEach((t) => { y = catatan(doc, M, y - 2, W - 2 * M, t) + 1; });
+
+        // kaki halaman
+        const n = doc.getNumberOfPages();
+        for (let i = 1; i <= n; i++) {
+          doc.setPage(i); doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5); doc.setTextColor(...ABU);
+          doc.text('Cakupan Layanan IGD · ' + r.namaBulan + ' ' + r.tahun + ' · RS SGH', M, H - 5);
+          doc.text('Hal. ' + i + ' / ' + n, W - M, H - 5, { align: 'right' });
+        }
+        return doc;
+      };
+      let doc;
+      for (const rapat of [1.6, 1.3, 1.05, 0.8, 0.6]) { doc = bangun(rapat); if (doc.getNumberOfPages() === 1) break; }
+      const n = doc.getNumberOfPages();
+      const nama = 'Cakupan_IGD_' + r.namaBulan + '_' + r.tahun;
+      doc.setProperties({ title: 'Cakupan Layanan IGD ' + r.namaBulan + ' ' + r.tahun, subject: 'Laporan Kunjungan & Cakupan IGD', creator: 'Emergency Unit SGH' });
+      doc.save(nama + '.pdf');
+      pesan('PDF ' + r.namaBulan + ' ' + r.tahun + ' diunduh (' + n + ' halaman).');
+    } catch (e) { pesan('Gagal membuat PDF: ' + e.message, true); }
+  }
+
   async function kirimTele() {
     if (!hasil) return;
     const b = $('ckTele'); if (b.disabled) return;
@@ -103,5 +267,6 @@
     $('ckBulan').max = $('ckBulan').value;
     $('ckBuat').addEventListener('click', perbarui);
     $('ckTele').addEventListener('click', kirimTele);
+    $('ckPdf').addEventListener('click', unduhPdf);
   });
 })();
