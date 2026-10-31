@@ -17,6 +17,8 @@ style.css           Tampilan
 link/<slug>/        Halaman detail per tautan
 panduan-dokumentasi/ Panduan Dokumentasi Klinis (data di pd-data.js; tarif INA-CBG
                     disembunyikan lewat TAMPILKAN_TARIF di pd-app.js)
+tools/              Skrip pemeliharaan (sinkron-panduan.py: tarik ulang panduan dari
+                    rssacasemix.github.io dengan penyesuaian SGH)
 assets/             Logo, ikon, dan manifest aplikasi
 ```
 
