@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="id" data-protected="true">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#b91c1c" />
+  <link rel="icon" href="../assets/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="manifest" href="../assets/site.webmanifest" />
+  <title>Panduan Dokumentasi Klinis — Emergency Unit SGH</title>
+  <link rel="stylesheet" href="../style.css?v=20261029140000" />
+  <link rel="stylesheet" href="pd.css?v=20261031120000" />
+  <script src="../auth.js"></script>
+  <script>window.IGDAuth.requireAuth();</script>
+</head>
+<body data-page="panduan-dokumentasi" data-group="operasional" data-root="../">
+  <div class="page-shell">
+    <header class="page-hero">
+      <nav class="topbar" aria-label="Navigasi utama">
+        <a class="brand" href="../index.html" aria-label="Emergency Unit SGH">
+          <span class="brand-mark logo-mark"><img src="../assets/emergency-logo.png" alt="Logo Emergency Unit"></span>
+          <span><strong>Emergency Unit</strong><small>Sedayu General Hospital</small></span>
+        </a>
+        <div class="top-actions">
+          <a class="ghost-btn home-first" href="../index.html">Beranda</a>
+          <div class="nav-links" id="navLinks" aria-label="Menu kategori"></div>
+          <button class="ghost-btn danger" type="button" id="logoutBtn">Keluar</button>
+        </div>
+      </nav>
+      <section class="page-hero-card">
+        <a class="breadcrumb" href="../operasional/">← Kembali ke Operasional</a>
+        <div class="page-title-row">
+          <span class="page-big-icon">🩺</span>
+          <div><span class="eyebrow"><span></span> DOKTER &amp; KODER</span><h1>Panduan Dokumentasi Klinis</h1></div>
+        </div>
+        <p>Untuk dokter dan koder saat menegakkan diagnosis &amp; menulis rekam medis — supaya sejak awal tidak ada celah dispute BPJS. Kode yang sering dispute otomatis diberi tanda <b>⚠ WARNING</b> (pola diketahui dari kasus riil RS).</p>
+      </section>
+    </header>
+    <main>
+      <div class="pd">
+        <nav class="tabs">
+          <button class="active" data-tab="audit">Dokumentasi Baru</button>
+          <button data-tab="rekap">Rekap &amp; Evaluasi</button>
+        </nav>
+        <div class="pd-note-sesi" id="pdSesi" hidden></div>
+
+  <!-- ===================== TAB: AUDIT BARU ===================== -->
+  <div id="tab-audit">
+
+    <section class="card">
+      <div class="step-label">Diagnosis Primer (ICD-10)</div>
+      <div class="inline-add">
+        <input type="text" id="inputPrimer" placeholder="Ketik kode/nama, mis. E11.9, susp pneumonia" autocomplete="off">
+        <button class="small-add" data-field="primer">Tambah</button>
+      </div>
+      <div id="resultsPrimer"></div>
+      <div id="listPrimer" style="margin-top:8px;"></div>
+    </section>
+
+    <section class="card">
+      <div class="step-label">Diagnosis Sekunder (ICD-10) — boleh lebih dari satu</div>
+      <div class="inline-add">
+        <input type="text" id="inputSekunder" placeholder="Ketik kode/nama diagnosis sekunder" autocomplete="off">
+        <button class="small-add" data-field="sekunder">Tambah</button>
+      </div>
+      <div id="resultsSekunder"></div>
+      <div id="listSekunder" style="margin-top:8px;"></div>
+    </section>
+
+    <section class="card">
+      <div class="step-label">Tindakan / Prosedur (ICD-9-CM) — boleh lebih dari satu</div>
+      <div class="inline-add">
+        <input type="text" id="inputTindakan" placeholder="Ketik kode/nama tindakan, mis. ventilator, debridement" autocomplete="off">
+        <button class="small-add" data-field="tindakan">Tambah</button>
+      </div>
+      <div id="resultsTindakan"></div>
+      <div id="listTindakan" style="margin-top:8px;"></div>
+    </section>
+
+    <section class="card" id="ringkasanCard" style="display:none;">
+      <div class="step-label">Ringkasan Kode Entry</div>
+      <div class="warn-box">Semua kode yang dientry di sini tercatat, baik yang ⚠ WARNING maupun yang ✓ Normal. Catatan: ringkasan ini <strong>bukan</strong> hasil grouping resmi INA-CBG — kode CBG asli hanya bisa dihitung oleh software grouper e-Klaim/BPJS.</div>
+      <div id="ringkasanList"></div>
+      <div id="docGuideCombined"></div>
+      <div id="bukuKodingSection"></div>
+      <div class="row-actions">
+        <button class="primary" id="btnMulaiChecklist">Mulai Review Checklist</button>
+      </div>
+    </section>
+
+    <section class="card" id="checklistCard" style="display:none;">
+      <div class="step-label">Checklist Bukti Pendukung — Semua Diagnosis Bertanda WARNING</div>
+      <div id="allChecklistsContainer"></div>
+      <div class="row-actions">
+        <button class="primary" id="btnSelesaiSemuaChecklist">Selesai — Masukkan Semua ke Episode</button>
+      </div>
+    </section>
+
+    <section class="card" id="masukanCard" style="display:none;">
+      <div id="statusOtomatisInfo" class="sub"></div>
+      <div class="row-actions">
+        <button class="primary" id="btnLanjutMasukan">Lanjut</button>
+      </div>
+    </section>
+
+    <section class="card" id="episodeCard" style="display:none;">
+      <div class="step-label">Episode / Berkas Ini — Hasil Akhir</div>
+      <div id="episodeList"></div>
+      <div class="row-actions">
+        <button class="primary" id="btnSimpanEpisode">Selesai — Simpan Episode ke Rekap</button>
+        <button class="ghost" id="btnCetakEpisode">Cetak Lembar Tempel</button>
+        <button class="ghost" id="btnKosongkanEpisode">Mulai Episode Baru</button>
+      </div>
+    </section>
+
+    <section class="card" id="masukanGlobalCard" style="display:none;">
+      <div class="step-label">Masukan / Saran</div>
+      <div class="sub">Ada masukan soal diagnosis yang sedang Anda isi ini — misalnya aturan dispute atau panduan dokumentasinya kurang tepat? Tulis di sini.</div>
+      <textarea id="fMasukanGlobal" placeholder="Tulis masukan Anda di sini..." style="width:100%; min-height:80px; box-sizing:border-box; margin-top:8px;"></textarea>
+      <div class="row-actions">
+        <button class="primary" onclick="kirimMasukanGlobal()">Kirim Masukan</button>
+      </div>
+    </section>
+
+    <div class="note">Alat ini membantu dokter dan koder memastikan anamnesis, pemeriksaan fisik, dan penunjang sudah lengkap SEBELUM rekam medis difinalisasi — supaya diagnosis tidak berpotensi dispute saat diverifikasi BPJS nanti. Keputusan akhir kode tetap milik dokter/DPJP dan koder — sistem hanya memberi panduan berdasarkan pola kasus RS dan pedoman resmi. Ringkasan kode bukan pengganti hasil grouping resmi e-Klaim.</div>
+  </div>
+
+  <!-- ===================== TAB: REKAP ===================== -->
+  <div id="tab-rekap" style="display:none;">
+    <section class="card">
+      <div class="step-label">Filter Bulan</div>
+      <input type="month" id="filterBulan" style="max-width:220px;">
+    </section>
+
+    <section class="card">
+      <div class="summary-grid">
+        <div class="summary-box OK"><div class="num" id="sumOK">0</div><div class="lbl">Green / OK</div></div>
+        <div class="summary-box Re-Code"><div class="num" id="sumYellow">0</div><div class="lbl">Yellow / Re-Code</div></div>
+        <div class="summary-box Hold"><div class="num" id="sumRed">0</div><div class="lbl">Red / Hold</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Tanggal</th><th>Diagnosis/Tindakan</th><th>Kode</th><th>Status Keseluruhan</th><th>Catatan</th></tr></thead>
+        <tbody id="rekapTableBody"></tbody>
+      </table>
+      <div class="empty" id="rekapEmpty" style="display:none;">Belum ada data audit untuk bulan ini.</div>
+      <div class="row-actions">
+        <button class="ghost" id="btnExportCSV">Unduh CSV</button>
+      </div>
+    </section>
+  </div>
+
+        <div class="pd-footer">© 2026 dr. Nurul Khafidz Subekti, AIFO-K. Seluruh hak cipta dilindungi. Dilarang menyalin, mendistribusikan, atau menggunakan sebagian maupun seluruh isi alat ini tanpa izin tertulis dari pemilik hak cipta.</div>
+      </div>
+      <div id="printArea"></div>
+    </main>
+  </div>
+  <script src="../data.js?v=20261023083315"></script>
+  <script src="../app.js?v=20261022220015"></script>
+  <script src="pd-data.js?v=20261031120000"></script>
+  <script src="pd-app.js?v=20261031120000"></script>
+  <script>
+    (function () {
+      var el = document.getElementById('pdSesi');
+      if (!pdToken()) { el.textContent = PD_TANPA_TOKEN; el.hidden = false; }
+    })();
+  </script>
+</body>
+</html>

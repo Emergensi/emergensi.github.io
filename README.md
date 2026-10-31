@@ -15,6 +15,8 @@ app.js              Penampil kartu, pencarian, dan navigasi
 style.css           Tampilan
 <kategori>/         Halaman per kategori (operasional, jadwal, dst.)
 link/<slug>/        Halaman detail per tautan
+panduan-dokumentasi/ Panduan Dokumentasi Klinis (data di pd-data.js; tarif INA-CBG
+                    disembunyikan lewat TAMPILKAN_TARIF di pd-app.js)
 assets/             Logo, ikon, dan manifest aplikasi
 ```
 

@@ -3,11 +3,21 @@
 window.IGD_LINK_GROUPS = [
   {
     "id": "operasional",
-    "urutan": ["operasional-aviat-in-hospital", "operasional-aviat-out-hospital", "operasional-patient-registration", "operasional-patient-registration-homecare", "operasional-formulir-igd", "operasional-gdrive-ugd-file"],
+    "urutan": ["operasional-aviat-in-hospital", "operasional-aviat-out-hospital", "operasional-patient-registration", "operasional-patient-registration-homecare", "panduan-dokumentasi-klinis", "operasional-formulir-igd", "operasional-gdrive-ugd-file"],
     "title": "Beranda Operasional",
     "subtitle": "Tautan kerja harian setiap shift: register, formulir, AVIAT, dan folder IGD.",
     "icon": "⚡",
     "items": [
+      {
+        "title": "Panduan Dokumentasi Klinis",
+        "desc": "Cek kelengkapan anamnesis, pemeriksaan & penunjang sebelum rekam medis final, supaya diagnosis & tindakan tidak dispute BPJS.",
+        "url": "panduan-dokumentasi/",
+        "type": "Halaman",
+        "tag": "page",
+        "slug": "panduan-dokumentasi-klinis",
+        "localPath": "panduan-dokumentasi/",
+        "externalUrl": ""
+      },
       {
         "title": "Formulir IGD",
         "desc": "Folder Google Drive formulir UGD/IGD.",
@@ -111,7 +121,7 @@ window.IGD_LINK_GROUPS = [
       "operasional-billing-pasien",
       "operasional-claim-bpjs-tk"
     ],
-    "kelompok": [{"judul": "Laporan Pelayanan", "slugs": ["laporan-bulanan-igd", "laporan-cakupan-igd", "manajemen-laporan-kunjungan-igd"]}, {"judul": "Keuangan & Klaim", "slugs": ["operasional-billing-pasien", "operasional-claim-bpjs-tk"]}, {"judul": "Sarana, Alat & Logistik", "slugs": ["operasional-inventaris-igd", "manajemen-berita-acara-serah-terima-barang", "manajemen-berita-acara-perbaikan-and-permintaan", "manajemen-input-suhu-ruangan", "manajemen-data-ambulance"]}],
+    "kelompok": [{"judul": "Laporan Pelayanan", "slugs": ["laporan-bulanan-igd", "laporan-cakupan-igd", "manajemen-laporan-kunjungan-igd"]}, {"judul": "Keuangan & Klaim", "slugs": ["operasional-billing-pasien", "operasional-claim-bpjs-tk", "panduan-dokumentasi-klinis"]}, {"judul": "Sarana, Alat & Logistik", "slugs": ["operasional-inventaris-igd", "manajemen-berita-acara-serah-terima-barang", "manajemen-berita-acara-perbaikan-and-permintaan", "manajemen-input-suhu-ruangan", "manajemen-data-ambulance"]}],
     "items": [
       {
         "title": "Laporan Bulanan IGD",
@@ -313,7 +323,7 @@ window.IGD_LINK_GROUPS = [
     "title": "Manajemen Unit",
     "subtitle": "Laporan, rapat dan notulen, SDM dan pelatihan, inventaris dan stok, serta administrasi keuangan.",
     "icon": "🧭",
-    "kelompok": [{"judul": "Laporan Pelayanan", "slugs": ["laporan-bulanan-igd", "laporan-cakupan-igd", "manajemen-laporan-kunjungan-igd"]}, {"judul": "SDM & Kepegawaian", "slugs": ["manajemen-sip-perawat-and-bidan", "manajemen-spk-rkk", "operasional-in-house-training"]}, {"judul": "Keuangan & Klaim", "slugs": ["operasional-billing-pasien", "operasional-claim-bpjs-tk"]}, {"judul": "Sarana, Alat & Logistik", "slugs": ["operasional-inventaris-igd", "manajemen-berita-acara-serah-terima-barang", "manajemen-berita-acara-perbaikan-and-permintaan", "manajemen-input-suhu-ruangan", "manajemen-data-ambulance"]}],
+    "kelompok": [{"judul": "Laporan Pelayanan", "slugs": ["laporan-bulanan-igd", "laporan-cakupan-igd", "manajemen-laporan-kunjungan-igd"]}, {"judul": "SDM & Kepegawaian", "slugs": ["manajemen-sip-perawat-and-bidan", "manajemen-spk-rkk", "operasional-in-house-training"]}, {"judul": "Keuangan & Klaim", "slugs": ["operasional-billing-pasien", "operasional-claim-bpjs-tk", "panduan-dokumentasi-klinis"]}, {"judul": "Sarana, Alat & Logistik", "slugs": ["operasional-inventaris-igd", "manajemen-berita-acara-serah-terima-barang", "manajemen-berita-acara-perbaikan-and-permintaan", "manajemen-input-suhu-ruangan", "manajemen-data-ambulance"]}],
     "items": [
       {
         "title": "Suhu Ruangan",
