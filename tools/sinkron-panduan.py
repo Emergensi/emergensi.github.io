@@ -274,6 +274,151 @@ pd_css = r"""
 """
 (OUT / 'pd.css').write_text(pd_css.strip() + '\n', encoding='utf-8')
 
+# ---------------------------------------------------------------- APLIKASI (dokumentasi/)
+def buat_aplikasi(body, ver):
+    """Versi aplikasi terpisah di /dokumentasi/: bisa dipasang (PWA), tanpa menu situs, jalan offline.
+    Memakai pd.css / pd-data.js / pd-app.js yang sama dari ../panduan-dokumentasi/."""
+    app_dir = REPO / 'dokumentasi'
+    app_dir.mkdir(exist_ok=True)
+    (app_dir / 'manifest.webmanifest').write_text("""{
+  "id": "/dokumentasi/",
+  "name": "Dokumentasi Klinis IGD SGH",
+  "short_name": "Dok. Klinis",
+  "description": "Cek kelengkapan dokumentasi klinis sebelum rekam medis final, supaya diagnosis & tindakan tidak dispute BPJS.",
+  "lang": "id",
+  "start_url": "/dokumentasi/",
+  "scope": "/dokumentasi/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#b91c1c",
+  "background_color": "#f8fafc",
+  "icons": [
+    {"src": "../assets/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "../assets/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "../assets/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
+""", encoding='utf-8')
+    (app_dir / 'sw.js').write_text(f"""// Service worker aplikasi Dokumentasi Klinis: panduan & master ICD disimpan di perangkat agar tetap bisa dibuka offline.
+// Simpan episode, rekap, dan masukan selalu langsung ke server (tidak disimpan offline).
+const CACHE = 'dokumentasi-{ver}';
+const INTI = ['./', '../style.css?v=20261029140000', '../panduan-dokumentasi/pd.css?v={ver}',
+  '../panduan-dokumentasi/pd-data.js?v={ver}', '../panduan-dokumentasi/pd-app.js?v={ver}',
+  '../assets/emergency-logo.png', '../assets/favicon.ico'];
+self.addEventListener('install', (e) => {{
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(INTI)).then(() => self.skipWaiting()));
+}});
+self.addEventListener('activate', (e) => {{
+  e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k.startsWith('dokumentasi-') && k !== CACHE).map((k) => caches.delete(k))))
+    .then(() => self.clients.claim()));
+}});
+self.addEventListener('fetch', (e) => {{
+  const req = e.request;
+  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;   // server Apps Script tidak di-cache
+  e.respondWith(caches.open(CACHE).then(async (c) => {{
+    const lama = await c.match(req, {{ ignoreSearch: req.mode === 'navigate' }});
+    const baru = fetch(req).then((res) => {{ if (res.ok) c.put(req, res.clone()); return res; }}).catch(() => lama);
+    return lama || baru;   // tampilkan versi tersimpan dulu, perbarui di belakang
+  }}));
+}});
+""", encoding='utf-8')
+    (app_dir / 'index.html').write_text(f"""<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#b91c1c" />
+  <link rel="icon" href="../assets/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Dok. Klinis" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>Dokumentasi Klinis IGD SGH</title>
+  <link rel="stylesheet" href="../style.css?v=20261029140000" />
+  <link rel="stylesheet" href="../panduan-dokumentasi/pd.css?v={ver}" />
+  <style>
+    .da-app {{ max-width: 900px; margin: 0 auto; padding: 16px 16px 40px; }}
+    .da-head {{ display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }}
+    .da-head img {{ width: 44px; height: 44px; border-radius: 12px; background: #fff; box-shadow: 0 4px 14px rgba(15,23,42,.12); }}
+    .da-head h1 {{ font-size: 1.35rem; margin: 0; line-height: 1.1; letter-spacing: -.02em; }}
+    .da-head small {{ color: #64748b; display: block; }}
+    .da-pasang {{ display: none; margin-left: auto; border: 1px solid #e2e8f0; background: #fff; border-radius: 999px; padding: 8px 14px; font-weight: 700; cursor: pointer; }}
+    .da-pasang.tampil {{ display: inline-block; }}
+    .da-hp {{ display: none; margin: 0 0 14px; border: 1px solid #fecaca; background: #fff7f7; border-radius: 16px; padding: 12px 14px; font-size: .95rem; color: #334155; }}
+    .da-hp.tampil {{ display: block; }}
+    .da-hp b {{ color: #0f172a; }}
+    .da-hp ol {{ margin: 6px 0 4px 20px; padding: 0; }}
+    .da-hp li {{ margin: 3px 0; }}
+    .da-hp-atas {{ display: flex; align-items: center; gap: 8px; }}
+    .da-hp-tutup {{ margin-left: auto; border: 0; background: transparent; font-size: 1.2rem; cursor: pointer; color: #64748b; }}
+    .da-hp-btn {{ margin-top: 6px; border: 0; background: #b91c1c; color: #fff; border-radius: 999px; padding: 9px 16px; font-weight: 800; cursor: pointer; }}
+    .da-offline {{ display: none; margin: 0 0 14px; font-size: .85rem; color: #92580a; background: #fdf3dc; border: 1px solid #f3d9a4; border-radius: 12px; padding: 8px 12px; }}
+    .da-offline.tampil {{ display: block; }}
+    .da-kaki {{ margin-top: 8px; font-size: .85rem; color: #64748b; text-align: center; }}
+    .da-kaki a {{ color: inherit; }}
+    @media (max-width: 560px) {{ .da-pasang {{ padding: 6px 10px; }} }}
+  </style>
+</head>
+<body>
+  <div class="da-app">
+    <header class="da-head">
+      <img src="../assets/emergency-logo.png" alt="Logo IGD SGH" />
+      <div><h1>Dokumentasi Klinis</h1><small>Emergency Unit · Sedayu General Hospital</small></div>
+      <button class="da-pasang" id="pasang" type="button">⬇ Pasang aplikasi</button>
+    </header>
+    <div class="da-hp" id="hp" role="note">
+      <div class="da-hp-atas"><b>📱 Pasang Dokumentasi Klinis di HP</b><button class="da-hp-tutup" id="hpTutup" type="button" aria-label="Tutup">✕</button></div>
+      <div id="hpIsi"></div>
+    </div>
+    <div class="da-offline" id="offline">Sedang offline — panduan & checklist tetap bisa dipakai; simpan ke rekap dan kirim masukan menunggu koneksi.</div>
+    <div class="pd">
+      <nav class="tabs">
+        <button class="active" data-tab="audit">Dokumentasi Baru</button>
+        <button data-tab="rekap">Rekap &amp; Evaluasi</button>
+      </nav>
+      <div class="pd-note-sesi" id="pdSesi" hidden></div>
+
+{{body}}
+
+      <div class="pd-footer">© 2026 dr. Nurul Khafidz Subekti, AIFO-K. Seluruh hak cipta dilindungi. Dilarang menyalin, mendistribusikan, atau menggunakan sebagian maupun seluruh isi alat ini tanpa izin tertulis dari pemilik hak cipta.</div>
+    </div>
+    <p class="da-kaki"><a href="../panduan-dokumentasi/">Buka di situs IGD</a></p>
+  </div>
+  <div id="printArea"></div>
+  <script src="../panduan-dokumentasi/pd-data.js?v={ver}"></script>
+  <script src="../panduan-dokumentasi/pd-app.js?v={ver}"></script>
+  <script>
+    (function () {{
+      var sesi = document.getElementById('pdSesi');
+      if (!pdToken()) {{ sesi.textContent = PD_TANPA_TOKEN; sesi.hidden = false; }}
+      var off = document.getElementById('offline');
+      var cekOnline = function () {{ off.classList.toggle('tampil', !navigator.onLine); }};
+      window.addEventListener('online', cekOnline); window.addEventListener('offline', cekOnline); cekOnline();
+      if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {{}});
+      var prompt = null, btn = document.getElementById('pasang'), hp = document.getElementById('hp'), hpIsi = document.getElementById('hpIsi');
+      window.addEventListener('beforeinstallprompt', function (e) {{ e.preventDefault(); prompt = e; btn.classList.add('tampil'); if (hp.classList.contains('tampil')) isiHp(); }});
+      btn.addEventListener('click', async function () {{ if (!prompt) return; prompt.prompt(); await prompt.userChoice; prompt = null; btn.classList.remove('tampil'); }});
+      window.addEventListener('appinstalled', function () {{ btn.classList.remove('tampil'); hp.classList.remove('tampil'); }});
+      var terpasang = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+      var ua = navigator.userAgent, iOS = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1), android = /Android/i.test(ua);
+      var ditutup = false; try {{ ditutup = localStorage.getItem('da_hp_tutup') === '1'; }} catch (e) {{}}
+      function isiHp() {{
+        if (iOS) hpIsi.innerHTML = '<ol><li>Buka halaman ini di <b>Safari</b>.</li><li>Ketuk tombol <b>Bagikan</b> (kotak dengan panah ke atas).</li><li>Pilih <b>Tambahkan ke Layar Utama</b> → <b>Tambah</b>.</li></ol>';
+        else hpIsi.innerHTML = (prompt ? '<button class="da-hp-btn" id="hpPasang" type="button">⬇ Pasang sekarang</button>' : '') +
+          '<ol><li>Buka halaman ini di <b>Chrome</b>.</li><li>Ketuk menu <b>⋮</b> di kanan atas.</li><li>Pilih <b>Instal aplikasi</b> atau <b>Tambahkan ke layar utama</b>.</li></ol>';
+        var b2 = document.getElementById('hpPasang'); if (b2) b2.addEventListener('click', function () {{ btn.click(); }});
+      }}
+      if (!terpasang && (iOS || android) && !ditutup) {{ isiHp(); hp.classList.add('tampil'); }}
+      document.getElementById('hpTutup').addEventListener('click', function () {{ hp.classList.remove('tampil'); try {{ localStorage.setItem('da_hp_tutup', '1'); }} catch (e) {{}} }});
+    }})();
+  </script>
+</body>
+</html>
+""".replace('{body}', body), encoding='utf-8')
+    print('aplikasi ok', sorted(p.name for p in app_dir.iterdir()))
+
 # ---------------------------------------------------------------- MARKUP
 body = L(162, 265)   # tab-audit .. tab-rekap
 assert body.lstrip().startswith('<!-- ===================== TAB: AUDIT BARU'), body[:60]
@@ -316,6 +461,7 @@ html = f"""<!doctype html>
           <div><span class="eyebrow"><span></span> DOKTER &amp; KODER</span><h1>Panduan Dokumentasi Klinis</h1></div>
         </div>
         <p>Untuk dokter dan koder saat menegakkan diagnosis &amp; menulis rekam medis — supaya sejak awal tidak ada celah dispute BPJS. Kode yang sering dispute otomatis diberi tanda <b>⚠ WARNING</b> (pola diketahui dari kasus riil RS).</p>
+        <p style="margin-top:10px;"><a class="ghost-btn" href="../dokumentasi/">📱 Buka versi aplikasi</a></p>
       </section>
     </header>
     <main>
@@ -348,3 +494,4 @@ html = f"""<!doctype html>
 """
 (OUT / 'index.html').write_text(html, encoding='utf-8')
 print('ok', {p.name: p.stat().st_size for p in OUT.iterdir()})
+buat_aplikasi(body, VER)

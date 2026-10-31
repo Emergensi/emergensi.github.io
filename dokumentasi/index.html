@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#b91c1c" />
+  <link rel="icon" href="../assets/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Dok. Klinis" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>Dokumentasi Klinis IGD SGH</title>
+  <link rel="stylesheet" href="../style.css?v=20261029140000" />
+  <link rel="stylesheet" href="../panduan-dokumentasi/pd.css?v=20261031121500" />
+  <style>
+    .da-app { max-width: 900px; margin: 0 auto; padding: 16px 16px 40px; }
+    .da-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .da-head img { width: 44px; height: 44px; border-radius: 12px; background: #fff; box-shadow: 0 4px 14px rgba(15,23,42,.12); }
+    .da-head h1 { font-size: 1.35rem; margin: 0; line-height: 1.1; letter-spacing: -.02em; }
+    .da-head small { color: #64748b; display: block; }
+    .da-pasang { display: none; margin-left: auto; border: 1px solid #e2e8f0; background: #fff; border-radius: 999px; padding: 8px 14px; font-weight: 700; cursor: pointer; }
+    .da-pasang.tampil { display: inline-block; }
+    .da-hp { display: none; margin: 0 0 14px; border: 1px solid #fecaca; background: #fff7f7; border-radius: 16px; padding: 12px 14px; font-size: .95rem; color: #334155; }
+    .da-hp.tampil { display: block; }
+    .da-hp b { color: #0f172a; }
+    .da-hp ol { margin: 6px 0 4px 20px; padding: 0; }
+    .da-hp li { margin: 3px 0; }
+    .da-hp-atas { display: flex; align-items: center; gap: 8px; }
+    .da-hp-tutup { margin-left: auto; border: 0; background: transparent; font-size: 1.2rem; cursor: pointer; color: #64748b; }
+    .da-hp-btn { margin-top: 6px; border: 0; background: #b91c1c; color: #fff; border-radius: 999px; padding: 9px 16px; font-weight: 800; cursor: pointer; }
+    .da-offline { display: none; margin: 0 0 14px; font-size: .85rem; color: #92580a; background: #fdf3dc; border: 1px solid #f3d9a4; border-radius: 12px; padding: 8px 12px; }
+    .da-offline.tampil { display: block; }
+    .da-kaki { margin-top: 8px; font-size: .85rem; color: #64748b; text-align: center; }
+    .da-kaki a { color: inherit; }
+    @media (max-width: 560px) { .da-pasang { padding: 6px 10px; } }
+  </style>
+</head>
+<body>
+  <div class="da-app">
+    <header class="da-head">
+      <img src="../assets/emergency-logo.png" alt="Logo IGD SGH" />
+      <div><h1>Dokumentasi Klinis</h1><small>Emergency Unit · Sedayu General Hospital</small></div>
+      <button class="da-pasang" id="pasang" type="button">⬇ Pasang aplikasi</button>
+    </header>
+    <div class="da-hp" id="hp" role="note">
+      <div class="da-hp-atas"><b>📱 Pasang Dokumentasi Klinis di HP</b><button class="da-hp-tutup" id="hpTutup" type="button" aria-label="Tutup">✕</button></div>
+      <div id="hpIsi"></div>
+    </div>
+    <div class="da-offline" id="offline">Sedang offline — panduan & checklist tetap bisa dipakai; simpan ke rekap dan kirim masukan menunggu koneksi.</div>
+    <div class="pd">
+      <nav class="tabs">
+        <button class="active" data-tab="audit">Dokumentasi Baru</button>
+        <button data-tab="rekap">Rekap &amp; Evaluasi</button>
+      </nav>
+      <div class="pd-note-sesi" id="pdSesi" hidden></div>
+
+  <!-- ===================== TAB: AUDIT BARU ===================== -->
+  <div id="tab-audit">
+
+    <section class="card">
+      <div class="step-label">Diagnosis Primer (ICD-10)</div>
+      <div class="inline-add">
+        <input type="text" id="inputPrimer" placeholder="Ketik kode/nama, mis. E11.9, susp pneumonia" autocomplete="off">
+        <button class="small-add" data-field="primer">Tambah</button>
+      </div>
+      <div id="resultsPrimer"></div>
+      <div id="listPrimer" style="margin-top:8px;"></div>
+    </section>
+
+    <section class="card">
+      <div class="step-label">Diagnosis Sekunder (ICD-10) — boleh lebih dari satu</div>
+      <div class="inline-add">
+        <input type="text" id="inputSekunder" placeholder="Ketik kode/nama diagnosis sekunder" autocomplete="off">
+        <button class="small-add" data-field="sekunder">Tambah</button>
+      </div>
+      <div id="resultsSekunder"></div>
+      <div id="listSekunder" style="margin-top:8px;"></div>
+    </section>
+
+    <section class="card">
+      <div class="step-label">Tindakan / Prosedur (ICD-9-CM) — boleh lebih dari satu</div>
+      <div class="inline-add">
+        <input type="text" id="inputTindakan" placeholder="Ketik kode/nama tindakan, mis. ventilator, debridement" autocomplete="off">
+        <button class="small-add" data-field="tindakan">Tambah</button>
+      </div>
+      <div id="resultsTindakan"></div>
+      <div id="listTindakan" style="margin-top:8px;"></div>
+    </section>
+
+    <section class="card" id="ringkasanCard" style="display:none;">
+      <div class="step-label">Ringkasan Kode Entry</div>
+      <div class="warn-box">Semua kode yang dientry di sini tercatat, baik yang ⚠ WARNING maupun yang ✓ Normal. Catatan: ringkasan ini <strong>bukan</strong> hasil grouping resmi INA-CBG — kode CBG asli hanya bisa dihitung oleh software grouper e-Klaim/BPJS.</div>
+      <div id="ringkasanList"></div>
+      <div id="docGuideCombined"></div>
+      <div id="bukuKodingSection"></div>
+      <div class="row-actions">
+        <button class="primary" id="btnMulaiChecklist">Mulai Review Checklist</button>
+      </div>
+    </section>
+
+    <section class="card" id="checklistCard" style="display:none;">
+      <div class="step-label">Checklist Bukti Pendukung — Semua Diagnosis Bertanda WARNING</div>
+      <div id="allChecklistsContainer"></div>
+      <div class="row-actions">
+        <button class="primary" id="btnSelesaiSemuaChecklist">Selesai — Masukkan Semua ke Episode</button>
+      </div>
+    </section>
+
+    <section class="card" id="masukanCard" style="display:none;">
+      <div id="statusOtomatisInfo" class="sub"></div>
+      <div class="row-actions">
+        <button class="primary" id="btnLanjutMasukan">Lanjut</button>
+      </div>
+    </section>
+
+    <section class="card" id="episodeCard" style="display:none;">
+      <div class="step-label">Episode / Berkas Ini — Hasil Akhir</div>
+      <div id="episodeList"></div>
+      <div class="row-actions">
+        <button class="primary" id="btnSimpanEpisode">Selesai — Simpan Episode ke Rekap</button>
+        <button class="ghost" id="btnCetakEpisode">Cetak Lembar Tempel</button>
+        <button class="ghost" id="btnKosongkanEpisode">Mulai Episode Baru</button>
+      </div>
+    </section>
+
+    <section class="card" id="masukanGlobalCard" style="display:none;">
+      <div class="step-label">Masukan / Saran</div>
+      <div class="sub">Ada masukan soal diagnosis yang sedang Anda isi ini — misalnya aturan dispute atau panduan dokumentasinya kurang tepat? Tulis di sini.</div>
+      <textarea id="fMasukanGlobal" placeholder="Tulis masukan Anda di sini..." style="width:100%; min-height:80px; box-sizing:border-box; margin-top:8px;"></textarea>
+      <div class="row-actions">
+        <button class="primary" onclick="kirimMasukanGlobal()">Kirim Masukan</button>
+      </div>
+    </section>
+
+    <div class="note">Alat ini membantu dokter dan koder memastikan anamnesis, pemeriksaan fisik, dan penunjang sudah lengkap SEBELUM rekam medis difinalisasi — supaya diagnosis tidak berpotensi dispute saat diverifikasi BPJS nanti. Keputusan akhir kode tetap milik dokter/DPJP dan koder — sistem hanya memberi panduan berdasarkan pola kasus RS dan pedoman resmi. Ringkasan kode bukan pengganti hasil grouping resmi e-Klaim.</div>
+  </div>
+
+  <!-- ===================== TAB: REKAP ===================== -->
+  <div id="tab-rekap" style="display:none;">
+    <section class="card">
+      <div class="step-label">Filter Bulan</div>
+      <input type="month" id="filterBulan" style="max-width:220px;">
+    </section>
+
+    <section class="card">
+      <div class="summary-grid">
+        <div class="summary-box OK"><div class="num" id="sumOK">0</div><div class="lbl">Green / OK</div></div>
+        <div class="summary-box Re-Code"><div class="num" id="sumYellow">0</div><div class="lbl">Yellow / Re-Code</div></div>
+        <div class="summary-box Hold"><div class="num" id="sumRed">0</div><div class="lbl">Red / Hold</div></div>
+      </div>
+      <table>
+        <thead><tr><th>Tanggal</th><th>Diagnosis/Tindakan</th><th>Kode</th><th>Status Keseluruhan</th><th>Catatan</th></tr></thead>
+        <tbody id="rekapTableBody"></tbody>
+      </table>
+      <div class="empty" id="rekapEmpty" style="display:none;">Belum ada data audit untuk bulan ini.</div>
+      <div class="row-actions">
+        <button class="ghost" id="btnExportCSV">Unduh CSV</button>
+      </div>
+    </section>
+  </div>
+
+      <div class="pd-footer">© 2026 dr. Nurul Khafidz Subekti, AIFO-K. Seluruh hak cipta dilindungi. Dilarang menyalin, mendistribusikan, atau menggunakan sebagian maupun seluruh isi alat ini tanpa izin tertulis dari pemilik hak cipta.</div>
+    </div>
+    <p class="da-kaki"><a href="../panduan-dokumentasi/">Buka di situs IGD</a></p>
+  </div>
+  <div id="printArea"></div>
+  <script src="../panduan-dokumentasi/pd-data.js?v=20261031121500"></script>
+  <script src="../panduan-dokumentasi/pd-app.js?v=20261031121500"></script>
+  <script>
+    (function () {
+      var sesi = document.getElementById('pdSesi');
+      if (!pdToken()) { sesi.textContent = PD_TANPA_TOKEN; sesi.hidden = false; }
+      var off = document.getElementById('offline');
+      var cekOnline = function () { off.classList.toggle('tampil', !navigator.onLine); };
+      window.addEventListener('online', cekOnline); window.addEventListener('offline', cekOnline); cekOnline();
+      if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
+      var prompt = null, btn = document.getElementById('pasang'), hp = document.getElementById('hp'), hpIsi = document.getElementById('hpIsi');
+      window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); prompt = e; btn.classList.add('tampil'); if (hp.classList.contains('tampil')) isiHp(); });
+      btn.addEventListener('click', async function () { if (!prompt) return; prompt.prompt(); await prompt.userChoice; prompt = null; btn.classList.remove('tampil'); });
+      window.addEventListener('appinstalled', function () { btn.classList.remove('tampil'); hp.classList.remove('tampil'); });
+      var terpasang = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+      var ua = navigator.userAgent, iOS = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1), android = /Android/i.test(ua);
+      var ditutup = false; try { ditutup = localStorage.getItem('da_hp_tutup') === '1'; } catch (e) {}
+      function isiHp() {
+        if (iOS) hpIsi.innerHTML = '<ol><li>Buka halaman ini di <b>Safari</b>.</li><li>Ketuk tombol <b>Bagikan</b> (kotak dengan panah ke atas).</li><li>Pilih <b>Tambahkan ke Layar Utama</b> → <b>Tambah</b>.</li></ol>';
+        else hpIsi.innerHTML = (prompt ? '<button class="da-hp-btn" id="hpPasang" type="button">⬇ Pasang sekarang</button>' : '') +
+          '<ol><li>Buka halaman ini di <b>Chrome</b>.</li><li>Ketuk menu <b>⋮</b> di kanan atas.</li><li>Pilih <b>Instal aplikasi</b> atau <b>Tambahkan ke layar utama</b>.</li></ol>';
+        var b2 = document.getElementById('hpPasang'); if (b2) b2.addEventListener('click', function () { btn.click(); });
+      }
+      if (!terpasang && (iOS || android) && !ditutup) { isiHp(); hp.classList.add('tampil'); }
+      document.getElementById('hpTutup').addEventListener('click', function () { hp.classList.remove('tampil'); try { localStorage.setItem('da_hp_tutup', '1'); } catch (e) {} });
+    })();
+  </script>
+</body>
+</html>
